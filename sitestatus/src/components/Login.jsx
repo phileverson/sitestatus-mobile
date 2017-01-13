@@ -1,14 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Ons, Toolbar, Splitter, SplitterSide, SplitterContent, Page, Button} from 'react-onsenui';
+import {Toolbar, Input, Splitter, SplitterSide, SplitterContent, Page, Button} from 'react-onsenui';
 
 class Login extends React.Component {
 
     render() {
       return (
-      <Ons.Page>
+      <Page>
         <h1>Login</h1>
-      </Ons.Page>
+        <Input
+        />
+      </Page>
       );
     }
   };
