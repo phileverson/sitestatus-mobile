@@ -8,8 +8,8 @@ import PagesConstants from './constants/pages.jsx';
 // Pages:
 import Home from './components/Home.jsx';
 import Projects from './components/Projects.jsx';
+import NewProject from './components/NewProject.jsx';
 import Account from './components/Account.jsx';
-// var Nav = require('./components/nav.jsx');
 
 class App extends React.Component {
   constructor(props) {
@@ -32,10 +32,15 @@ class App extends React.Component {
       isOpen: false
     });
   }
-
   togglePageProjects() {
     this.setState({
       currentPage: PagesConstants.PROJECTS,
+      isOpen: false
+    });
+  }
+  togglePageAddProject() {
+    this.setState({
+      currentPage: PagesConstants.ADD_PROJECT,
       isOpen: false
     });
   }
@@ -45,18 +50,23 @@ class App extends React.Component {
       isOpen: false
     });
   }
-  // togglePageProjects() {
-  //   this.setState({
-  //     currentPage: PagesConstants.PROJECTS,
-  //     isOpen: false
-  //   });
-  // }
-  // togglePageProjects() {
-  //   this.setState({
-  //     currentPage: PagesConstants.PROJECTS,
-  //     isOpen: false
-  //   });
-  // }
+
+  renderRightButton() {
+    if (this.state.currentPage == PagesConstants.PROJECTS) {
+      return (
+          <ToolbarButton onClick={this.togglePageAddProject.bind(this)}>
+            <Icon icon='ion-plus, material:md-menu' />
+          </ToolbarButton>
+        )
+    }
+    if (this.state.currentPage == PagesConstants.ADD_PROJECT) {
+      return (
+          <ToolbarButton onClick={this.togglePageProjects.bind(this)}>
+            Cancel
+          </ToolbarButton>
+        )
+    }
+  }
 
   render() {
     var pageToRenderComponent = <Home />;
@@ -66,9 +76,13 @@ class App extends React.Component {
       pageToRenderComponent = <Projects />;
     } else if (pageToRender == PagesConstants.ACCOUNT) {
       pageToRenderComponent = <Account />;
+    } else if (pageToRender == PagesConstants.ADD_PROJECT) {
+      pageToRenderComponent = <NewProject />;
     } else {
       pageToRenderComponent = <Home/>
     }
+
+    var rightButton = this.renderRightButton();
 
     return (
       <Splitter>
@@ -82,7 +96,6 @@ class App extends React.Component {
             <List renderHeader={() => <ListHeader></ListHeader>}>
               <ListItem modifier='longdivider' onClick={this.togglePageProjects.bind(this)} tappable>Projects</ListItem>
               <ListItem modifier='longdivider' onClick={this.togglePageAccount.bind(this)} tappable>Account</ListItem>
-              <ListItem modifier='longdivider' tappable>456</ListItem>
             </List>
           </Page>
         </SplitterSide>
@@ -95,6 +108,9 @@ class App extends React.Component {
                 </ToolbarButton>
               </div>
               <div className='center'>SiteStatus</div>
+              <div className='right'>
+                {rightButton}
+              </div>
             </Toolbar>
             {pageToRenderComponent}
           </Page>
