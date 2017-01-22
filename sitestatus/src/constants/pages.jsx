@@ -1,9 +1,15 @@
 module.exports = {
-	DEFAULT : 'Home',
-	PROJECTS: 'Projects',
-	ADD_PROJECT: 'Add Project',
-	ACCOUNT: 'Account',
-	ACCOUNT_SIGN_UP: 'Account_Sign_Up',
-	ACCOUNT_LOGIN: 'Account_Login',
-	SHARE_URL: 'SHORT_URL' + 'p/'
+	NO_AUTH_WELCOME: 'No_Auth_Welcome',
+	NO_AUTH_LOGIN: 'No_Auth_Login',
+	NO_AUTH_SIGN_UP: 'No_Auth_Sign_Up',
+
+	PROJECTS_LIST: 'Projects_List',
+	ADD_PROJECT: 'Add_Project',
+	SINGLE_PROJECT: 'Single_Project',
+	SINGLE_PROJECT_UPDATE: 'Single_Project_Update',
+
+	CONTRACTORS_LIST: 'Contractors_List',
+	SINGLE_CONTRACTOR: 'Single_Contractor',
+
+	USER_PROFILE: 'User_Profile',
 };

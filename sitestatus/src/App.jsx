@@ -1,123 +1,148 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {Toolbar, List, ListItem, ListHeader, ToolbarButton, Icon, Splitter, SplitterSide, SplitterContent, Page, Button} from 'react-onsenui';
+var React = require('react');
+var ReactDOM = require('react-dom');
+var ons = require('onsenui');
+var Ons = require('react-onsenui');
 
-import Nav from './components/nav.jsx';
 import PagesConstants from './constants/pages.jsx';
 
+var User = require('./models/user.jsx');
+
 // Pages:
-import Home from './components/Home.jsx';
-import Projects from './components/Projects.jsx';
-import NewProject from './components/NewProject.jsx';
-import Account from './components/Account.jsx';
+import CheckingAuthWelcome from './components/CheckingAuthWelcome.jsx';
+import NoAuthHome from './components/NoAuthHome.jsx';
+import Login from './components/Login.jsx';
+import SignUp from './components/SignUp.jsx';
+import AuthHome from './components/AuthHome.jsx';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
+var App = React.createClass({
+  mixins: [ReactFireMixin],
 
-    this.state = {
-      isOpen: false,
-      currentPage: PagesConstants.DEFAULT
-    };
-  }
-
-  show() {
-    this.setState({
-      isOpen: true
-    });
-  }
-
-  hide() {
-    this.setState({
-      isOpen: false
-    });
-  }
-  togglePageProjects() {
-    this.setState({
-      currentPage: PagesConstants.PROJECTS,
-      isOpen: false
-    });
-  }
-  togglePageAddProject() {
-    this.setState({
-      currentPage: PagesConstants.ADD_PROJECT,
-      isOpen: false
-    });
-  }
-  togglePageAccount() {
-    this.setState({
-      currentPage: PagesConstants.ACCOUNT,
-      isOpen: false
-    });
-  }
-
-  renderRightButton() {
-    if (this.state.currentPage == PagesConstants.PROJECTS) {
-      return (
-          <ToolbarButton onClick={this.togglePageAddProject.bind(this)}>
-            <Icon icon='ion-plus, material:md-menu' />
-          </ToolbarButton>
-        )
+  getInitialState: function(){
+    return {
+      authChecked: false,
+      loggedIn: false,
+      appState: PagesConstants.NO_AUTH_WELCOME,
+      noAuthUser: null,
+      user: null
     }
-    if (this.state.currentPage == PagesConstants.ADD_PROJECT) {
-      return (
-          <ToolbarButton onClick={this.togglePageProjects.bind(this)}>
-            Cancel
-          </ToolbarButton>
-        )
-    }
-  }
+  },
 
-  render() {
-    var pageToRenderComponent = <Home />;
-    var pageToRender = this.state.currentPage;
+  authenticateUser: function() {
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        this.setState({
+          authChecked: true,
+          loggedIn: true,
+          user: user
+        });
+      }
+      else {
+        this.setState({
+          authChecked: true,
+          loggedIn: false,
+          user: null
+        });
+      }
+    }.bind(this));
+  },
 
-    if (pageToRender == PagesConstants.PROJECTS) {
-      pageToRenderComponent = <Projects />;
-    } else if (pageToRender == PagesConstants.ACCOUNT) {
-      pageToRenderComponent = <Account />;
-    } else if (pageToRender == PagesConstants.ADD_PROJECT) {
-      pageToRenderComponent = <NewProject />;
+  componentDidMount: function() {
+    this.authenticateUser();
+  },
+
+  renderToolbar: function() {
+    var onLoginOrSignUp = (this.state.appState == PagesConstants.NO_AUTH_LOGIN || this.state.appState == PagesConstants.NO_AUTH_SIGN_UP)
+    if (this.state.user) {
+
     } else {
-      pageToRenderComponent = <Home/>
+        return (
+        <Ons.Toolbar>
+          <div className='center'>SiteStatus</div>
+          <div className='right'>
+            {onLoginOrSignUp &&
+            <Ons.ToolbarButton onClick={this.submitLoginOrSignUp}>Submit</Ons.ToolbarButton>
+            }
+          </div>
+          <div className='left'>
+            {onLoginOrSignUp &&
+            <Ons.ToolbarButton onClick={this.navTo_NoAuthHome}>Cancel</Ons.ToolbarButton>
+            }
+          </div>
+        </Ons.Toolbar>
+      )
     }
+  },
 
-    var rightButton = this.renderRightButton();
+  navTo_NoAuthHome: function() {
+    this.setState({
+      appState: PagesConstants.NO_AUTH_WELCOME
+    })
+  },
 
-    return (
-      <Splitter>
-        <SplitterSide
-          side='left'
-          collapse={true}
-          isOpen={this.state.isOpen}
-          onClose={this.hide.bind(this)}
-          isSwipeable={true}>
-          <Page>
-            <List renderHeader={() => <ListHeader></ListHeader>}>
-              <ListItem modifier='longdivider' onClick={this.togglePageProjects.bind(this)} tappable>Projects</ListItem>
-              <ListItem modifier='longdivider' onClick={this.togglePageAccount.bind(this)} tappable>Account</ListItem>
-            </List>
-          </Page>
-        </SplitterSide>
-        <SplitterContent>
-          <Page>
-            <Toolbar>
-              <div className='left'>
-                <ToolbarButton onClick={this.show.bind(this)}>
-                  <Icon icon='ion-navicon, material:md-menu' />
-                </ToolbarButton>
-              </div>
-              <div className='center'>SiteStatus</div>
-              <div className='right'>
-                {rightButton}
-              </div>
-            </Toolbar>
-            {pageToRenderComponent}
-          </Page>
-        </SplitterContent>
-      </Splitter>
-    );
+  navTo_NoAuthLogin: function() {
+    this.setState({
+      appState: PagesConstants.NO_AUTH_LOGIN
+    })
+  },
+
+  navTo_NoAuthSignUp: function() {
+    this.setState({
+      appState: PagesConstants.NO_AUTH_SIGN_UP
+    })
+  },
+
+  updateNoAuthUser: function(userObj) {
+    this.setState({
+      noAuthUser: userObj
+    });
+  },
+
+  submitLoginOrSignUp: function() {
+    console.log('REQUEST: submitLoginOrSignUp');
+    if (this.state.appState == PagesConstants.NO_AUTH_SIGN_UP) {
+      firebase.auth().createUserWithEmailAndPassword(this.state.noAuthUser.emailAddress, this.state.noAuthUser.password).catch(function(error) {
+        console.log(error.message);
+        console.log(error.code);
+      });
+
+    } else {
+      // Authenticate with Firebase with the login details from state
+      firebase.auth().signInWithEmailAndPassword(this.state.noAuthUser.emailAddress, this.state.noAuthUser.password).catch(function(error) {
+        console.log(error.message);
+        console.log(error.code);
+      });
+    }
+  },
+
+  render: function() {
+    console.log(this.state);
+    console.log((this.state.user));
+
+    if (!this.state.authChecked) {
+      // Temp splash screen while we check auth status...
+      return (
+        <CheckingAuthWelcome />
+        );
+    } else {
+      // We've checked auth at least once, and can now figure out where to go...
+      var appLanding = <NoAuthHome navToLogin={this.navTo_NoAuthLogin} navToSignUp={this.navTo_NoAuthSignUp}/>;
+      if (this.state.loggedIn) {
+        appLanding = <AuthHome />;
+      } else {
+        if (this.state.appState == PagesConstants.NO_AUTH_LOGIN) {
+          appLanding = <Login updateNoAuthUser={this.updateNoAuthUser} submit={this.submitLoginOrSignUp}/>;
+        } else if (this.state.appState == PagesConstants.NO_AUTH_SIGN_UP) {
+          appLanding = <SignUp updateNoAuthUser={this.updateNoAuthUser} submit={this.submitLoginOrSignUp}/>;
+        }
+      }
+
+      return (
+        <Ons.Page renderToolbar={this.renderToolbar}>
+          {appLanding}
+        </Ons.Page>
+      );
+    }
   }
-}
+});
 
 module.exports = App;
