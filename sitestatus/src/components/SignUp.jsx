@@ -13,6 +13,9 @@ var SignUp = React.createClass({
       emailAddress: '',
       password: '',
       passwordConf: '',
+      firstName: '',
+      lastName: '',
+      company: '',
       errorMessages: ''
     }
   },
@@ -21,7 +24,10 @@ var SignUp = React.createClass({
       var noAuthUserData = {
         emailAddress: this.state.emailAddress,
         password: this.state.password,
-        passwordConf: this.state.passwordConf
+        passwordConf: this.state.passwordConf,
+        firstName: this.state.firstName,
+        lastName: this.state.firstName,
+        company: this.state.company
       }
       return new User(noAuthUserData);
   },
@@ -29,6 +35,34 @@ var SignUp = React.createClass({
   handleNoAuthUserChange: function() {
     var changingNoAuthUser = this.createNoAuthUserObject();
     this.props.updateNoAuthUser(changingNoAuthUser);
+  },
+
+  handleFirstNameChange: function(e){
+    var me = this;
+    var noAuthUserObject = new User({
+      firstName: e.target.value
+    });
+    var errorMessages = _.merge(me.state.errorMessages, noAuthUserObject.isValidFirstName());
+    me.setState({
+        firstName: e.target.value,
+        errorMessages: errorMessages
+    }, function(){
+      me.handleNoAuthUserChange();
+    })
+  },
+
+  handleLastNameChange: function(e){
+    var me = this;
+    var noAuthUserObject = new User({
+      lastName: e.target.value
+    });
+    var errorMessages = _.merge(me.state.errorMessages, noAuthUserObject.isValidLastName());
+    me.setState({
+        lastName: e.target.value,
+        errorMessages: errorMessages
+    }, function(){
+      me.handleNoAuthUserChange();
+    })
   },
 
   handleEmailAddressChange: function(e){
@@ -39,6 +73,20 @@ var SignUp = React.createClass({
     var errorMessages = _.merge(me.state.errorMessages, noAuthUserObject.isValidEmailAddress());
     me.setState({
         emailAddress: e.target.value,
+        errorMessages: errorMessages
+    }, function(){
+      me.handleNoAuthUserChange();
+    })
+  },
+  
+  handleCompanyChange: function(e){
+    var me = this;
+    var noAuthUserObject = new User({
+      company: e.target.value
+    });
+    var errorMessages = _.merge(me.state.errorMessages, noAuthUserObject.isValidCompany());
+    me.setState({
+        company: e.target.value,
         errorMessages: errorMessages
     }, function(){
       me.handleNoAuthUserChange();
@@ -65,12 +113,35 @@ var SignUp = React.createClass({
       <Ons.List>
         <Ons.ListItem modifier="nodivider">
           <Ons.Input
-            style={{width: '100%', 'paddingRight': '14px'}}
+            className="center"
+            value={this.state.company}
+            onChange={this.handleCompanyChange}
+            modifier='underbar'
+            placeholder='Company' />
+        </Ons.ListItem>
+        <Ons.ListItem modifier="nodivider">
+          <Ons.Input
+            className="center"
+            value={this.state.firstName}
+            onChange={this.handleFirstNameChange}
+            modifier='underbar'
+            placeholder='first' />
+        </Ons.ListItem>
+        <Ons.ListItem modifier="nodivider">
+          <Ons.Input
+            className="center"
+            value={this.state.lastName}
+            onChange={this.handleLastNameChange}
+            modifier='underbar'
+            placeholder='last' />
+        </Ons.ListItem>
+        <Ons.ListItem modifier="nodivider">
+          <Ons.Input
             className="center"
             value={this.state.emailAddress}
             onChange={this.handleEmailAddressChange}
             modifier='underbar'
-            placeholder='Email Address' />
+            placeholder='email' />
         </Ons.ListItem>
         <Ons.ListItem modifier="nodivider">
           <Ons.Input
