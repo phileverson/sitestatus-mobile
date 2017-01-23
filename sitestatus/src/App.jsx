@@ -7,8 +7,12 @@ import PagesConstants from './constants/pages.jsx';
 
 // Pages:
 import Home from './components/Home.jsx';
+import Login from './components/Login.jsx';
 import Projects from './components/Projects.jsx';
 import Account from './components/Account.jsx';
+import SignUp from './components/SignUp.jsx';
+import NewProjects from './components/NewProjects.jsx';
+
 // var Nav = require('./components/nav.jsx');
 
 class App extends React.Component {
@@ -59,7 +63,7 @@ class App extends React.Component {
   // }
 
   render() {
-    var pageToRenderComponent = <Home />;
+    var pageToRenderComponent = <NewProjects />;
     var pageToRender = this.state.currentPage;
 
     if (pageToRender == PagesConstants.PROJECTS) {
@@ -67,7 +71,7 @@ class App extends React.Component {
     } else if (pageToRender == PagesConstants.ACCOUNT) {
       pageToRenderComponent = <Account />;
     } else {
-      pageToRenderComponent = <Home/>
+      pageToRenderComponent = <NewProjects2 />;
     }
 
     return (
