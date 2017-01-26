@@ -3,7 +3,7 @@ var ReactDOM = require('react-dom');
 var ons = require('onsenui');
 var Ons = require('react-onsenui');
 
-var ProjectHome = React.createClass({
+var SingleProjectHome = React.createClass({
 	mixins: [ReactFireMixin],
 
 	// getInitialState: function(){
@@ -30,4 +30,4 @@ var ProjectHome = React.createClass({
 	}
 });
 
-module.exports = ProjectHome;
+module.exports = SingleProjectHome;

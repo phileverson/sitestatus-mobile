@@ -6,9 +6,9 @@ var Ons = require('react-onsenui');
 var PagesConstants = require('constants/pages.jsx');
 
 var ProjectsList = require('./ProjectsList.jsx');
-var ProjectHome = require('./ProjectHome.jsx');
+var SingleProjectHome = require('./SingleProjectHome.jsx');
 var NewProject = require('./NewProject.jsx');
-var ContractorsList = require('./ContractorsList.jsx');
+var ContractorsHub = require('./ContractorsHub.jsx');
 var UserProfile = require('./UserProfile.jsx');
 
 var AuthHome = React.createClass({
@@ -76,11 +76,11 @@ var AuthHome = React.createClass({
     	if (this.state.authAppState == PagesConstants.PROJECTS_LIST) {
     		authAppStateComponent = <ProjectsList newProject={this.navTo_NewProject} showLeftMenu={this.showLeftMenu} />;
     	} else if (this.state.authAppState == PagesConstants.SINGLE_PROJECT) {
-    		authAppStateComponent = <ProjectHome />;
+    		authAppStateComponent = <SingleProjectHome />;
     	} else if (this.state.authAppState == PagesConstants.ADD_PROJECT) {
     		authAppStateComponent = <NewProject cancelCreate={this.navTo_Projects}/>;
     	} else if (this.state.authAppState == PagesConstants.CONTRACTORS_LIST) {
-    		authAppStateComponent = <ContractorsList showLeftMenu={this.showLeftMenu} />;
+    		authAppStateComponent = <ContractorsHub showLeftMenu={this.showLeftMenu} />;
     	} else if (this.state.authAppState == PagesConstants.USER_PROFILE) {
     		authAppStateComponent = <UserProfile showLeftMenu={this.showLeftMenu} />;
     	} 

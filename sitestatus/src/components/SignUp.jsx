@@ -16,7 +16,7 @@ var SignUp = React.createClass({
       firstName: '',
       lastName: '',
       company: '',
-      errorMessages: ''
+      errorMessages: this.props.noAuthUser.errorMessages
     }
   },
 
@@ -26,7 +26,7 @@ var SignUp = React.createClass({
         password: this.state.password,
         passwordConf: this.state.passwordConf,
         firstName: this.state.firstName,
-        lastName: this.state.firstName,
+        lastName: this.state.lastName,
         company: this.state.company
       }
       return new User(noAuthUserData);
@@ -108,6 +108,7 @@ var SignUp = React.createClass({
   },
 
   render: function() {
+    console.log(this.state.errorMessages);
     return (
     <section>
       <Ons.List>
@@ -118,6 +119,9 @@ var SignUp = React.createClass({
             onChange={this.handleCompanyChange}
             modifier='underbar'
             placeholder='Company' />
+          {this.state.errorMessages.company && this.state.errorMessages.company.length > 0 &&
+            <span>{this.state.errorMessages.company}</span>
+          }
         </Ons.ListItem>
         <Ons.ListItem modifier="nodivider">
           <Ons.Input
@@ -126,6 +130,9 @@ var SignUp = React.createClass({
             onChange={this.handleFirstNameChange}
             modifier='underbar'
             placeholder='first' />
+          {this.state.errorMessages.firstName && this.state.errorMessages.firstName.length > 0 &&
+            <span>{this.state.errorMessages.firstName}</span>
+          }
         </Ons.ListItem>
         <Ons.ListItem modifier="nodivider">
           <Ons.Input
@@ -134,6 +141,9 @@ var SignUp = React.createClass({
             onChange={this.handleLastNameChange}
             modifier='underbar'
             placeholder='last' />
+          {this.state.errorMessages.lastName && this.state.errorMessages.lastName.length > 0 &&
+            <span>{this.state.errorMessages.lastName}</span>
+          }
         </Ons.ListItem>
         <Ons.ListItem modifier="nodivider">
           <Ons.Input
@@ -142,6 +152,9 @@ var SignUp = React.createClass({
             onChange={this.handleEmailAddressChange}
             modifier='underbar'
             placeholder='email' />
+          {this.state.errorMessages.emailAddress && this.state.errorMessages.emailAddress.length > 0 &&
+            <span>{this.state.errorMessages.emailAddress}</span>
+          }
         </Ons.ListItem>
         <Ons.ListItem modifier="nodivider">
           <Ons.Input
@@ -151,6 +164,9 @@ var SignUp = React.createClass({
             onChange={this.handlePasswordChange}
             modifier='underbar'
             placeholder='Password' />
+          {this.state.errorMessages.password && this.state.errorMessages.password.length > 0 &&
+            <span>{this.state.errorMessages.password}</span>
+          }
         </Ons.ListItem>
         <Ons.ListItem>
           <Ons.Button onClick={this.props.submit}>Sign Up</Ons.Button>

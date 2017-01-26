@@ -1,27 +1,31 @@
 // var Constants = require('../../constants/Constants');
 
-function User(obj){
+function Contractor(obj){
   // Fields:
-  this.emailAddress = (obj.emailAddress) ? obj.emailAddress : "";
-  this.password = (obj.password) ? obj.password : "";
-  this.passwordConf = (obj.passwordConf) ? obj.passwordConf : "";
+  this.contractorID = (obj.contractorID) ? obj.contractorID : "";
   this.firstName = (obj.firstName) ? obj.firstName : "";
   this.lastName = (obj.lastName) ? obj.lastName : "";
+  this.phone = (obj.phone) ? obj.phone : "";
   this.company = (obj.company) ? obj.company : "";
+  this.trade = (obj.trade) ? obj.trade : "";
+  this.note = (obj.note) ? obj.note : "";
 
   this.errorMessages = (obj.errorMessages) ? obj.errorMessages : {};
 }
 
-User.prototype = {
+Contractor.prototype = {
 
   preparePutObject: function(){
-    var rawDetails = new User(this);
-    var firebaseUser = {
-      emailAddress: rawDetails.emailAddress,
-      password: rawDetails.password,
-      futureFieldsForSignUpToo_DotDotDot: ''
+    var rawDetails = new Contractor(this);
+    var firebaseContractor = {
+      firstName: rawDetails.firstName,
+      lastName: rawDetails.lastName,
+      phone: rawDetails.phone,
+      company: rawDetails.company,
+      trade: rawDetails.trade,
+      note: rawDetails.note
     }
-    return firebaseUser;
+    return firebaseContractor;
   },
 
   isValidCompany: function() {
@@ -29,6 +33,14 @@ User.prototype = {
       company: ''
     }
     errorMessages.company = (this.company) ? "" : "This field is required."
+    return errorMessages
+  },
+
+  isValidTrade: function() {
+    var errorMessages = {
+      trade: ''
+    }
+    errorMessages.trade = (this.trade) ? "" : "This field is required."
     return errorMessages
   },
 
@@ -48,38 +60,23 @@ User.prototype = {
     return errorMessages
   },
 
-  isValidEmailAddress: function() {
+  isValidPhone: function() {
     var errorMessages = {
-      emailAddress: ''
+      phone: ''
     }
-    errorMessages.emailAddress = (this.emailAddress) ? "" : "This field is required."
-    return errorMessages
-  },
-
-  isValidPassword: function() {
-    var errorMessages = {
-      password: ''
-    }
-    errorMessages.password = (this.password) ? "" : "This field is required."
+    errorMessages.phone = (this.phone) ? "" : "This field is required."
     return errorMessages
   },
 
   isValid: function(){
     var numErrors = 0;
     var errorMessages = {
-      company: '',
-      firstName: '',
-      lastName: '',
-      emailAddress: '',
+      phone: '',
       password: '',
     };
 
     // Checking each field
-    errorMessages.company = this.isValidCompany().company;
-    errorMessages.firstName = this.isValidFirstName().firstName;
-    errorMessages.lastName = this.isValidLastName().lastName;
-    errorMessages.emailAddress = this.isValidEmailAddress().emailAddress;
-    errorMessages.password = this.isValidPassword().password;
+    errorMessages.phone = this.isValidEmailAddress().phone;
 
     // Did we get any error messages?
     for (var field in errorMessages) {
@@ -95,4 +92,4 @@ User.prototype = {
   }
 }
 
-module.exports = User;
+module.exports = Contractor;

@@ -22,7 +22,15 @@ var App = React.createClass({
       authChecked: false,
       loggedIn: false,
       appState: PagesConstants.NO_AUTH_WELCOME,
-      noAuthUser: null,
+      noAuthUser: {
+        errorMessages: {
+          company: '',
+          emailAddress: '',
+          password: '',
+          firstName: '',
+          lastName: ''
+        }
+      },
       user: null
     }
   },
@@ -100,11 +108,23 @@ var App = React.createClass({
   submitLoginOrSignUp: function() {
     console.log('REQUEST: submitLoginOrSignUp');
     if (this.state.appState == PagesConstants.NO_AUTH_SIGN_UP) {
-      firebase.auth().createUserWithEmailAndPassword(this.state.noAuthUser.emailAddress, this.state.noAuthUser.password).catch(function(error) {
-        console.log(error.message);
-        console.log(error.code);
-      });
+      var newUserObject = new User(this.state.noAuthUser);
+      var isValidResult = newUserObject.isValid();
 
+      if(isValidResult.isValid) {
+        firebase.auth().createUserWithEmailAndPassword(this.state.noAuthUser.emailAddress, this.state.noAuthUser.password).catch(function(error) {
+          console.log(error.message);
+          console.log(error.code);
+        });
+      } else {
+        console.log(isValidResult);
+        var noAuthUserWithErrors = newUserObject;
+        var noAuthUserWithErrors = _.merge(newUserObject, {errorMessages: isValidResult.errorMessages});
+        this.setState({
+          noAuthUser: noAuthUserWithErrors
+        });
+        console.log(this.state);
+      }
     } else {
       // Authenticate with Firebase with the login details from state
       firebase.auth().signInWithEmailAndPassword(this.state.noAuthUser.emailAddress, this.state.noAuthUser.password).catch(function(error) {
@@ -115,8 +135,8 @@ var App = React.createClass({
   },
 
   render: function() {
-    console.log(this.state);
-    console.log((this.state.user));
+    // console.log(this.state);
+    // console.log((this.state.user));
 
     if (!this.state.authChecked) {
       // Temp splash screen while we check auth status...
@@ -132,7 +152,7 @@ var App = React.createClass({
         if (this.state.appState == PagesConstants.NO_AUTH_LOGIN) {
           appLanding = <Login updateNoAuthUser={this.updateNoAuthUser} submit={this.submitLoginOrSignUp}/>;
         } else if (this.state.appState == PagesConstants.NO_AUTH_SIGN_UP) {
-          appLanding = <SignUp updateNoAuthUser={this.updateNoAuthUser} submit={this.submitLoginOrSignUp}/>;
+          appLanding = <SignUp noAuthUser={this.state.noAuthUser} updateNoAuthUser={this.updateNoAuthUser} submit={this.submitLoginOrSignUp}/>;
         }
       }
 

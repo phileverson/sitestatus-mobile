@@ -8,8 +8,9 @@ module.exports = {
 	SINGLE_PROJECT: 'Single_Project',
 	SINGLE_PROJECT_UPDATE: 'Single_Project_Update',
 
-	CONTRACTORS_LIST: 'Contractors_List',
-	SINGLE_CONTRACTOR: 'Single_Contractor',
+	CONTRACTORS_LIST: 'Contractors',
+	EDIT_CONTRACTOR: 'Edit Contractor',
+	ADD_CONTRACTOR: 'New Contractor',
 
 	USER_PROFILE: 'User_Profile',
 };
