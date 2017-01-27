@@ -6,6 +6,7 @@ function Contractor(obj){
   this.firstName = (obj.firstName) ? obj.firstName : "";
   this.lastName = (obj.lastName) ? obj.lastName : "";
   this.phone = (obj.phone) ? obj.phone : "";
+  this.emailAddress = (obj.emailAddress) ? obj.emailAddress : "";
   this.company = (obj.company) ? obj.company : "";
   this.trade = (obj.trade) ? obj.trade : "";
   this.note = (obj.note) ? obj.note : "";
@@ -21,6 +22,7 @@ Contractor.prototype = {
       firstName: rawDetails.firstName,
       lastName: rawDetails.lastName,
       phone: rawDetails.phone,
+      emailAddress: rawDetails.emailAddress,
       company: rawDetails.company,
       trade: rawDetails.trade,
       note: rawDetails.note
@@ -68,15 +70,26 @@ Contractor.prototype = {
     return errorMessages
   },
 
+  isValidEmailAddress: function() {
+    var errorMessages = {
+      emailAddress: ''
+    }
+    errorMessages.emailAddress = (this.emailAddress) ? "" : "This field is required."
+    return errorMessages
+  },
+
   isValid: function(){
     var numErrors = 0;
     var errorMessages = {
       phone: '',
-      password: '',
+      firstName: '',
+      lastName: '',
     };
 
     // Checking each field
-    errorMessages.phone = this.isValidEmailAddress().phone;
+    errorMessages.phone = this.isValidPhone().phone;
+    errorMessages.firstName = this.isValidFirstName().firstName;
+    errorMessages.lastName = this.isValidLastName().lastName;
 
     // Did we get any error messages?
     for (var field in errorMessages) {

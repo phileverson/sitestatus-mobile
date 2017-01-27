@@ -14,17 +14,28 @@ var NewContractor = React.createClass({
 			firstName: this.props.singleContractor.firstName,
 			lastName: this.props.singleContractor.lastName,
 			phone: this.props.singleContractor.phone,
+			emailAddress: this.props.singleContractor.emailAddress,
 			company: this.props.singleContractor.company,
 			trade: this.props.singleContractor.trade,
-			note: this.props.singleContractor.note
+			note: this.props.singleContractor.note,
+
+			errorMessages: this.props.singleContractor.errorMessages
 		}
 	},
 
 	updateSingleContractor: function(e) {
 		e.preventDefault();
 		var changingContractor = this.createContractorObject();
-		changingContractor = changingContractor.preparePutObject();
-		this.props.updateSingleContractor(changingContractor);
+		var changingContractorIsValid = changingContractor.isValid();
+		if (changingContractorIsValid.isValid) {
+			changingContractor = changingContractor.preparePutObject();
+			this.props.updateSingleContractor(changingContractor);
+		} else {
+			var mergedErrorMessages = _.merge(this.state.errorMessages, changingContractorIsValid.errorMessages);
+			this.setState({
+				errorMessages: changingContractorIsValid.errorMessages
+			})
+		}
 	},
 
 	createContractorObject: function() {
@@ -32,9 +43,12 @@ var NewContractor = React.createClass({
 			firstName: this.state.firstName,
 			lastName: this.state.lastName,
 			phone: this.state.phone,
+			emailAddress: this.state.emailAddress,
 			company: this.state.company,
 			trade: this.state.trade,
-			note: this.state.note
+			note: this.state.note,
+
+			errorMessages: this.state.errorMessages
 		}
 		return new Contractor(contractor);
 	},
@@ -71,6 +85,18 @@ var NewContractor = React.createClass({
 		var errorMessages = _.merge(me.state.errorMessages, tempContractorObject.isValidPhone());
 		me.setState({
 			phone: e.target.value,
+			errorMessages: errorMessages
+		});
+	},
+
+	handleEmailAddressChange: function(e){
+		var me = this;
+		var tempContractorObject = new Contractor({
+			emailAddress: e.target.value
+		});
+		var errorMessages = _.merge(me.state.errorMessages, tempContractorObject.isValidEmailAddress());
+		me.setState({
+			emailAddress: e.target.value,
 			errorMessages: errorMessages
 		});
 	},
@@ -140,6 +166,9 @@ var NewContractor = React.createClass({
 							onChange={this.handleFirstNameChange}
 							modifier='underbar'
 							placeholder='first' />
+							{this.state.errorMessages.firstName && this.state.errorMessages.firstName.length > 0 &&
+							<span>{this.state.errorMessages.firstName}</span>
+							}
 						</Ons.ListItem>
 						<Ons.ListItem modifier="nodivider">
 							<Ons.Input
@@ -156,6 +185,14 @@ var NewContractor = React.createClass({
 							onChange={this.handlePhoneChange}
 							modifier='underbar'
 							placeholder='phone' />
+						</Ons.ListItem>
+						<Ons.ListItem modifier="nodivider">
+							<Ons.Input
+							className="center"
+							value={this.state.emailAddress}
+							onChange={this.handleEmailAddressChange}
+							modifier='underbar'
+							placeholder='email' />
 						</Ons.ListItem>
 						<Ons.ListItem modifier="nodivider">
 							<Ons.Input
