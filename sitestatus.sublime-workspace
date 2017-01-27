@@ -4,12 +4,144 @@
 		"selected_items":
 		[
 			[
-				"err",
-				"errorMessage"
+				"no",
+				"noAuthUserWithErrors"
+			],
+			[
+				"error",
+				"errorMessages"
+			],
+			[
+				"email",
+				"emailAddress"
+			],
+			[
+				"new",
+				"newUserObject"
+			],
+			[
+				"na",
+				"navTo_EditContractor"
+			],
+			[
+				"con",
+				"contractors"
+			],
+			[
+				"for",
+				"for\tfor (…) {…}"
+			],
+			[
+				"ac",
+				"activeContractorKey"
+			],
+			[
+				"cont",
+				"contractorIDToUse"
+			],
+			[
+				"contractor",
+				"contractorID"
+			],
+			[
+				"hand",
+				"handleFirstNameChange"
+			],
+			[
+				"han",
+				"handlePhoneChange"
+			],
+			[
+				"ha",
+				"handleCompanyChange"
+			],
+			[
+				"Ne",
+				"NewContractor"
+			],
+			[
+				"rend",
+				"renderListOfContractors"
+			],
+			[
+				"first",
+				"firstName"
+			],
+			[
+				"nav",
+				"navTo_Projects"
+			],
+			[
+				"auth",
+				"authAppStateComponent"
+			],
+			[
+				"Project",
+				"ProjectHome"
+			],
+			[
+				"SINGLE_",
+				"SINGLE_PROJECT"
+			],
+			[
+				"au",
+				"authAppState"
+			],
+			[
+				"List",
+				"ListItem"
+			],
+			[
+				"hi",
+				"hideLeftMenu"
+			],
+			[
+				"lo",
+				"loggedIn"
+			],
+			[
+				"fu",
+				"firebaseCurrentUser"
+			],
+			[
+				"fire",
+				"firebaseCurrentUser"
+			],
+			[
+				"font",
+				"font-size"
+			],
+			[
+				"user",
+				"userObj"
+			],
+			[
+				"chan",
+				"changingNoAuthUser"
+			],
+			[
+				"NO",
+				"NO_AUTH_SIGN_UP"
+			],
+			[
+				"app",
+				"appState"
+			],
+			[
+				"nag",
+				"navigateToSignIn"
 			],
 			[
 				"A",
-				"ADD_PROJECT"
+				"NoAuthWelcome"
+			],
+			[
+				"rende",
+				"renderToolbar"
+			],
+			[
+				"err",
+				"errorMessage"
 			],
 			[
 				"Page",
@@ -104,10 +236,6 @@
 				"border-color"
 			],
 			[
-				"for",
-				"form-control"
-			],
-			[
 				"bi",
 				"billingContactEmail"
 			],
@@ -168,10 +296,6 @@
 				"PAYMENT_PERIOD_NET30"
 			],
 			[
-				"new",
-				"newDueDate"
-			],
-			[
 				"IN",
 				"InvoiceConstants"
 			],
@@ -208,10 +332,6 @@
 				"EduAnalytics"
 			],
 			[
-				"lo",
-				"loadInvoice"
-			],
-			[
 				"remove",
 				"removeInvoice"
 			],
@@ -222,10 +342,6 @@
 			[
 				"n",
 				"none"
-			],
-			[
-				"font",
-				"font-weight"
 			],
 			[
 				"tex",
@@ -288,10 +404,6 @@
 				"parsedName"
 			],
 			[
-				"email",
-				"email"
-			],
-			[
 				"l",
 				"length"
 			],
@@ -324,10 +436,6 @@
 				"accountID_toAssign"
 			],
 			[
-				"user",
-				"userEmailDomain"
-			],
-			[
 				"use",
 				"userEmailDomain"
 			],
@@ -342,10 +450,6 @@
 			[
 				"dat",
 				"dateToCheck"
-			],
-			[
-				"ac",
-				"accountID"
 			],
 			[
 				"op",
@@ -410,197 +514,16 @@
 			[
 				"Sub",
 				"submissionState"
-			],
-			[
-				"submi",
-				"submissionState"
-			],
-			[
-				"GA",
-				"GAME_STATUS_CREATED_DIFFERENT_ACCOUNT"
-			],
-			[
-				"sal",
-				"SalesConstants"
-			],
-			[
-				"Sales",
-				"SalesConstants"
-			],
-			[
-				"num",
-				"numberOfTeams"
-			],
-			[
-				"nu",
-				"numberOfTeams"
-			],
-			[
-				"sta",
-				"startDate"
-			],
-			[
-				"cur",
-				"currentGameSpec"
-			],
-			[
-				"bill",
-				"billingContactEmail"
-			],
-			[
-				"primar",
-				"primaryContact"
-			],
-			[
-				"opprt",
-				"opportunityDetails"
-			],
-			[
-				"opport",
-				"opportunityDetails"
-			],
-			[
-				"opp",
-				"opportunityBillingDetails"
-			],
-			[
-				"current",
-				"currentGameSpec"
-			],
-			[
-				"create",
-				"createBillingDetailsObject"
-			],
-			[
-				"hand",
-				"handleBillingContactEmailChange"
-			],
-			[
-				"paymen",
-				"paymentMethod"
-			],
-			[
-				"load",
-				"loadedGameSpecs"
-			],
-			[
-				"loaded",
-				"loadedOpportunityContact"
-			],
-			[
-				"ow",
-				"ownerUser"
-			],
-			[
-				"Bi",
-				"BillingDetails"
-			],
-			[
-				"GameSp",
-				"gameSpec"
-			],
-			[
-				"isval",
-				"isValidParticipatingType"
-			],
-			[
-				"isva",
-				"isValidGooseChaseUsername"
-			],
-			[
-				"isVa",
-				"isValidGooseChaseUsername"
-			],
-			[
-				"isV",
-				"isValidGameCreatedStatus"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "sitestatus/src/main.jsx",
+			"file": "sitestatus/src/constants/pages.jsx",
 			"settings":
 			{
-				"buffer_size": 639,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "sitestatus/src/components/Projects.jsx",
-			"settings":
-			{
-				"buffer_size": 301,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "sitestatus/src/components/NewProject.jsx",
-			"settings":
-			{
-				"buffer_size": 307,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "sitestatus/src/components/TopBar.jsx",
-			"settings":
-			{
-				"buffer_size": 699,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "sitestatus/src/components/nav.jsx",
-			"settings":
-			{
-				"buffer_size": 287,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "sitestatus/src/components/Home.jsx",
-			"settings":
-			{
-				"buffer_size": 385,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "sitestatus/src/App.jsx",
-			"settings":
-			{
-				"buffer_size": 3710,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "sitestatus/src/components/Login.jsx",
-			"settings":
-			{
-				"buffer_size": 435,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "sitestatus/src/public/index.html.ejs",
-			"settings":
-			{
-				"buffer_size": 1741,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "sitestatus/src/components/Account.jsx",
-			"settings":
-			{
-				"buffer_size": 859,
+				"buffer_size": 415,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -646,23 +569,47 @@
 		"/Users/phileverson/Repos/School/sitestatus-mobile",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/.monaca",
-		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/node_modules",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/constants",
-		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/public"
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/models",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/util"
 	],
 	"file_history":
 	[
-		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/Top.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/NewContractor.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/ContractorsHub.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/util/util.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/ContractorsListRow.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/AuthHome.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/models/contractor.jsx",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/SignUp.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/NoAuthHome.jsx",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/App.jsx",
-		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/NewProject.jsx",
-		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/constants/pages.jsx",
-		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/Account.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/models/user.jsx",
+		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/components/sales/GameSpecDetail.react.js",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/Login.jsx",
-		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/components/admin/InvoiceLineItems.react.js",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/ContractorsList.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/ProjectsList.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/NewProject.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/public/index.html.ejs",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/UserProfile.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/SingleProjectHome.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/Account.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/Projects.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/main.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/TopBar.jsx",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/nav.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/ChckingAuthWelcome.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/webpack.dev.config.js",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/styles/forms.styl",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/package.json",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/NoAuthWelcome.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/Home.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/App_v1.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/Top.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/constants/pages.jsx",
+		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/components/admin/InvoiceLineItems.react.js",
 		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/constants/Constants.js",
 		"/Users/phileverson/Repos/School/sitestatus/src/App.jsx",
 		"/Users/phileverson/Repos/School/helloworld/src/MainPage.jsx",
@@ -723,7 +670,6 @@
 		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/admin/base.html",
 		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/model/sales/Opportunity.js",
 		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/components/sales/QuoteReviewApp.react.js",
-		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/components/sales/GameSpecDetail.react.js",
 		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/actions/game/GameActions.js",
 		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/components/game/EditGameApp.react.js",
 		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/webportal/views.py",
@@ -758,30 +704,7 @@
 		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/includes/base-v3.html",
 		"/Users/phileverson/GooseChaseDev/goosechase-data-server/edu_analytics.js",
 		"/Users/phileverson/GooseChaseDev/goosechase-data-server/edu_analytics.html",
-		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/components/game/GameList.react.js",
-		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/stores/team/TeamModelStore.js",
-		"/Users/phileverson/GooseChaseDev/goosechase-data-server/edu_account_assignment.js",
-		"/Users/phileverson/GooseChaseDev/phil_tips_goosechase_dev.txt",
-		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/components/util/If.react.js",
-		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/webportal/admin_functions.py",
-		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/constants/sales/InvoiceConstants.js",
-		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/components/team/TeamsApp.react.js",
-		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/stores/team/TeamStateStore.js",
-		"/Users/phileverson/GooseChaseDev/mixpanel-data/mixpanelEventFrequency_v1.js",
-		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/components/admin/BillingAdmin.scss",
-		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/components/common/GameManagerBody/GameManagerBody.scss",
-		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/game-manager/game-manager.html",
-		"/Users/phileverson/get_gc_metabase_data.php",
-		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/entry/game-manager.js",
-		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/admin/admin.html",
-		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/components/common/AdminApp/AdminApp.react.js",
-		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/components/common/AdminBody/AdminBody.react.js",
-		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/components/common/AdminHeader/AdminHeader.react.js",
-		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/components/admin/InvoicingApp.react.js",
-		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/components/admin/AdminConsoleApp.react.js",
-		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/components/common/AdminHeader/AdminHeader.scss",
-		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/admin/invoicing.html",
-		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/includes/header.html"
+		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/components/game/GameList.react.js"
 	],
 	"find":
 	{
@@ -847,6 +770,8 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"ProjectHome.jsx",
+			"');\n",
 			"object",
 			"_an-object",
 			",,",
@@ -972,9 +897,7 @@
 			"Basic Account",
 			"all_splash_enabled",
 			"UserPro",
-			"all_splash_enabled",
-			"User",
-			"GameType"
+			"all_splash_enabled"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1043,297 +966,41 @@
 	"groups":
 	[
 		{
-			"selected": 6,
+			"sheets":
+			[
+			]
+		},
+		{
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "sitestatus/src/main.jsx",
+					"file": "sitestatus/src/constants/pages.jsx",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 639,
+						"buffer_size": 415,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								286,
+								286
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 0.0,
+						"translation.x": 3.0,
 						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "sitestatus/src/components/Projects.jsx",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 301,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								7,
-								7
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "sitestatus/src/components/NewProject.jsx",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 307,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								21,
-								21
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "sitestatus/src/components/TopBar.jsx",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 699,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								431,
-								431
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "sitestatus/src/components/nav.jsx",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 287,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "sitestatus/src/components/Home.jsx",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 385,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								322,
-								322
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "sitestatus/src/App.jsx",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3710,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3573,
-								3573
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1253.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "sitestatus/src/components/Login.jsx",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 435,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								244,
-								166
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "sitestatus/src/public/index.html.ejs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1741,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								399,
-								399
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "sitestatus/src/components/Account.jsx",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 859,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								618,
-								618
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
 					"type": "text"
 				}
 			]
@@ -1356,11 +1023,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.737048412075,
 			1.0
 		],
 		"rows":
@@ -1387,6 +1061,14 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"webpac",
+				"sitestatus/webpack.dev.config.js"
+			],
+			[
+				"pages",
+				"sitestatus/src/constants/pages.jsx"
+			],
 			[
 				"appdata",
 				"goosechase/website/templates/static/flux/js/data/AppDataController.js"
@@ -1890,14 +1572,6 @@
 			[
 				"hiw",
 				"templates/pages/hiw_organizing.html"
-			],
-			[
-				"pri",
-				"goosechase/website/templates/pages/pricing.html"
-			],
-			[
-				"register",
-				"goosechase/website/templates/pages/register.html"
 			]
 		],
 		"width": 0.0
@@ -1936,7 +1610,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 227.0,
+	"side_bar_width": 271.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
