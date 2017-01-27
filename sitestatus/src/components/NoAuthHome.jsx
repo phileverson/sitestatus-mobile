@@ -26,9 +26,14 @@ var NoAuthHome = React.createClass({
     console.log(this.props);
     return (
       <div>
-        <p>Welcome! No Auth :(</p>
-        <Ons.Button onClick={this.props.navToLogin}>Login</Ons.Button>
-        <Ons.Button onClick={this.props.navToSignUp}>Sign Up</Ons.Button>
+        <Ons.List >
+          <Ons.ListItem modifier='nodivider'>
+            <Ons.Button modifier='large' onClick={this.props.navToLogin}>Login</Ons.Button>
+          </Ons.ListItem>
+          <Ons.ListItem modifier='nodivider'>
+            <Ons.Button modifier='large' onClick={this.props.navToSignUp}>Sign Up</Ons.Button>
+          </Ons.ListItem>
+        </Ons.List>
       </div>
     );
   }

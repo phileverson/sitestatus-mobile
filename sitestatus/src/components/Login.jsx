@@ -58,29 +58,36 @@ var Login = React.createClass({
   },
 
   render: function() {
+    console.log(this.state.errorMessages);
     return (
     <section>
       <Ons.List>
-        <Ons.ListItem modifier="nodivider">
+        <Ons.ListItem modifier='nodivider'>
+          {this.state.errorMessages.emailAddress && this.state.errorMessages.emailAddress.length > 0 &&
+              <p>helloworld</p>
+            }
           <Ons.Input
             style={{width: '100%', 'paddingRight': '14px'}}
             className="center"
             value={this.state.emailAddress}
             onChange={this.handleEmailAddressChange}
             modifier='underbar'
-            placeholder='Email Address' />
+            placeholder='Email Address' 
+            float/>
         </Ons.ListItem>
-        <Ons.ListItem modifier="nodivider">
+        <Ons.ListItem modifier='nodivider'>
           <Ons.Input
+            type = 'password'
             style={{width: '100%', 'paddingRight': '14px'}}
             className="center"
             value={this.state.password}
             onChange={this.handlePasswordChange}
             modifier='underbar'
-            placeholder='Password' />
+            placeholder='Password' 
+            float/>
         </Ons.ListItem>
         <Ons.ListItem>
-          <Ons.Button onClick={this.props.submit}>Login</Ons.Button>
+          <Ons.Button modifier='large' onClick={this.props.submit}>Login</Ons.Button>
         </Ons.ListItem>
       </Ons.List>
     </section>
