@@ -22,7 +22,7 @@ var ContractorsListRow = React.createClass({
 						{this.props.singleContractor.firstName + ' ' + this.props.singleContractor.lastName}
 					</span>
 					<span className="list__item__subtitle">
-						{this.props.singleContractor.position+ ' | ' +this.props.singleContractor.company}
+						{this.props.singleContractor.trade+ ' | ' +this.props.singleContractor.company}
 					</span>
 				</div>
 			</Ons.ListItem>
