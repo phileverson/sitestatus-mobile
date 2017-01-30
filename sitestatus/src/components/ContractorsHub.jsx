@@ -92,7 +92,7 @@ var ContractorsHub = React.createClass({
 		return (
 			<Ons.List>
 			{this.state.contractors.map(function(contractor, i){
-				return <ContractorsListRow singleContractor={contractor} index={i} requestContractorEdit={me.navTo_EditContractor}/>;
+				return <ContractorsListRow singleContractor={contractor} index={i} requestContractorEdit={me.navTo_EditContractor}/> ;
 			})}
 			</Ons.List>
 			)

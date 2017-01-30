@@ -12,13 +12,18 @@ var ContractorsListRow = React.createClass({
 
 	render: function() {
 		console.log(this.props);
+		var contractorLineStyle = {
+	      fontSize: '8px',
+	    }
 		return (
-			<Ons.ListItem key={this.props.index} onClick={this.setActiveContractorInHub}>
+			<Ons.ListItem modifier='chevron' key={this.props.index} onClick={this.setActiveContractorInHub}>
 				<div className="center">
-					{this.props.singleContractor.firstName + ' ' + this.props.singleContractor.lastName}
-				</div>
-				<div className="right">
-					>
+					<span className="list__item__title">
+						{this.props.singleContractor.firstName + ' ' + this.props.singleContractor.lastName}
+					</span>
+					<span className="list__item__subtitle">
+						{this.props.singleContractor.position+ ' | ' +this.props.singleContractor.company}
+					</span>
 				</div>
 			</Ons.ListItem>
 		)
