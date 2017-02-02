@@ -10,13 +10,32 @@ var ContractorsListRow = React.createClass({
 		this.props.requestContractorEdit(this.props.singleContractor['.key'])
 	},
 
+	renderToggleSwitch: function() {
+		return (
+			<Ons.Switch checked={this.props.contractorChecked} onChange={this.handleToggleSwitchChange} />
+		)
+	},
+
+	handleToggleSwitchChange: function() {
+		this.props.toggleSwitchChange(this.props.singleContractor['.key']);
+	},
+
 	render: function() {
 		console.log(this.props);
 		var contractorLineStyle = {
 	      fontSize: '8px',
 	    }
+	    var listItemModifier = 'chevron';
+	    var onClick = this.setActiveContractorInHub;
+	    var toggleSwitch;
+
+	    if (this.props.newProject) {
+	    	listItemModifier = '';
+	    	onClick = null;
+	    	toggleSwitch = this.renderToggleSwitch();
+	    }
 		return (
-			<Ons.ListItem modifier='chevron' key={this.props.index} onClick={this.setActiveContractorInHub}>
+			<Ons.ListItem modifier={listItemModifier} key={this.props.index} onClick={onClick}>
 				<div className="center">
 					<span className="list__item__title">
 						{this.props.singleContractor.firstName + ' ' + this.props.singleContractor.lastName}
@@ -25,6 +44,9 @@ var ContractorsListRow = React.createClass({
 						{this.props.singleContractor.trade+ ' | ' +this.props.singleContractor.company}
 					</span>
 				</div>
+				{this.props.newProject &&
+					<div className="right">{toggleSwitch}</div>
+				}
 			</Ons.ListItem>
 		)
 	}

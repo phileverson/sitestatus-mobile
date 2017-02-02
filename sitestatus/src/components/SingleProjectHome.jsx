@@ -16,7 +16,11 @@ var SingleProjectHome = React.createClass({
 		    <Ons.Toolbar>
 				<div className='center'>Single Project</div>
 				<div className='right'></div>
-				<div className='left'></div>
+				<div className='left'>
+					<Ons.ToolbarButton onClick={this.props.navToHub}>
+						<Ons.Icon icon='ion-android-folder-open' />
+					</Ons.ToolbarButton>
+				</div>
 		    </Ons.Toolbar>
 	  	)
 	},

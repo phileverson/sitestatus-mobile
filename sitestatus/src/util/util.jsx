@@ -5,5 +5,12 @@ module.exports = {
 				return contractorsList[i];
 			}
 		}
+	},
+	findProjectByKey: function(key, projectsList) {
+		for (var i = 0; i < projectsList.length; i++) {
+			if (projectsList[i]['.key'] == key) {
+				return projectsList[i];
+			}
+		}
 	}
 };
