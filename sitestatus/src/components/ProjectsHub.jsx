@@ -95,7 +95,6 @@ var ProjectsHub = React.createClass({
 	},
 
 	render: function() {
-		console.log(this.state);
 		var authProjectsAppComponent = '';
 
     	if (this.state.authProjectsAppState == PagesConstants.PROJECTS_HUB) {
@@ -103,6 +102,7 @@ var ProjectsHub = React.createClass({
 
     	} else if (this.state.authProjectsAppState == PagesConstants.SINGLE_PROJECT) {
     		var activeProjectObject = Utils.findProjectByKey(this.state.activeProjectKey, this.state.projects);
+    		console.log(activeProjectObject);
     		authProjectsAppComponent = <SingleProjectHome activeProjectKey={this.state.activeProjectKey} singleProject={activeProjectObject} navToHub={this.navTo_ProjectsHub} />;
 
     	} else if (this.state.authProjectsAppState == PagesConstants.ADD_PROJECT) {

@@ -11,10 +11,6 @@ var ProjectsListRow = React.createClass({
 	},
 
 	render: function() {
-		console.log(this.props);
-		var contractorLineStyle = {
-	      fontSize: '8px',
-	    }
 		return (
 			<Ons.ListItem modifier='chevron' key={this.props.index} onClick={this.setActiveProjectInHub}>
 				<div className="center">
