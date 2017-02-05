@@ -4,11 +4,12 @@ var ons = require('onsenui');
 var Ons = require('react-onsenui');
 var moment = require('moment');
 
-var StatusUpdatesListRow = React.createClass({
+var SingleProjectStatusUpdatesListRow = React.createClass({
 	mixins: [ReactFireMixin],
 
-	setActiveProjectInHub: function() {
-		this.props.launchProject(this.props.singleUpdate['.key'])
+	navToSingleStatusUpdate: function() {
+		this.props.launchUpdate_SetActiveStatus(this.props.singleUpdate['.key'], this.props.relatedContractor);
+		this.props.launchUpdate_PushPage();
 	},
 
 	render: function() {
@@ -29,7 +30,7 @@ var StatusUpdatesListRow = React.createClass({
 			{showHeader &&
 				<Ons.ListHeader>{currentUpdateDate}</Ons.ListHeader>
 			}
-			<Ons.ListItem modifier='chevron' key={this.props.index} onClick={this.setActiveProjectInHub}>
+			<Ons.ListItem modifier='chevron' key={this.props.index} onClick={this.navToSingleStatusUpdate}>
 				<div className="center">
 					<span className="list__item__title">
 						{this.props.relatedContractor.firstName} {this.props.singleUpdate.From}
@@ -41,4 +42,4 @@ var StatusUpdatesListRow = React.createClass({
 	}
 });
 
-module.exports = StatusUpdatesListRow;
+module.exports = SingleProjectStatusUpdatesListRow;

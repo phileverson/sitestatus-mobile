@@ -12,7 +12,8 @@ var SingleProjectHome = React.createClass({
 	getInitialState: function(){
 	  return {
 	  	index:0,
-	  	commonContractors: []
+	  	commonContractors: [],
+	  	tabbarVisible: true
 	  }
 	},
 
@@ -24,12 +25,12 @@ var SingleProjectHome = React.createClass({
 	renderTabs: function() {
 		return [
 			{
-				content: <SingleProjectStatusUpdateList singleProject={this.props.singleProject} allContractors={this.state.allContractors} navToHub={this.props.navToHub} />,
+				content: <SingleProjectStatusUpdateList toggleTabbarVisibility={this.toggleTabbarVisibility} singleProject={this.props.singleProject} allContractors={this.state.allContractors} navToHub={this.props.navToHub} />,
 				tab: <Ons.Tab label='Updates' icon='md-settings' />
 			},
 			{
 				content: <SingleProjectSchedule singleProject={this.props.singleProject} navToHub={this.props.navToHub} />,
-				tab: <Ons.Tab label='Schedule' icon='md-settings' />
+				tab: <Ons.Tab label='Schedule' icon='ion-android-folder-open' />
 			},
 			{
 				content: <SingleProjectStatusUpdateList singleProject={this.props.singleProject} navToHub={this.props.navToHub} />,
@@ -52,9 +53,20 @@ var SingleProjectHome = React.createClass({
 	  	)
 	},
 
+	toggleTabbarVisibility: function(showHideSetter) {
+		// this.refs.tabs.refs.tabbar.setTabbarVisibility(showHideSetter);
+		if(showHideSetter){
+			this.refs.tabs.refs.tabbar.lastChild.style = 'left: -100%; transition: left 0.4s;';
+		} else {
+			this.refs.tabs.refs.tabbar.lastChild.style = 'left: 0; transition: left 0.4s;';
+		}
+	},
+
 	render: function() {
+		console.log(this.refs);
 		return (
 			<Ons.Tabbar
+				ref='tabs'
 				index={this.state.index}
 				onPreChange={(event) =>
 					{

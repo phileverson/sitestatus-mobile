@@ -12,7 +12,7 @@ var ProjectsListRow = require('./ProjectsListRow.jsx');
 var NewProject = require('./NewProject.jsx');
 var SingleProjectHome = require('./SingleProjectHome.jsx');
 
-var SingleProjectStatusUpdateList = React.createClass({
+var SingleProjectSchedule = React.createClass({
 	mixins: [ReactFireMixin],
 
 	getInitialState: function(){
@@ -60,4 +60,4 @@ var SingleProjectStatusUpdateList = React.createClass({
 	}
 });
 
-module.exports = SingleProjectStatusUpdateList;
+module.exports = SingleProjectSchedule;

@@ -19,5 +19,12 @@ module.exports = {
 				return projectsList[i];
 			}
 		}
+	},
+	findStatusUpdateByKey: function(key, statusUpdateList) {
+		for (var i = 0; i < statusUpdateList.length; i++) {
+			if (statusUpdateList[i]['.key'] == key) {
+				return statusUpdateList[i];
+			}
+		}
 	}
 };
