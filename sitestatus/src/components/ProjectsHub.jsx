@@ -47,7 +47,7 @@ var ProjectsHub = React.createClass({
 		})
 	},
 
-	createNewProject: function(projectObj) {
+	createUpdateProject: function(projectObj) {
 		console.log('projectObj:');
 		console.log(projectObj);
 		// adding new project:
@@ -107,7 +107,7 @@ var ProjectsHub = React.createClass({
 
     	} else if (this.state.authProjectsAppState == PagesConstants.ADD_PROJECT) {
     		var blankProject = new Project({});
-    		authProjectsAppComponent = <NewProject activeProjectKey={this.state.activeProjectKey} singleProject={blankProject} cancelCreate={this.navTo_ProjectsHub} createNewProject={this.createNewProject}/>;
+    		authProjectsAppComponent = <NewProject activeProjectKey={this.state.activeProjectKey} singleProject={blankProject} cancelCreate={this.navTo_ProjectsHub} createNewOrUpdateProject={this.createUpdateProject}/>;
     	}
 
 		return (

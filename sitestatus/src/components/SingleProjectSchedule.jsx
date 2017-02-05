@@ -30,6 +30,9 @@ var SingleProjectSchedule = React.createClass({
 		    <Ons.Toolbar>
 				<div className='center'>Project Schedule</div>
 				<div className='right'>
+					<Ons.ToolbarButton >
+						<Ons.Icon icon='md-settings' onClick={this.props.navToProjectSettings} />
+					</Ons.ToolbarButton>
 				</div>
 				<div className='left'>
 					<Ons.ToolbarButton >

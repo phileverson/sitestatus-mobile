@@ -6,9 +6,7 @@ module.exports = {
 	PROJECTS_HUB: 'Projects',
 	ADD_PROJECT: 'Add_Project',
 	SINGLE_PROJECT: 'Single_Project',
-	SINGLE_PROJECT_UPDATE: 'Single_Project_Update',
-
-	
+	SINGLE_PROJECT_SETTINGS: 'Single_Project_Settings',
 
 	CONTRACTORS_LIST: 'Contractors',
 	EDIT_CONTRACTOR: 'Edit Contractor',

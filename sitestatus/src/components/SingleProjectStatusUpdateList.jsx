@@ -63,6 +63,13 @@ var SingleProjectStatusUpdateList = React.createClass({
 			<Ons.Toolbar>
 				<div className='left'>{leftButton}</div>
 				<div className='center'>{route.title}</div>
+				<div className='right'>
+				{!route.hasBackButton &&
+					<Ons.ToolbarButton >
+						<Ons.Icon icon='md-settings' onClick={this.props.navToProjectSettings} />
+					</Ons.ToolbarButton>
+				}
+				</div>
 			</Ons.Toolbar>
 		);
 	},

@@ -12,13 +12,15 @@ var NewProject = React.createClass({
 
 	getInitialState: function(){
 		console.log(this.props);
-		var creatingNewProject = (this.props.singleProject['.key']) ? false : true;
+		var creatingNewProject = (this.props.singleProjectKey) ? false : true;
 
 		return {
 			creatingNewProject: creatingNewProject,
 
 			name: this.props.singleProject.name,
 			address: this.props.singleProject.address,
+			question: this.props.singleProject.question,
+			questionTime: this.props.singleProject.questionTime,
 			note: this.props.singleProject.note,
 			status: this.props.singleProject.status,
 			shortListedContractors: this.props.singleProject.shortListedContractors,
@@ -32,7 +34,7 @@ var NewProject = React.createClass({
 		this.bindAsArray(contractors, "contractors");
 	},
 
-	createNewProject: function(e) {
+	createNewOrUpdateProject: function(e) {
 		e.preventDefault();
 		var changingProject = this.createProjectObject();
 		var changingProjectIsValid = changingProject.isValid();
@@ -40,11 +42,7 @@ var NewProject = React.createClass({
 		if (changingProjectIsValid.isValid) {
 			changingProject = changingProject.preparePutObject();
 			// allowing for this to be used outside single project
-			if (creatingNewProject) {
-				this.props.createNewProject(changingProject);
-			} else {
-				// actually updating project
-			}
+			this.props.createNewOrUpdateProject(changingProject);
 		} else {
 			var mergedErrorMessages = _.merge(this.state.errorMessages, changingProjectIsValid.errorMessages);
 			this.setState({
@@ -57,6 +55,8 @@ var NewProject = React.createClass({
 		var project = {
 			name: this.state.name,
 			address: this.state.address,
+			question: this.state.question,
+			questionTime: this.state.questionTime,
 			note: this.state.note,
 			status: this.state.status,
 			shortListedContractors: this.state.shortListedContractors,
@@ -74,6 +74,30 @@ var NewProject = React.createClass({
 		var errorMessages = _.merge(me.state.errorMessages, tempProjectObject.isValidName());
 		me.setState({
 			name: e.target.value,
+			errorMessages: errorMessages
+		});
+	},
+
+	handleQuestionChange: function(e){
+		var me = this;
+		var tempProjectObject = new Project({
+			question: e.target.value
+		});
+		var errorMessages = _.merge(me.state.errorMessages, tempProjectObject.isValidQuestion());
+		me.setState({
+			question: e.target.value,
+			errorMessages: errorMessages
+		});
+	},
+
+	handleQuestionTimeChange: function(e){
+		var me = this;
+		var tempProjectObject = new Project({
+			questionTime: e.target.value
+		});
+		var errorMessages = _.merge(me.state.errorMessages, tempProjectObject.isValidQuestionTime());
+		me.setState({
+			questionTime: e.target.value,
 			errorMessages: errorMessages
 		});
 	},
@@ -119,11 +143,12 @@ var NewProject = React.createClass({
 	},
 
 	renderToolbar: function() {
+		var projectDetailsHeader = (this.state.creatingNewProject) ? 'Create Project' : 'Project Settings'
 	    return (
 		    <Ons.Toolbar>
-				<div className='center'>Create Project</div>
+				<div className='center'>{projectDetailsHeader}</div>
 				<div className='right'>
-					<Ons.ToolbarButton onClick={this.createNewProject}>
+					<Ons.ToolbarButton onClick={this.createNewOrUpdateProject}>
 						Save
 					</Ons.ToolbarButton>
 				</div>
@@ -181,6 +206,28 @@ var NewProject = React.createClass({
 							modifier='underbar'
 							placeholder='address' />
 						</Ons.ListItem>
+						<Ons.ListItem modifier="nodivider">
+							<Ons.Input
+							className="center"
+							value={this.state.question}
+							onChange={this.handleQuestionChange}
+							modifier='underbar'
+							placeholder='question' />
+							{this.state.errorMessages.question && this.state.errorMessages.question.length > 0 &&
+							<span>{this.state.errorMessages.question}</span>
+							}
+						</Ons.ListItem>
+						<Ons.ListItem modifier="nodivider">
+							<Ons.Input
+							className="center"
+							value={this.state.questionTime}
+							onChange={this.handleQuestionTimeChange}
+							modifier='underbar'
+							placeholder='questionTime' />
+							{this.state.errorMessages.questionTime && this.state.errorMessages.questionTime.length > 0 &&
+							<span>{this.state.errorMessages.questionTime}</span>
+							}
+						</Ons.ListItem>
 						{!(this.state.creatingNewProject) &&
 						<Ons.ListItem modifier="nodivider">
 							<Ons.Input
@@ -194,13 +241,14 @@ var NewProject = React.createClass({
 						<Ons.ListItem modifier="nodivider">
 							<Ons.Input
 							className="center"
-							value={this.state.notes}
+							value={this.state.note}
 							onChange={this.handleNotesChange}
 							modifier='underbar'
 							placeholder='notes' />
 						</Ons.ListItem>
 					</Ons.List>
 				</section>
+				{false &&
 				<section>
 					<Ons.List>
 						<Ons.ListHeader>
@@ -209,6 +257,7 @@ var NewProject = React.createClass({
 						{listOfContractors}
 					</Ons.List>
 				</section>
+				}
 			</Ons.Page>
 		)
 	}
