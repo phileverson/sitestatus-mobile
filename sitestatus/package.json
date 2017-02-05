@@ -5,11 +5,13 @@
   "dependencies": {
     "firebase": "^3.6.6",
     "firebaseui": "^1.0.0",
+    "lodash": "^3.10.1",
+    "moment": "^2.10.6",
     "onsenui": "^2.0.0-rc.5",
     "react": "^15.4.2",
     "react-dom": "^15.0.2",
+    "react-native-cordova-plugin": "^1.0.1",
     "react-onsenui": "*",
-    "reactfire": "^1.0.0",
-    "lodash": "^3.10.1"
+    "reactfire": "^1.0.0"
   }
 }

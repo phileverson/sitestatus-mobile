@@ -4,6 +4,7 @@
 		"selected_items":
 		[
 			[
+<<<<<<< .merge_file_dHyUTe
 				"no",
 				"noAuthUserWithErrors"
 			],
@@ -34,6 +35,130 @@
 			[
 				"ac",
 				"activeContractorKey"
+=======
+				"sho",
+				"showHeader"
+			],
+			[
+				"Li",
+				"ListHeader"
+			],
+			[
+				"pre",
+				"previousUpdateDate"
+			],
+			[
+				"pr",
+				"previousUpdateDate"
+			],
+			[
+				"up",
+				"updateDate"
+			],
+			[
+				"all",
+				"allContractorsCopy"
+			],
+			[
+				"con",
+				"contractorsList"
+			],
+			[
+				"comm",
+				"commonContractors"
+			],
+			[
+				"contr",
+				"contractorKey"
+			],
+			[
+				"contra",
+				"contratorData"
+			],
+			[
+				"ac",
+				"activeProjectObject"
+			],
+			[
+				"st",
+				"statusUpdates"
+			],
+			[
+				"pro",
+				"projectID"
+			],
+			[
+				"Single",
+				"SingleProjectHome"
+			],
+			[
+				"crea",
+				"creatingNewProject"
+			],
+			[
+				"s",
+				"status"
+			],
+			[
+				"sing",
+				"singleProject"
+			],
+			[
+				"ind",
+				"indexToRemove"
+			],
+			[
+				"contract",
+				"contractor"
+			],
+			[
+				"new",
+				"newProjectEntry"
+			],
+			[
+				"create",
+				"createProject"
+			],
+			[
+				"Ne",
+				"NewProject"
+			],
+			[
+				"na",
+				"navTo_ProjectsHub"
+			],
+			[
+				"act",
+				"activeProjectKey"
+			],
+			[
+				"ha",
+				"handleEmailAddressChange"
+			],
+			[
+				"is",
+				"isValidFirstName"
+			],
+			[
+				"isv",
+				"isValidPhone"
+			],
+			[
+				"no",
+				"noAuthUserWithErrors"
+			],
+			[
+				"error",
+				"errorMessages"
+			],
+			[
+				"email",
+				"emailAddress"
+			],
+			[
+				"for",
+				"for\tfor (…) {…}"
+>>>>>>> .merge_file_x15JtG
 			],
 			[
 				"cont",
@@ -52,6 +177,7 @@
 				"handlePhoneChange"
 			],
 			[
+<<<<<<< .merge_file_dHyUTe
 				"ha",
 				"handleCompanyChange"
 			],
@@ -60,6 +186,8 @@
 				"NewContractor"
 			],
 			[
+=======
+>>>>>>> .merge_file_x15JtG
 				"rend",
 				"renderListOfContractors"
 			],
@@ -228,10 +356,13 @@
 				"border-radius"
 			],
 			[
+<<<<<<< .merge_file_dHyUTe
 				"st",
 				"state"
 			],
 			[
+=======
+>>>>>>> .merge_file_x15JtG
 				"border-c",
 				"border-color"
 			],
@@ -244,10 +375,13 @@
 				"billingContactName"
 			],
 			[
+<<<<<<< .merge_file_dHyUTe
 				"is",
 				"isValid"
 			],
 			[
+=======
+>>>>>>> .merge_file_x15JtG
 				"in",
 				"invoiceDetails"
 			],
@@ -438,6 +572,7 @@
 			[
 				"use",
 				"userEmailDomain"
+<<<<<<< .merge_file_dHyUTe
 			],
 			[
 				"f",
@@ -514,16 +649,70 @@
 			[
 				"Sub",
 				"submissionState"
+=======
+>>>>>>> .merge_file_x15JtG
 			]
 		]
 	},
 	"buffers":
 	[
 		{
+<<<<<<< .merge_file_dHyUTe
 			"file": "sitestatus/src/constants/pages.jsx",
 			"settings":
 			{
 				"buffer_size": 415,
+=======
+			"file": "sitestatus/src/components/SingleProjectHome.jsx",
+			"settings":
+			{
+				"buffer_size": 1905,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "sitestatus/src/components/SingleProjectStatusUpdateList.jsx",
+			"settings":
+			{
+				"buffer_size": 2303,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "sitestatus/src/util/util.jsx",
+			"settings":
+			{
+				"buffer_size": 619,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "sitestatus/src/components/StatusUpdatesListRow.jsx",
+			"settings":
+			{
+				"buffer_size": 1429,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "sitestatus/src/components/SingleProjectSchedule.jsx",
+			"settings":
+			{
+				"buffer_size": 1560,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "sitestatus/src/constants/pages.jsx",
+			"settings":
+			{
+				"buffer_size": 412,
+>>>>>>> .merge_file_x15JtG
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -577,6 +766,7 @@
 	],
 	"file_history":
 	[
+<<<<<<< .merge_file_dHyUTe
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/NewContractor.jsx",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/ContractorsHub.jsx",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/util/util.jsx",
@@ -587,14 +777,40 @@
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/NoAuthHome.jsx",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/App.jsx",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/models/user.jsx",
+=======
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/package.json",
+		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/package.json",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/ProjectsHub.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/ContractorsListRow.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/NewContractor.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/ContractorsHub.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/ProjectsListRow.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/NewProject.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/models/project.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/AuthHome.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/util/util.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/SingleProjectHome.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/models/contractor.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/ProjectsList.old.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/models/user.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/CheckingAuthWelcome.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/SignUp.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/NoAuthHome.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/App.jsx",
+>>>>>>> .merge_file_x15JtG
 		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/components/sales/GameSpecDetail.react.js",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/Login.jsx",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/ContractorsList.jsx",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/ProjectsList.jsx",
+<<<<<<< .merge_file_dHyUTe
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/NewProject.jsx",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/public/index.html.ejs",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/UserProfile.jsx",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/SingleProjectHome.jsx",
+=======
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/public/index.html.ejs",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/UserProfile.jsx",
+>>>>>>> .merge_file_x15JtG
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/Account.jsx",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/Projects.jsx",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/main.jsx",
@@ -603,7 +819,10 @@
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/ChckingAuthWelcome.jsx",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/webpack.dev.config.js",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/styles/forms.styl",
+<<<<<<< .merge_file_dHyUTe
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/package.json",
+=======
+>>>>>>> .merge_file_x15JtG
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/NoAuthWelcome.jsx",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/Home.jsx",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/App_v1.jsx",
@@ -698,6 +917,7 @@
 		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/components/game/GameRow.react.js",
 		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/components/game/MyGamesApp.react.js",
 		"/Users/phileverson/GooseChaseDev/goosechase-data-server/server/routes/index.js",
+<<<<<<< .merge_file_dHyUTe
 		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/settings.py",
 		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/requirements.txt",
 		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/game-manager/base.html",
@@ -705,6 +925,9 @@
 		"/Users/phileverson/GooseChaseDev/goosechase-data-server/edu_analytics.js",
 		"/Users/phileverson/GooseChaseDev/goosechase-data-server/edu_analytics.html",
 		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/components/game/GameList.react.js"
+=======
+		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/settings.py"
+>>>>>>> .merge_file_x15JtG
 	],
 	"find":
 	{
@@ -966,29 +1189,28 @@
 	"groups":
 	[
 		{
+<<<<<<< .merge_file_dHyUTe
 			"sheets":
 			[
-			]
-		},
-		{
+=======
 			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "sitestatus/src/constants/pages.jsx",
+					"file": "sitestatus/src/components/SingleProjectHome.jsx",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 415,
+						"buffer_size": 1905,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								286,
-								286
+								1212,
+								1212
 							]
 						],
 						"settings":
@@ -996,11 +1218,184 @@
 							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "sitestatus/src/components/SingleProjectStatusUpdateList.jsx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2303,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1805,
+								1805
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 196.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "sitestatus/src/util/util.jsx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 619,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								285,
+								285
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "sitestatus/src/components/StatusUpdatesListRow.jsx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1429,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								576,
+								576
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "sitestatus/src/components/SingleProjectSchedule.jsx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1560,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1464,
+								1464
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				}
+>>>>>>> .merge_file_x15JtG
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+<<<<<<< .merge_file_dHyUTe
+					"buffer": 0,
+=======
+					"buffer": 5,
+>>>>>>> .merge_file_x15JtG
+					"file": "sitestatus/src/constants/pages.jsx",
+					"semi_transient": false,
+					"settings":
+					{
+<<<<<<< .merge_file_dHyUTe
+						"buffer_size": 415,
+=======
+						"buffer_size": 412,
+>>>>>>> .merge_file_x15JtG
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+<<<<<<< .merge_file_dHyUTe
+								286,
+								286
+=======
+								412,
+								412
+>>>>>>> .merge_file_x15JtG
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+<<<<<<< .merge_file_dHyUTe
 						"translation.x": 3.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
+=======
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+>>>>>>> .merge_file_x15JtG
 					"type": "text"
 				}
 			]
@@ -1034,7 +1429,11 @@
 		"cols":
 		[
 			0.0,
+<<<<<<< .merge_file_dHyUTe
 			0.737048412075,
+=======
+			0.733478277845,
+>>>>>>> .merge_file_x15JtG
 			1.0
 		],
 		"rows":
@@ -1610,7 +2009,11 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
+<<<<<<< .merge_file_dHyUTe
 	"side_bar_width": 271.0,
+=======
+	"side_bar_width": 322.0,
+>>>>>>> .merge_file_x15JtG
 	"status_bar_visible": true,
 	"template_settings":
 	{

@@ -5,7 +5,7 @@ var Ons = require('react-onsenui');
 
 var PagesConstants = require('constants/pages.jsx');
 
-var ProjectsList = require('./ProjectsList.jsx');
+var ProjectsHub = require('./ProjectsHub.jsx');
 var SingleProjectHome = require('./SingleProjectHome.jsx');
 var NewProject = require('./NewProject.jsx');
 var ContractorsHub = require('./ContractorsHub.jsx');
@@ -74,7 +74,7 @@ var AuthHome = React.createClass({
     	console.log(this.state);
     	var authAppStateComponent = '';
     	if (this.state.authAppState == PagesConstants.PROJECTS_LIST) {
-    		authAppStateComponent = <ProjectsList newProject={this.navTo_NewProject} showLeftMenu={this.showLeftMenu} />;
+    		authAppStateComponent = <ProjectsHub newProject={this.navTo_NewProject} showLeftMenu={this.showLeftMenu} />;
     	} else if (this.state.authAppState == PagesConstants.SINGLE_PROJECT) {
     		authAppStateComponent = <SingleProjectHome />;
     	} else if (this.state.authAppState == PagesConstants.ADD_PROJECT) {
