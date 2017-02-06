@@ -26,7 +26,7 @@ Project.prototype = {
       note: rawDetails.note,
       status: rawDetails.status,
       shortListedContractors: rawDetails.shortListedContractors,
-      deleted: false
+      deleted: false // By default, a project should always be not deleted. When we delete, we modify what preparePutObject object gives us in the component that uses it.
     }
     return firebaseProject;
   },

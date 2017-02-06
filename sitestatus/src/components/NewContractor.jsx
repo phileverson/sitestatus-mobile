@@ -201,17 +201,7 @@ var NewContractor = React.createClass({
 								onChange={this.handleFirstNameChange}
 								modifier='underbar'
 								placeholder='First Name' />
-								{this.state.errorMessages.firstName && this.state.errorMessages.firstName.length > 0 &&
-								<span>{this.state.errorMessages.firstName}</span>
-								}
 							</div>
-
-							<Ons.Input
-							className="center"
-							value={this.state.firstName}
-							onChange={this.handleFirstNameChange}
-							modifier='underbar'
-							placeholder='first' />
 						</Ons.ListItem>
 						<Ons.ListItem modifier="nodivider">
 							<div style={divListItemStyle}>
