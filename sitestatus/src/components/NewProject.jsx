@@ -51,6 +51,12 @@ var NewProject = React.createClass({
 		}
 	},
 
+	handleProjectDelete: function() {
+		var changingProject = this.createProjectObject();
+		changingProject.deleted = true;
+		this.props.createNewOrUpdateProject(changingProject);
+	},
+
 	createProjectObject: function() {
 		var project = {
 			name: this.state.name,
@@ -245,6 +251,9 @@ var NewProject = React.createClass({
 							onChange={this.handleNotesChange}
 							modifier='underbar'
 							placeholder='notes' />
+						</Ons.ListItem>
+						<Ons.ListItem modifier="nodivider">
+							<Ons.Button onClick={this.handleProjectDelete}>Delete Project</Ons.Button>
 						</Ons.ListItem>
 					</Ons.List>
 				</section>

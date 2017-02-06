@@ -25,7 +25,8 @@ Project.prototype = {
       questionTime: rawDetails.questionTime,
       note: rawDetails.note,
       status: rawDetails.status,
-      shortListedContractors: rawDetails.shortListedContractors
+      shortListedContractors: rawDetails.shortListedContractors,
+      deleted: false
     }
     return firebaseProject;
   },

@@ -129,12 +129,12 @@ var SingleProjectStatusUpdateList = React.createClass({
 		);
 	},
 
-	updateTabbarVisibility: function() {
-		if(this.state.activeStatusUpdateKey) {
-			this.props.toggleTabbarVisibility(false);
-		} else {
-			this.props.toggleTabbarVisibility(true)
-		}
+	updateTabbarVisibility_Show: function() {
+		this.props.toggleTabbarVisibility(true);
+	},
+
+	updateTabbarVisibility_Hide: function() {
+		this.props.toggleTabbarVisibility(false);
 	},
 
 	render: function() {
@@ -147,8 +147,8 @@ var SingleProjectStatusUpdateList = React.createClass({
 						title: 'Project Updates',
 						hasBackButton: false
 					}}
-					onPrePush={this.updateTabbarVisibility}
-					onPrePop={this.updateTabbarVisibility}
+					onPrePush={this.updateTabbarVisibility_Hide}
+					onPostPop={this.updateTabbarVisibility_Show}
 				/>
 			</Ons.Page>
 		);

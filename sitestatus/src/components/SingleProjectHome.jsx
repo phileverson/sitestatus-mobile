@@ -35,7 +35,11 @@ var SingleProjectHome = React.createClass({
 		var updatedProjectDetail = project.set(projectObj);
 		console.log('New Project Saved');
 		console.log(updatedProjectDetail);
-		this.navTo_SingleProjectTabs();
+		if (projectObj.deleted) {
+			this.props.navToHub();
+		} else {
+			this.navTo_SingleProjectTabs();
+		}
 	},
 
 	navTo_ProjectSettings: function() {
@@ -79,12 +83,12 @@ var SingleProjectHome = React.createClass({
 	},
 
 	toggleTabbarVisibility: function(showHideSetter) {
-		// this.refs.tabs.refs.tabbar.setTabbarVisibility(showHideSetter);
-		if(showHideSetter){
-			this.refs.tabs.refs.tabbar.lastChild.style = 'left: -100%; transition: left 0.4s;';
-		} else {
-			this.refs.tabs.refs.tabbar.lastChild.style = 'left: 0; transition: left 0.4s;';
-		}
+		this.refs.tabs.refs.tabbar.setTabbarVisibility(showHideSetter);
+		// if(showHideSetter){
+		// 	this.refs.tabs.refs.tabbar.lastChild.style = 'left: -100%; transition: left 0.4s;';
+		// } else {
+		// 	this.refs.tabs.refs.tabbar.lastChild.style = 'left: 0; transition: left 0.4s;';
+		// }
 	},
 
 	render: function() {

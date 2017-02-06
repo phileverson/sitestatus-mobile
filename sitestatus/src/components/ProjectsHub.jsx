@@ -23,7 +23,8 @@ var ProjectsHub = React.createClass({
 	},
 
 	componentWillMount: function() {
-		var projects = firebase.database().ref("projects");
+		var projects = firebase.database().ref("projects").orderByChild("deleted").equalTo(false);
+		// var projects = firebase.database().ref("projects");
 		this.bindAsArray(projects, "projects");
 	},
 
