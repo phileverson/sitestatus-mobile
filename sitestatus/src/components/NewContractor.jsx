@@ -190,7 +190,6 @@ var NewContractor = React.createClass({
 				<section>
 					<Ons.List>
 						<Ons.ListItem modifier="nodivider">
-<<<<<<< HEAD
 							<div style={divListItemStyle}>
 							{this.state.errorMessages.firstName && this.state.errorMessages.firstName.length > 0 &&
 				              <div modifier='nodivider' style={errorMessageTextStyle}>{this.state.errorMessages.firstName}</div>
@@ -206,14 +205,13 @@ var NewContractor = React.createClass({
 								<span>{this.state.errorMessages.firstName}</span>
 								}
 							</div>
-=======
+
 							<Ons.Input
 							className="center"
 							value={this.state.firstName}
 							onChange={this.handleFirstNameChange}
 							modifier='underbar'
 							placeholder='first' />
->>>>>>> 282593e2b6e9011c1c1c0eb2b4563394de4456e9
 						</Ons.ListItem>
 						<Ons.ListItem modifier="nodivider">
 							<div style={divListItemStyle}>
