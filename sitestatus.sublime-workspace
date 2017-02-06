@@ -4,6 +4,7 @@
 		"selected_items":
 		[
 			[
+<<<<<<< HEAD
 				"nav",
 				"navToHub"
 			],
@@ -68,6 +69,40 @@
 				"pageContent"
 			],
 			[
+=======
+<<<<<<< .merge_file_dHyUTe
+				"no",
+				"noAuthUserWithErrors"
+			],
+			[
+				"error",
+				"errorMessages"
+			],
+			[
+				"email",
+				"emailAddress"
+			],
+			[
+				"new",
+				"newUserObject"
+			],
+			[
+				"na",
+				"navTo_EditContractor"
+			],
+			[
+				"con",
+				"contractors"
+			],
+			[
+				"for",
+				"for\tfor (…) {…}"
+			],
+			[
+				"ac",
+				"activeContractorKey"
+=======
+>>>>>>> a0c3bb20a284da7e2b05285f4b670c8eb61ff267
 				"sho",
 				"showHeader"
 			],
@@ -174,6 +209,7 @@
 			[
 				"for",
 				"for\tfor (…) {…}"
+>>>>>>> .merge_file_x15JtG
 			],
 			[
 				"cont",
@@ -192,6 +228,17 @@
 				"handlePhoneChange"
 			],
 			[
+<<<<<<< .merge_file_dHyUTe
+				"ha",
+				"handleCompanyChange"
+			],
+			[
+				"Ne",
+				"NewContractor"
+			],
+			[
+=======
+>>>>>>> .merge_file_x15JtG
 				"rend",
 				"renderListOfContractors"
 			],
@@ -352,6 +399,13 @@
 				"border-radius"
 			],
 			[
+<<<<<<< .merge_file_dHyUTe
+				"st",
+				"state"
+			],
+			[
+=======
+>>>>>>> .merge_file_x15JtG
 				"border-c",
 				"border-color"
 			],
@@ -364,6 +418,13 @@
 				"billingContactName"
 			],
 			[
+<<<<<<< .merge_file_dHyUTe
+				"is",
+				"isValid"
+			],
+			[
+=======
+>>>>>>> .merge_file_x15JtG
 				"in",
 				"invoiceDetails"
 			],
@@ -514,12 +575,136 @@
 			[
 				"pas",
 				"parsedName"
+<<<<<<< HEAD
+=======
+			],
+			[
+				"l",
+				"length"
+			],
+			[
+				"ema",
+				"emailSplit"
+			],
+			[
+				"last",
+				"lastName"
+			],
+			[
+				"fir",
+				"firstName"
+			],
+			[
+				"account",
+				"account_id"
+			],
+			[
+				"edu",
+				"edu_account_assignment"
+			],
+			[
+				"get",
+				"getGCUsers"
+			],
+			[
+				"acc",
+				"accountID_toAssign"
+			],
+			[
+				"use",
+				"userEmailDomain"
+<<<<<<< .merge_file_dHyUTe
+			],
+			[
+				"f",
+				"function"
+			],
+			[
+				"fun",
+				"fun\tFunction"
+			],
+			[
+				"dat",
+				"dateToCheck"
+			],
+			[
+				"op",
+				"option\tTag"
+			],
+			[
+				"ga",
+				"game_type"
+			],
+			[
+				"dup",
+				"dup_game"
+			],
+			[
+				"userpro",
+				"userprofile"
+			],
+			[
+				"ob",
+				"objects"
+			],
+			[
+				"de",
+				"default"
+			],
+			[
+				"Game",
+				"GameType"
+			],
+			[
+				"marg",
+				"margin-left"
+			],
+			[
+				"cu",
+				"cursor"
+			],
+			[
+				"fl",
+				"flex"
+			],
+			[
+				"games",
+				"gamesWithoutDetails"
+			],
+			[
+				"goo",
+				"goosechaseUsername"
+			],
+			[
+				"goose",
+				"goosechaseUsername"
+			],
+			[
+				"btn",
+				"btnLabel"
+			],
+			[
+				"UPD",
+				"UPDATING"
+			],
+			[
+				"Sub",
+				"submissionState"
+=======
+>>>>>>> .merge_file_x15JtG
+>>>>>>> a0c3bb20a284da7e2b05285f4b670c8eb61ff267
 			]
 		]
 	},
 	"buffers":
 	[
 		{
+<<<<<<< .merge_file_dHyUTe
+			"file": "sitestatus/src/constants/pages.jsx",
+			"settings":
+			{
+				"buffer_size": 415,
+=======
 			"file": "sitestatus/src/components/SingleProjectHome.jsx",
 			"settings":
 			{
@@ -559,7 +744,12 @@
 			"file": "sitestatus/src/components/SingleProjectStatusUpdateList.jsx",
 			"settings":
 			{
+<<<<<<< HEAD
 				"buffer_size": 4516,
+=======
+				"buffer_size": 412,
+>>>>>>> .merge_file_x15JtG
+>>>>>>> a0c3bb20a284da7e2b05285f4b670c8eb61ff267
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -612,6 +802,7 @@
 	],
 	"file_history":
 	[
+<<<<<<< HEAD
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/SingleProjectSingleStatusUpdate.jsx",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/constants/pages.jsx",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/SingleProjectStatusUpdateList.jsx",
@@ -620,6 +811,22 @@
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/util/util.jsx",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/NewProject.jsx",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/SingleProjectStatusUpdatesListRow.jsx",
+=======
+<<<<<<< .merge_file_dHyUTe
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/NewContractor.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/ContractorsHub.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/util/util.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/ContractorsListRow.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/AuthHome.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/models/contractor.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/SignUp.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/NoAuthHome.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/App.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/models/user.jsx",
+=======
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/package.json",
+		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/package.json",
+>>>>>>> a0c3bb20a284da7e2b05285f4b670c8eb61ff267
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/ProjectsHub.jsx",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/SingleProjectSchedule.jsx",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/SignUp.jsx",
@@ -639,11 +846,19 @@
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/CheckingAuthWelcome.jsx",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/NoAuthHome.jsx",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/App.jsx",
+>>>>>>> .merge_file_x15JtG
 		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/components/sales/GameSpecDetail.react.js",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/ContractorsList.jsx",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/ProjectsList.jsx",
+<<<<<<< .merge_file_dHyUTe
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/NewProject.jsx",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/public/index.html.ejs",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/UserProfile.jsx",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/SingleProjectHome.jsx",
+=======
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/public/index.html.ejs",
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/UserProfile.jsx",
+>>>>>>> .merge_file_x15JtG
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/Account.jsx",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/Projects.jsx",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/main.jsx",
@@ -652,6 +867,10 @@
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/ChckingAuthWelcome.jsx",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/webpack.dev.config.js",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/styles/forms.styl",
+<<<<<<< .merge_file_dHyUTe
+		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/package.json",
+=======
+>>>>>>> .merge_file_x15JtG
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/NoAuthWelcome.jsx",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/components/Home.jsx",
 		"/Users/phileverson/Repos/School/sitestatus-mobile/sitestatus/src/App_v1.jsx",
@@ -739,7 +958,27 @@
 		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/constants/game/GameConstants.js",
 		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/constants/mission/MissionConstants.js",
 		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/entry/admin.js",
+<<<<<<< HEAD
 		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/components/sales/QuoteDetail.react.js"
+=======
+		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/components/sales/QuoteDetail.react.js",
+		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/admin/admin-billing.html",
+		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/constants/Routes.js",
+		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/components/game/GameRow.react.js",
+		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/components/game/MyGamesApp.react.js",
+		"/Users/phileverson/GooseChaseDev/goosechase-data-server/server/routes/index.js",
+<<<<<<< .merge_file_dHyUTe
+		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/settings.py",
+		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/requirements.txt",
+		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/game-manager/base.html",
+		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/includes/base-v3.html",
+		"/Users/phileverson/GooseChaseDev/goosechase-data-server/edu_analytics.js",
+		"/Users/phileverson/GooseChaseDev/goosechase-data-server/edu_analytics.html",
+		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/goosechase/website/templates/static/flux/js/components/game/GameList.react.js"
+=======
+		"/Users/phileverson/GooseChaseDev/R_DEV10/goosechase_server/settings.py"
+>>>>>>> .merge_file_x15JtG
+>>>>>>> a0c3bb20a284da7e2b05285f4b670c8eb61ff267
 	],
 	"find":
 	{
@@ -1001,7 +1240,15 @@
 	"groups":
 	[
 		{
+<<<<<<< HEAD
 			"selected": 2,
+=======
+<<<<<<< .merge_file_dHyUTe
+			"sheets":
+			[
+=======
+			"selected": 0,
+>>>>>>> a0c3bb20a284da7e2b05285f4b670c8eb61ff267
 			"sheets":
 			[
 				{
@@ -1150,11 +1397,65 @@
 					"stack_index": 4,
 					"type": "text"
 				}
+>>>>>>> .merge_file_x15JtG
 			]
 		},
 		{
 			"sheets":
 			[
+<<<<<<< HEAD
+=======
+				{
+<<<<<<< .merge_file_dHyUTe
+					"buffer": 0,
+=======
+					"buffer": 5,
+>>>>>>> .merge_file_x15JtG
+					"file": "sitestatus/src/constants/pages.jsx",
+					"semi_transient": false,
+					"settings":
+					{
+<<<<<<< .merge_file_dHyUTe
+						"buffer_size": 415,
+=======
+						"buffer_size": 412,
+>>>>>>> .merge_file_x15JtG
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+<<<<<<< .merge_file_dHyUTe
+								286,
+								286
+=======
+								412,
+								412
+>>>>>>> .merge_file_x15JtG
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+<<<<<<< .merge_file_dHyUTe
+						"translation.x": 3.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+=======
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+>>>>>>> .merge_file_x15JtG
+					"type": "text"
+				}
+>>>>>>> a0c3bb20a284da7e2b05285f4b670c8eb61ff267
 			]
 		}
 	],
@@ -1186,7 +1487,15 @@
 		"cols":
 		[
 			0.0,
+<<<<<<< HEAD
 			0.71559990814,
+=======
+<<<<<<< .merge_file_dHyUTe
+			0.737048412075,
+=======
+			0.733478277845,
+>>>>>>> .merge_file_x15JtG
+>>>>>>> a0c3bb20a284da7e2b05285f4b670c8eb61ff267
 			1.0
 		],
 		"rows":
@@ -1762,7 +2071,15 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
+<<<<<<< HEAD
 	"side_bar_width": 238.0,
+=======
+<<<<<<< .merge_file_dHyUTe
+	"side_bar_width": 271.0,
+=======
+	"side_bar_width": 322.0,
+>>>>>>> .merge_file_x15JtG
+>>>>>>> a0c3bb20a284da7e2b05285f4b670c8eb61ff267
 	"status_bar_visible": true,
 	"template_settings":
 	{

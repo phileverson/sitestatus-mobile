@@ -4,8 +4,30 @@
         "uninstalled": []
     },
     "config_munge": {
+<<<<<<< HEAD
         "files": {}
     },
     "installed_plugins": {},
     "dependent_plugins": {}
+=======
+<<<<<<< .merge_file_YGAnrj
+        "files": {}
+    },
+    "installed_plugins": {},
+    "dependent_plugins": {}
+=======
+        "files": {
+            "config.xml": {
+                "parents": {
+                    "/*": []
+                }
+            }
+        }
+    },
+    "installed_plugins": {},
+    "dependent_plugins": {},
+    "modules": [],
+    "plugin_metadata": {}
+>>>>>>> .merge_file_6i7mpd
+>>>>>>> a0c3bb20a284da7e2b05285f4b670c8eb61ff267
 }

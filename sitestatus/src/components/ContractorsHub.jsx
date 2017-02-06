@@ -105,6 +105,7 @@ var ContractorsHub = React.createClass({
     		authContractorAppComponent = this.renderListOfContractors(); 
     	} else if (this.state.authContractorAppState == PagesConstants.EDIT_CONTRACTOR) {
     		var activeContractorObject = Utils.findContractorByKey(this.state.activeContractorKey, this.state.contractors);
+    		activeContractorObject = new Contractor(activeContractorObject);
     		authContractorAppComponent = <NewContractor activeContractorKey={this.state.activeContractorKey} singleContractor={activeContractorObject} cancelCreate={this.navTo_ContractorsHub} updateSingleContractor={this.updateSingleContractor}/>;
     	} else if (this.state.authContractorAppState == PagesConstants.ADD_CONTRACTOR) {
     		var blankContractor = new Contractor({});

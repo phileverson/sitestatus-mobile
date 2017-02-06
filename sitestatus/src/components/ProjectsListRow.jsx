@@ -1,3 +1,5 @@
+import NotificationBadge from 'react-notification-badge';
+import {Effect} from 'react-notification-badge';
 var React = require('react');
 var ReactDOM = require('react-dom');
 var ons = require('onsenui');
@@ -17,7 +19,14 @@ var ProjectsListRow = React.createClass({
 					<span className="list__item__title">
 						{this.props.singleProject.name}
 					</span>
+					<span className="list__item__subtitle">
+						{this.props.singleProject.address}
+					</span>
 				</div>
+				<div className="right">
+					<NotificationBadge count='1' effect={Effect.ROTATE_X}/>
+				</div>
+
 			</Ons.ListItem>
 		)
 	}
