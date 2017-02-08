@@ -5,18 +5,11 @@
     <author />
     <access origin="*" />
     <content src="index.html" />
-<<<<<<< .merge_file_CMv7oh
-    <preference name="ErrorUrl" value="" />
-=======
->>>>>>> .merge_file_ZFL6Kv
     <preference name="loglevel" value="DEBUG" />
     <preference name="AndroidLaunchMode" value="singleTop" />
     <preference name="BackgroundColor" value="0xffffffff" />
     <preference name="DisallowOverscroll" value="true" />
-<<<<<<< .merge_file_CMv7oh
-=======
     <preference name="ErrorUrl" value="" />
->>>>>>> .merge_file_ZFL6Kv
     <preference name="Fullscreen" value="false" />
     <preference name="KeepRunning" value="true" />
     <preference name="monaca:WebViewEngine" value="default" />

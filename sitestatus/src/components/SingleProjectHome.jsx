@@ -16,7 +16,7 @@ var SingleProjectHome = React.createClass({
 	getInitialState: function(){
 	  return {
 	  	index:0,
-	  	commonContractors: [],
+	  	allContractors: [],
 	  	tabbarVisible: true,
 	  	authSingleProjectAppState: PagesConstants.SINGLE_PROJECT
 	  }
@@ -28,18 +28,23 @@ var SingleProjectHome = React.createClass({
 	},
 
 	updateProjectDetails: function(projectObj) {
+		var me = this;
 		console.log('projectObj:');
 		console.log(projectObj);
 		// adding new project:
 		var project = firebase.database().ref("projects/" + this.props.singleProject['.key']);
-		var updatedProjectDetail = project.set(projectObj);
-		console.log('New Project Saved');
-		console.log(updatedProjectDetail);
-		if (projectObj.deleted) {
-			this.props.navToHub();
-		} else {
-			this.navTo_SingleProjectTabs();
-		}
+		// var updatedProjectDetail = project.set(projectObj);
+		// console.log('New Project Saved');
+		// console.log(updatedProjectDetail);
+		project.set(projectObj, function(){
+			if (projectObj.deleted) {
+				me.props.navToHub();
+			} else {
+				me.navTo_SingleProjectTabs();
+			}
+		});
+
+
 	},
 
 	navTo_ProjectSettings: function() {
@@ -62,7 +67,7 @@ var SingleProjectHome = React.createClass({
 				tab: <Ons.Tab label='Updates' icon='md-settings' />
 			},
 			{
-				content: <SingleProjectSchedule singleProject={this.props.singleProject} navToHub={this.props.navToHub} navToProjectSettings={this.navTo_ProjectSettings}/>,
+				content: <SingleProjectSchedule singleProject={this.props.singleProject} commonContractors={this.state.allContractors} navToHub={this.props.navToHub} navToProjectSettings={this.navTo_ProjectSettings}/>,
 				tab: <Ons.Tab label='Schedule' icon='ion-android-folder-open' />
 			}
 		];
