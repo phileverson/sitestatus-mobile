@@ -108,6 +108,8 @@ var NewProject = React.createClass({
 		});
 	},
 
+
+
 	handleAddressChange: function(e){
 		var me = this;
 		me.setState({
@@ -188,21 +190,54 @@ var NewProject = React.createClass({
 
 	render: function() {
 		var listOfContractors = this.renderListOfContractors();
+		console.log(this.state.errorMessages);
+	    var errorMessageTextStyle = {
+	      color: 'red',
+	      fontSize: '8px',
+	      background: 'white',
+	      width: '100%',
+
+	    }
+	    var inputItemStyle = {
+	      width: '100%'
+	    }
+	    var divListItemStyle ={
+	      width: '100%'
+	    }
+	    var noteBoxInside ={
+	      width: '98%',
+	      height: '100%',
+	      borderStyle: 'solid',
+	      borderWidth: '1px',
+	      borderColor: '#ccc',
+	      fontSize: '15px',
+    	  lineHeight: '1',
+    	  fontFamily: '-apple-system, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif'
+	    }
+	    var noteBoxOutside ={
+	      width: '100%',
+	      height: '100px',
+	      
+	      
+	    }
 
 		return (
 			<Ons.Page renderToolbar={this.renderToolbar}>
 				<section>
 					<Ons.List>
 						<Ons.ListItem modifier="nodivider">
+							<div style={divListItemStyle}>
+							{this.state.errorMessages.name && this.state.errorMessages.name.length > 0 &&
+							<div modifier='nodivider' style={errorMessageTextStyle}>{this.state.errorMessages.name}</div>
+							}
 							<Ons.Input
+							style={inputItemStyle}
 							className="center"
 							value={this.state.name}
 							onChange={this.handleNameChange}
 							modifier='underbar'
-							placeholder='name' />
-							{this.state.errorMessages.name && this.state.errorMessages.name.length > 0 &&
-							<span>{this.state.errorMessages.name}</span>
-							}
+							placeholder='Project Name' />
+							</div>		
 						</Ons.ListItem>
 						<Ons.ListItem modifier="nodivider">
 							<Ons.Input
@@ -210,29 +245,36 @@ var NewProject = React.createClass({
 							value={this.state.address}
 							onChange={this.handleAddressChange}
 							modifier='underbar'
-							placeholder='address' />
+							placeholder='Address' />
 						</Ons.ListItem>
 						<Ons.ListItem modifier="nodivider">
+							<div style= {divListItemStyle}>
+							{this.state.errorMessages.question && this.state.errorMessages.question.length > 0 &&
+							<span>{this.state.errorMessages.question}</span>
+							}
 							<Ons.Input
+							style={inputItemStyle}
 							className="center"
 							value={this.state.question}
 							onChange={this.handleQuestionChange}
 							modifier='underbar'
-							placeholder='question' />
-							{this.state.errorMessages.question && this.state.errorMessages.question.length > 0 &&
-							<span>{this.state.errorMessages.question}</span>
-							}
+							placeholder='Prompt Question. Eg: "What did you do today?"' />
+							</div>
 						</Ons.ListItem>
 						<Ons.ListItem modifier="nodivider">
+							<div style={divListItemStyle}>
+							{this.state.errorMessages.questionTime && this.state.errorMessages.questionTime.length > 0 &&
+							<div modifier='nodivider' style={errorMessageTextStyle}>{this.state.errorMessages.questionTime}</div>
+							}
+							<div className='left'>Prompt Time:
 							<Ons.Input
-							className="center"
 							value={this.state.questionTime}
 							onChange={this.handleQuestionTimeChange}
+							className="center" 
 							modifier='underbar'
-							placeholder='questionTime' />
-							{this.state.errorMessages.questionTime && this.state.errorMessages.questionTime.length > 0 &&
-							<span>{this.state.errorMessages.questionTime}</span>
-							}
+							type="time"/>
+							</div>
+							</div>
 						</Ons.ListItem>
 						{!(this.state.creatingNewProject) &&
 						<Ons.ListItem modifier="nodivider">
@@ -245,16 +287,20 @@ var NewProject = React.createClass({
 						</Ons.ListItem>
 						}
 						<Ons.ListItem modifier="nodivider">
-							<Ons.Input
-							className="center"
-							value={this.state.note}
-							onChange={this.handleNotesChange}
-							modifier='underbar'
-							placeholder='notes' />
+							<div style={noteBoxOutside}>
+								<textarea
+								style= {noteBoxInside}
+								className="center"
+								value={this.state.note}
+								onChange={this.handleNotesChange}
+								placeholder='notes' ></textarea>
+							</div>
 						</Ons.ListItem>
+						{!(this.state.creatingNewProject) &&
 						<Ons.ListItem modifier="nodivider">
 							<Ons.Button onClick={this.handleProjectDelete}>Delete Project</Ons.Button>
 						</Ons.ListItem>
+						}
 					</Ons.List>
 				</section>
 				{false &&
