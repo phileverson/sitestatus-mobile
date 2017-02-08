@@ -224,8 +224,10 @@ var NewContractor = React.createClass({
 				            }
 								<Ons.Input
 								style={inputItemStyle}
+								maxlength="10"
 								className="center"
 								value={this.state.phone}
+								type='tel'
 								onChange={this.handlePhoneChange}
 								modifier='underbar'
 								placeholder='Phone' />

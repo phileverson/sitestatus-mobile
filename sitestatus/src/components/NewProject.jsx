@@ -127,8 +127,9 @@ var NewProject = React.createClass({
 	handleStatusChange: function(e){
 		var me = this;
 		me.setState({
-			status: e.target.value,
+			status: e.target.status
 		});
+		this.setState({checked: e.target.checked});
 	},
 
 	handleContractorSwitch: function(contractor) {
@@ -266,24 +267,21 @@ var NewProject = React.createClass({
 							{this.state.errorMessages.questionTime && this.state.errorMessages.questionTime.length > 0 &&
 							<div modifier='nodivider' style={errorMessageTextStyle}>{this.state.errorMessages.questionTime}</div>
 							}
-							<div className='left'>Prompt Time:
 							<Ons.Input
+							style={inputItemStyle}
 							value={this.state.questionTime}
 							onChange={this.handleQuestionTimeChange}
 							className="center" 
 							modifier='underbar'
+							placeholder="Time: "
 							type="time"/>
 							</div>
-							</div>
 						</Ons.ListItem>
-						{!(this.state.creatingNewProject) &&
+						{false &&
 						<Ons.ListItem modifier="nodivider">
-							<Ons.Input
-							className="center"
-							value={this.state.status}
-							onChange={this.handleStatusChange}
-							modifier='underbar'
-							placeholder='status' />
+						<div className='left'>Project Status:</div>
+						<div className='center'>{this.state.checked ? '  Active' : '  Inactive'}</div>
+							 <Ons.Switch classname='center' value={this.state.status} onChange={this.handleStatusChange}/>
 						</Ons.ListItem>
 						}
 						<Ons.ListItem modifier="nodivider">

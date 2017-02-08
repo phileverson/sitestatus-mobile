@@ -22,13 +22,7 @@ var SingleProjectSingleStatusUpdate = React.createClass({
 		// console.log(this.state.singleUpdate);
 		// console.log(this.state.relatedContractor);
 		var toFromStyle = {
-	      width: '100%',
-	      background: 'white',
-	      borderBottom: 'solid',
-	      borderColor: '#ccc',
-	      borderWidth: '1pt',
-	      paddingTop: '1%',
-	      paddingRight: '2%'
+			fontSize: '12'
 	    }
 	    var bodyStyle ={
 
@@ -46,10 +40,10 @@ var SingleProjectSingleStatusUpdate = React.createClass({
 			<section>
 				<Ons.List>
 					<Ons.ListItem>
-						<b>From: </b>  {this.state.relatedContractor.firstName} {this.state.relatedContractor.lastName}
+						<b>{this.state.relatedContractor.firstName+" "+this.state.relatedContractor.lastName+" | "+this.state.relatedContractor.trade}</b>
 					</Ons.ListItem>
 					<Ons.ListItem>
-						<b>Date Sent: </b>  {this.state.singleUpdate['Date Sent']}
+						{"Date Sent: "+this.state.singleUpdate['Date Sent']}
 					</Ons.ListItem>
 					<Ons.ListItem>
 						{this.state.singleUpdate.Body}
