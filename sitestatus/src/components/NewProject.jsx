@@ -268,6 +268,7 @@ var NewProject = React.createClass({
 							}
 							<div className='left'>Prompt Time:
 							<Ons.Input
+							style={{width:'100%'}}
 							value={this.state.questionTime}
 							onChange={this.handleQuestionTimeChange}
 							className="center" 
