@@ -33,7 +33,7 @@ var SingleProjectStatusUpdatesListRow = React.createClass({
 			<Ons.ListItem modifier='chevron' key={this.props.index} onClick={this.navToSingleStatusUpdate}>
 				<div className="center">
 					<span className="list__item__title">
-						{this.props.relatedContractor.firstName} {this.props.relatedContractor.lastName} | {this.props.singleUpdate.From} 
+						{this.props.relatedContractor.firstName} {this.props.relatedContractor.lastName} | {this.props.relatedContractor.trade} 
 					</span>
 					<span className="list__item__subtitle">
 						{this.props.singleUpdate.Body}
