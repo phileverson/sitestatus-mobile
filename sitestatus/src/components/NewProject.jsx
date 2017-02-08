@@ -268,11 +268,11 @@ var NewProject = React.createClass({
 							<div modifier='nodivider' style={errorMessageTextStyle}>{this.state.errorMessages.questionTime}</div>
 							}
 							<Ons.Input
-<<<<<<< HEAD
+
 							style={inputItemStyle}
-=======
+
 							style={{width:'100%'}}
->>>>>>> ba6d597725eea450b2a3a1a7d4c4eb00d3b69865
+
 							value={this.state.questionTime}
 							onChange={this.handleQuestionTimeChange}
 							className="center" 
