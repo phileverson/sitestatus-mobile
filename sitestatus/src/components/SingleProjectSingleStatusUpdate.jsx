@@ -21,13 +21,37 @@ var SingleProjectSingleStatusUpdate = React.createClass({
 	render: function() {
 		// console.log(this.state.singleUpdate);
 		// console.log(this.state.relatedContractor);
+		var toFromStyle = {
+	      width: '100%',
+	      background: 'white',
+	      borderBottom: 'solid',
+	      borderColor: '#ccc',
+	      borderWidth: '1pt'
+	    }
+	    var bodyStyle ={
 
+	      background: 'white',
+	      paddingTop: '10%',
+	      paddingBottom: '10%',
+	      paddingRight: '5%',
+	      paddingLeft: '5%',
+	      borderBottom: 'solid',
+	      borderColor: '#ccc',
+	      borderWidth: '1pt'
+	    }
 		return (
+		
 			<section>
-				Status Update:
+				<div style={toFromStyle}>
+				<b>From: </b>  {this.state.relatedContractor.firstName} {this.state.relatedContractor.lastName}
+				</div>
+				<div style={toFromStyle}>
+				<b>Date Sent: </b>  {this.state.singleUpdate['Date Sent']}
+				</div>
+				<div style={bodyStyle}>
 				{this.state.singleUpdate.Body}
-				{this.state.singleUpdate['Date Sent']}
-				{this.state.relatedContractor.firstName}
+				</div>
+				
 			</section>
 		)
 	}

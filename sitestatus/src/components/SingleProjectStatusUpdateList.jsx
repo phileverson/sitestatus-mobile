@@ -41,7 +41,7 @@ var SingleProjectStatusUpdateList = React.createClass({
 
 	pushPage: function(navigator) {
 		navigator.pushPage({
-			title: 'single update detail page',
+			title: 'Update Details',
 			hasBackButton: true
 		});
 	},
