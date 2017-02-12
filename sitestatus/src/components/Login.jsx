@@ -6,9 +6,6 @@ var _ = require('lodash');
 
 var User = require('../models/user.jsx');
 
-
-var CarouselTest = require('./CarouselTest.jsx');
-
 var Login = React.createClass({
 
   getInitialState: function(){
@@ -97,12 +94,5 @@ var Login = React.createClass({
     );
   }
 });
-
-// render: function() {
-//     return (
-//       <CarouselTest/>
-//     );
-//   }
-// });
 
 module.exports = Login;

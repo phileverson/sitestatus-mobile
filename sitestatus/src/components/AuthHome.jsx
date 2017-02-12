@@ -40,13 +40,6 @@ var AuthHome = React.createClass({
 		})
 	},
 
-	navTo_NewProject: function() {
-		this.setState({
-			authAppState: PagesConstants.ADD_PROJECT,
-			isOpenLeft: false
-		})
-	},
-
 	navTo_Contractors: function() {
 		this.setState({
 			authAppState: PagesConstants.CONTRACTORS_LIST,
@@ -74,15 +67,21 @@ var AuthHome = React.createClass({
     	console.log(this.state);
     	var authAppStateComponent = '';
     	if (this.state.authAppState == PagesConstants.PROJECTS_LIST) {
-    		authAppStateComponent = <ProjectsHub newProject={this.navTo_NewProject} showLeftMenu={this.showLeftMenu} />;
-    	} else if (this.state.authAppState == PagesConstants.SINGLE_PROJECT) {
-    		authAppStateComponent = <SingleProjectHome />;
-    	} else if (this.state.authAppState == PagesConstants.ADD_PROJECT) {
-    		authAppStateComponent = <NewProject cancelCreate={this.navTo_Projects}/>;
+    		authAppStateComponent = <ProjectsHub 
+    									currentUser={this.props.user} 
+    									newProject={this.navTo_NewProject} 
+    									showLeftMenu={this.showLeftMenu} 
+    									/>;
     	} else if (this.state.authAppState == PagesConstants.CONTRACTORS_LIST) {
-    		authAppStateComponent = <ContractorsHub showLeftMenu={this.showLeftMenu} />;
+    		authAppStateComponent = <ContractorsHub 
+    									currentUser={this.props.user} 
+    									showLeftMenu={this.showLeftMenu} 
+    									/>;
     	} else if (this.state.authAppState == PagesConstants.USER_PROFILE) {
-    		authAppStateComponent = <UserProfile showLeftMenu={this.showLeftMenu} />;
+    		authAppStateComponent = <UserProfile 
+    									currentUser={this.props.user} 
+    									showLeftMenu={this.showLeftMenu} 
+    									/>;
     	} 
     	return (
     		<Ons.Splitter>
@@ -90,7 +89,7 @@ var AuthHome = React.createClass({
 	    		side='left'
 	    		width={200}
 	    		collapse={true}
-	    		isSwipeable={true}
+	    		isSwipeable={false}
 	    		isOpen={this.state.isOpenLeft}
 	    		onClose={this.hideLeftMenu}
 	    		onOpen={this.showLeftMenu}

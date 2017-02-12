@@ -10,6 +10,7 @@ function Contractor(obj){
   this.company = (obj.company) ? obj.company : "";
   this.trade = (obj.trade) ? obj.trade : "";
   this.note = (obj.note) ? obj.note : "";
+  this.owner = (obj.owner) ? obj.owner : "";
 
   this.errorMessages = (obj.errorMessages) ? obj.errorMessages : {};
 }
@@ -25,7 +26,8 @@ Contractor.prototype = {
       emailAddress: rawDetails.emailAddress,
       company: rawDetails.company,
       trade: rawDetails.trade,
-      note: rawDetails.note
+      note: rawDetails.note,
+      owner: rawDetails.owner
     }
     return firebaseContractor;
   },

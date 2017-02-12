@@ -19,9 +19,15 @@ var SingleProjectStatusUpdateList = React.createClass({
 	mixins: [ReactFireMixin],
 
 	getInitialState: function(){
+		var zeroContractorsScheduledToday = false;
+		if (this.props.scheduledContractors_Today) {
+			zeroContractorsScheduledToday = (this.props.scheduledContractors_Today.length > 0) ? false : true;
+		}
 	  return {
 	  	activeStatusUpdateKey: '',
-	  	activeStatusUpdateRelatedContractor: ''
+	  	activeStatusUpdateRelatedContractor: '',
+	  	zeroContractorsScheduledToday: zeroContractorsScheduledToday,
+	  	zeroContractorsScheduledTodayWarningShown: false
 	  }
 	},
 
@@ -51,6 +57,12 @@ var SingleProjectStatusUpdateList = React.createClass({
   		this.setState({
   			activeStatusUpdateKey: null,
   			activeStatusUpdateRelatedContractor: null
+  		})
+  	},
+
+  	zeroContractorsScheduledTodayWarningClear: function() {
+  		this.setState({
+  			zeroContractorsScheduledTodayWarningShown: true
   		})
   	},
 
@@ -150,6 +162,17 @@ var SingleProjectStatusUpdateList = React.createClass({
 					onPrePush={this.updateTabbarVisibility_Hide}
 					onPostPop={this.updateTabbarVisibility_Show}
 				/>
+			<Ons.AlertDialog
+				isOpen={false}
+				isCancelable={true}>
+				<div className='alert-dialog-title'>Warning!</div>
+				<div className='alert-dialog-content'>
+					An error has occurred!
+				</div>
+				<div className='alert-dialog-footer'>
+					<button onClick={this.zeroContractorsScheduledTodayWarningClear} className='alert-dialog-button'>Ok</button>
+				</div>
+			</Ons.AlertDialog>
 			</Ons.Page>
 		);
 	}

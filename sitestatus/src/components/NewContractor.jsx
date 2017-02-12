@@ -47,6 +47,7 @@ var NewContractor = React.createClass({
 			company: this.state.company,
 			trade: this.state.trade,
 			note: this.state.note,
+			owner: this.props.currentUser.uid,
 
 			errorMessages: this.state.errorMessages
 		}

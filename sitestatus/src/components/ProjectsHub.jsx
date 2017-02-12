@@ -23,7 +23,7 @@ var ProjectsHub = React.createClass({
 	},
 
 	componentWillMount: function() {
-		var projects = firebase.database().ref("projects").orderByChild("deleted").equalTo(false);
+		var projects = firebase.database().ref("projects/" + this.props.currentUser.uid + "/").orderByChild("deleted").equalTo(false);
 		// var projects = firebase.database().ref("projects");
 		this.bindAsArray(projects, "projects");
 	},
@@ -53,7 +53,7 @@ var ProjectsHub = React.createClass({
 		console.log('projectObj:');
 		console.log(projectObj);
 		// adding new project:
-		var projects = firebase.database().ref("projects");
+		var projects = firebase.database().ref("projects/" + this.props.currentUser.uid + "/");
 		var newProjectEntry = projects.push();
 
 		newProjectEntry.set(projectObj, function(){
@@ -104,11 +104,22 @@ var ProjectsHub = React.createClass({
     	} else if (this.state.authProjectsAppState == PagesConstants.SINGLE_PROJECT) {
     		var activeProjectObject = Utils.findProjectByKey(this.state.activeProjectKey, this.state.projects);
     		// console.log(activeProjectObject);
-    		authProjectsAppComponent = <SingleProjectHome activeProjectKey={this.state.activeProjectKey} singleProject={activeProjectObject} navToHub={this.navTo_ProjectsHub} />;
+    		authProjectsAppComponent = <SingleProjectHome 
+    									currentUser={this.props.currentUser} 
+    									activeProjectKey={this.state.activeProjectKey} 
+    									singleProject={activeProjectObject} 
+    									navToHub={this.navTo_ProjectsHub} 
+    									/>;
 
     	} else if (this.state.authProjectsAppState == PagesConstants.ADD_PROJECT) {
     		var blankProject = new Project({});
-    		authProjectsAppComponent = <NewProject activeProjectKey={this.state.activeProjectKey} singleProject={blankProject} cancelCreate={this.navTo_ProjectsHub} createNewOrUpdateProject={this.createUpdateProject}/>;
+    		authProjectsAppComponent = <NewProject 
+    									currentUser={this.props.currentUser} 
+    									activeProjectKey={this.state.activeProjectKey} 
+    									singleProject={blankProject} 
+    									cancelCreate={this.navTo_ProjectsHub} 
+    									createNewOrUpdateProject={this.createUpdateProject}
+    									/>;
     	}
 
 		return (

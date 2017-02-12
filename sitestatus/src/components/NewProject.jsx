@@ -66,6 +66,7 @@ var NewProject = React.createClass({
 			note: this.state.note,
 			status: this.state.status,
 			shortListedContractors: this.state.shortListedContractors,
+			owner: this.props.currentUser.uid,
 
 			errorMessages: this.state.errorMessages
 		}
@@ -191,7 +192,7 @@ var NewProject = React.createClass({
 
 	render: function() {
 		var listOfContractors = this.renderListOfContractors();
-		// console.log(this.state.errorMessages);
+		// console.log(this.props);
 	    var errorMessageTextStyle = {
 	      color: 'red',
 	      fontSize: '8px',

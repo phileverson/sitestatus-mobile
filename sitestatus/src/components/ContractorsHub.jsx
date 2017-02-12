@@ -22,7 +22,7 @@ var ContractorsHub = React.createClass({
 	},
 
 	componentWillMount: function() {
-		var contractors = firebase.database().ref("contractors");
+		var contractors = firebase.database().ref("contractors/" + this.props.currentUser.uid + "/");
 		this.bindAsArray(contractors, "contractors");
 	},
 
@@ -31,12 +31,12 @@ var ContractorsHub = React.createClass({
 		console.log(contractorObj);
 		if (this.state.activeContractorKey) {
 			// updating an already existing contractor:
-			var activeContractorEntry = firebase.database().ref("contractors/" + this.state.activeContractorKey);
+			var activeContractorEntry = firebase.database().ref("contractors/" + this.props.currentUser.uid + "/" + this.state.activeContractorKey);
 			activeContractorEntry.set(contractorObj);
 			console.log('Contractor Updated');
 		} else { 
 			// adding new contractor:
-			var contractors = firebase.database().ref("contractors");
+			var contractors = firebase.database().ref("contractors/" + this.props.currentUser.uid + "/" + this.state.activeContractorKey);
 			var newContractorEntry = contractors.push();
 			newContractorEntry.set(contractorObj);
 			console.log('New Contractor Saved');
@@ -106,10 +106,22 @@ var ContractorsHub = React.createClass({
     	} else if (this.state.authContractorAppState == PagesConstants.EDIT_CONTRACTOR) {
     		var activeContractorObject = Utils.findContractorByKey(this.state.activeContractorKey, this.state.contractors);
     		activeContractorObject = new Contractor(activeContractorObject);
-    		authContractorAppComponent = <NewContractor activeContractorKey={this.state.activeContractorKey} singleContractor={activeContractorObject} cancelCreate={this.navTo_ContractorsHub} updateSingleContractor={this.updateSingleContractor}/>;
+    		authContractorAppComponent = <NewContractor 
+    										activeContractorKey={this.state.activeContractorKey} 
+    										singleContractor={activeContractorObject} 
+    										cancelCreate={this.navTo_ContractorsHub} 
+    										updateSingleContractor={this.updateSingleContractor}
+    										currentUser={this.props.currentUser}
+    										/>;
     	} else if (this.state.authContractorAppState == PagesConstants.ADD_CONTRACTOR) {
     		var blankContractor = new Contractor({});
-    		authContractorAppComponent = <NewContractor activeContractorKey={this.state.activeContractorKey} singleContractor={blankContractor} cancelCreate={this.navTo_ContractorsHub} updateSingleContractor={this.updateSingleContractor}/>;
+    		authContractorAppComponent = <NewContractor 
+    										activeContractorKey={this.state.activeContractorKey} 
+    										singleContractor={blankContractor} 
+    										cancelCreate={this.navTo_ContractorsHub} 
+    										updateSingleContractor={this.updateSingleContractor}
+    										currentUser={this.props.currentUser}
+    										/>;
     	}
 		return (
 			<Ons.Page renderToolbar={this.renderToolbar}>

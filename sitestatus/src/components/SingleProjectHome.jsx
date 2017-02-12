@@ -2,6 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var ons = require('onsenui');
 var Ons = require('react-onsenui');
+var moment = require('moment');
 
 var PagesConstants = require('constants/pages.jsx');
 var Utils = require('util/util.jsx');
@@ -18,14 +19,24 @@ var SingleProjectHome = React.createClass({
 	  return {
 	  	index:0,
 	  	allContractors: [],
+	  	scheduledContractors_Today: false,
 	  	tabbarVisible: true,
 	  	authSingleProjectAppState: PagesConstants.SINGLE_PROJECT
 	  }
 	},
 
 	componentWillMount: function() {
-		var allContractors = firebase.database().ref("contractors");
+		// All contractors, as we need them for schedule update stuff:
+		var allContractors = firebase.database().ref("contractors/" + this.props.currentUser.uid + "/" );
 		this.bindAsArray(allContractors, "allContractors");
+
+		// Contractors scheduled to send updates today:
+		var fullDate = moment();
+		var dateKey = fullDate.format("MM-DD-YYYY");
+		var projectKey = this.props.singleProject['.key']
+
+		var projectsScheduleDayRef = firebase.database().ref("projects-schedule/" + projectKey + "/" + dateKey + "/contractors/");
+		this.bindAsArray(projectsScheduleDayRef, "scheduledContractors_Today");
 	},
 
 	updateProjectDetails: function(projectObj) {
@@ -33,7 +44,7 @@ var SingleProjectHome = React.createClass({
 		console.log('projectObj:');
 		console.log(projectObj);
 		// adding new project:
-		var project = firebase.database().ref("projects/" + this.props.singleProject['.key']);
+		var project = firebase.database().ref("projects/" + this.props.currentUser.uid + "/" + this.props.singleProject['.key']);
 		// var updatedProjectDetail = project.set(projectObj);
 		// console.log('New Project Saved');
 		// console.log(updatedProjectDetail);
@@ -102,6 +113,7 @@ var SingleProjectHome = React.createClass({
 							allContractors={this.state.allContractors} 
 							navToHub={this.props.navToHub} 
 							navToProjectSettings={this.navTo_ProjectSettings} 
+							scheduledContractors_Today={this.state.scheduledContractors_Today}
 							/>,
 				tab: <Ons.Tab label='Updates' icon='md-settings' />
 			},
@@ -146,7 +158,8 @@ var SingleProjectHome = React.createClass({
 	},
 
 	render: function() {
-		if (this.state.authSingleProjectAppState == PagesConstants.SINGLE_PROJECT) {
+		console.log(this.state);
+		if (this.state.authSingleProjectAppState == PagesConstants.SINGLE_PROJECT) { // Updates & Scheduler
 			return (
 				<Ons.Tabbar
 					ref='tabs'
@@ -161,7 +174,7 @@ var SingleProjectHome = React.createClass({
 					renderTabs={this.renderTabs}
 				/>
 			)
-		} else {
+		} else { // Editing project details
 			var singleProjectForProjectDetail = new Project(this.props.singleProject);
 			return (
 				<NewProject singleProject={singleProjectForProjectDetail} singleProjectKey={this.props.singleProject['.key']} createNewOrUpdateProject={this.updateProjectDetails} cancelCreate={this.navTo_SingleProjectTabs} />
