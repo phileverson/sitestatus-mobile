@@ -21,7 +21,7 @@ var ContractorsListRow = React.createClass({
 	},
 
 	render: function() {
-		console.log(this.props);
+		// console.log(this.props);
 		var contractorLineStyle = {
 	      fontSize: '8px',
 	    }
@@ -29,9 +29,9 @@ var ContractorsListRow = React.createClass({
 	    var onClick = this.setActiveContractorInHub;
 	    var toggleSwitch;
 
-	    if (this.props.newProject) {
+	    if (this.props.schedule) {
 	    	listItemModifier = '';
-	    	onClick = null;
+	    	onClick = this.handleContractorPress;
 	    	toggleSwitch = this.renderToggleSwitch();
 	    }
 		return (
@@ -44,7 +44,7 @@ var ContractorsListRow = React.createClass({
 						{this.props.singleContractor.trade+ ' | ' +this.props.singleContractor.company}
 					</span>
 				</div>
-				{this.props.newProject &&
+				{this.props.schedule &&
 					<div className="right">{toggleSwitch}</div>
 				}
 			</Ons.ListItem>

@@ -55,9 +55,6 @@ var ProjectsHub = React.createClass({
 		// adding new project:
 		var projects = firebase.database().ref("projects");
 		var newProjectEntry = projects.push();
-		// newProjectEntry.set(projectObj);
-		// console.log('New Project Saved');
-		// console.log(newProjectEntry);
 
 		newProjectEntry.set(projectObj, function(){
 			me.setState({
@@ -65,9 +62,6 @@ var ProjectsHub = React.createClass({
 				activeProjectKey: newProjectEntry.key
 			})
 		});
-
-
-
 	},
 
 	renderToolbar: function() {
@@ -109,7 +103,7 @@ var ProjectsHub = React.createClass({
 
     	} else if (this.state.authProjectsAppState == PagesConstants.SINGLE_PROJECT) {
     		var activeProjectObject = Utils.findProjectByKey(this.state.activeProjectKey, this.state.projects);
-    		console.log(activeProjectObject);
+    		// console.log(activeProjectObject);
     		authProjectsAppComponent = <SingleProjectHome activeProjectKey={this.state.activeProjectKey} singleProject={activeProjectObject} navToHub={this.navTo_ProjectsHub} />;
 
     	} else if (this.state.authProjectsAppState == PagesConstants.ADD_PROJECT) {

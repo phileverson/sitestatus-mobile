@@ -4,6 +4,7 @@ var ons = require('onsenui');
 var Ons = require('react-onsenui');
 
 var PagesConstants = require('constants/pages.jsx');
+var Utils = require('util/util.jsx');
 var Project = require('../models/project.jsx');
 
 var SingleProjectStatusUpdateList = require('./SingleProjectStatusUpdateList.jsx');
@@ -43,8 +44,29 @@ var SingleProjectHome = React.createClass({
 				me.navTo_SingleProjectTabs();
 			}
 		});
+	},
 
+	addContractorToProjectShortlist: function(contractorKey) {
+		console.log('Adding contractor to shortlist. Contractor Key:');
+		console.log(contractorKey)
+		var freshProjectObj = new Project(this.props.singleProject);
+		freshProjectObj.shortListedContractors.push(contractorKey);
+		freshProjectObj = freshProjectObj.preparePutObject();
+		this.updateProjectDetails(freshProjectObj);
+	},
 
+	removeContractorFromProjectShortlist: function(contractorKey) {
+		console.log('Removing contractor from shortlist. Contractor Key:');
+		console.log(contractorKey)
+
+		var shortListedContractorsToUpdate = _.clone(this.props.singleProject.shortListedContractors);
+		var indexToRemove = shortListedContractorsToUpdate.indexOf(contractorKey);
+		shortListedContractorsToUpdate.splice(indexToRemove, 1);
+
+		var freshProjectObj = new Project(this.props.singleProject);
+		freshProjectObj.shortListedContractors = shortListedContractorsToUpdate;
+		freshProjectObj = freshProjectObj.preparePutObject();
+		this.updateProjectDetails(freshProjectObj);
 	},
 
 	navTo_ProjectSettings: function() {
@@ -61,13 +83,40 @@ var SingleProjectHome = React.createClass({
 	},
 
 	renderTabs: function() {
+
+		var shortListedContractorsDetails = [];
+		if (this.props.singleProject.shortListedContractors) {
+			for (var i = 0; i < this.props.singleProject.shortListedContractors.length; i++) {
+				var newContractor = null;
+				newContractor = Utils.findContractorByKey(this.props.singleProject.shortListedContractors[i], this.state.allContractors);
+				shortListedContractorsDetails.push(newContractor);
+			}
+		}
+
 		return [
 			{
-				content: <SingleProjectStatusUpdateList toggleTabbarVisibility={this.toggleTabbarVisibility} singleProject={this.props.singleProject} allContractors={this.state.allContractors} navToHub={this.props.navToHub} navToProjectSettings={this.navTo_ProjectSettings}/>,
+				content: <SingleProjectStatusUpdateList 
+							key='SingleProjectStatusUpdateList' 
+							toggleTabbarVisibility={this.toggleTabbarVisibility} 
+							singleProject={this.props.singleProject} 
+							allContractors={this.state.allContractors} 
+							navToHub={this.props.navToHub} 
+							navToProjectSettings={this.navTo_ProjectSettings} 
+							/>,
 				tab: <Ons.Tab label='Updates' icon='md-settings' />
 			},
 			{
-				content: <SingleProjectSchedule singleProject={this.props.singleProject} commonContractors={this.state.allContractors} navToHub={this.props.navToHub} navToProjectSettings={this.navTo_ProjectSettings}/>,
+				content: <SingleProjectSchedule 
+							key='SingleProjectSchedule' 
+							toggleTabbarVisibility={this.toggleTabbarVisibility} 
+							singleProject={this.props.singleProject} 
+							allContractors={this.state.allContractors} 
+							shortListedContractorsDetails={shortListedContractorsDetails} 
+							navToHub={this.props.navToHub} 
+							navToProjectSettings={this.navTo_ProjectSettings} 
+							addContractorToShortlist={this.addContractorToProjectShortlist}
+							removeContractorFromShortlist={this.removeContractorFromProjectShortlist}
+							/>,
 				tab: <Ons.Tab label='Schedule' icon='ion-android-folder-open' />
 			}
 		];
