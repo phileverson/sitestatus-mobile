@@ -32,9 +32,7 @@ var SingleProjectStatusUpdateList = React.createClass({
 	},
 
 	componentWillMount: function() {
-		// var projectKey = this.props....
-		var projectKey = 1; // hard coding for now
-		var statusUpdates = firebase.database().ref("sitesh/" + projectKey).orderByKey();
+		var statusUpdates = firebase.database().ref("projects-status-updates/" + this.props.singleProject['.key']).orderByKey();
 		this.bindAsArray(statusUpdates, "statusUpdates");
 	},
 
