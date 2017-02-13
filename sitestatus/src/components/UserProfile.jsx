@@ -3,13 +3,25 @@ var ReactDOM = require('react-dom');
 var ons = require('onsenui');
 var Ons = require('react-onsenui');
 
+var User = require('../models/user.jsx');
+
 var UserProfile = React.createClass({
 	mixins: [ReactFireMixin],
 
-	// getInitialState: function(){
-	//   return {
-	//   }
-	// },
+	getInitialState: function(){
+		var blankUser = new User({});
+	  return {
+	  	currentUser: blankUser
+	  }
+	},
+
+
+	componentWillMount: function() {
+		// This user, as we need them for schedule update stuff:
+		var thisUser = firebase.database().ref("users/" + this.props.currentUser.uid + "/" );
+		this.bindAsObject(thisUser, "currentUser");
+	},
+
 
 	renderToolbar: function() {
 	    return (
@@ -26,9 +38,11 @@ var UserProfile = React.createClass({
 	},
 
 	render: function() {
+		console.log(this.state.currentUser);
+
 		return (
 			<Ons.Page renderToolbar={this.renderToolbar}>
-			test
+			FirstName: {this.state.currentUser.firstName}
 			</Ons.Page>
 		)
 	}
