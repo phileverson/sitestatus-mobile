@@ -27,7 +27,8 @@ Contractor.prototype = {
       company: rawDetails.company,
       trade: rawDetails.trade,
       note: rawDetails.note,
-      owner: rawDetails.owner
+      owner: rawDetails.owner,
+      deleted: false //new contractors will always default to not deleted.
     }
     return firebaseContractor;
   },
