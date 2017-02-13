@@ -9,8 +9,7 @@ var NewContractor = React.createClass({
 	mixins: [ReactFireMixin],
 
 	getInitialState: function(){
-		console.log(this.props);
-		var creatingNewContractor = (this.props.singleProjectKey) ? false : true;
+		//console.log(this.props);
 		return {
 			firstName: this.props.singleContractor.firstName,
 			lastName: this.props.singleContractor.lastName,
@@ -279,11 +278,10 @@ var NewContractor = React.createClass({
 								style={noteBoxInside}
 								value={this.state.note}
 								onChange={this.handleNoteChange}
-								modifier='underbar'
 								placeholder='Note' ></textarea>
 							</div>
 						</Ons.ListItem>
-						{!(this.state.creatingNewContractor) &&
+						{(this.props.activeContractorKey) &&
 						<Ons.ListItem modifier="nodivider">
 							<Ons.Button onClick={this.handleContractorDelete}>Delete Contractor</Ons.Button>
 						</Ons.ListItem>

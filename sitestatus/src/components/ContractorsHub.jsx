@@ -22,7 +22,8 @@ var ContractorsHub = React.createClass({
 	},
 
 	componentWillMount: function() {
-		var contractors = firebase.database().ref("contractors/" + this.props.currentUser.uid + "/");
+		//var contractors = firebase.database().ref("contractors/" + this.props.currentUser.uid + "/");
+		var contractors = firebase.database().ref("contractors/" + this.props.currentUser.uid + "/").orderByChild("deleted").equalTo(false);
 		this.bindAsArray(contractors, "contractors");
 	},
 
