@@ -42,20 +42,17 @@ var SingleProjectSchedule = React.createClass({
 
 	renderToolbar: function(route, navigator) {
 		const leftButton = route.hasBackButton
-		? <Ons.BackButton onClick={this.popPage.bind(this, navigator)}>Back</Ons.BackButton>
+		? <Ons.ToolbarButton onClick={this.popPage.bind(this, navigator)}>Cancel</Ons.ToolbarButton>
 		: <Ons.ToolbarButton ><Ons.Icon icon='md-home' onClick={this.props.navToHub} /></Ons.ToolbarButton>
+		const rightButton = !route.hasBackButton
+		? <Ons.ToolbarButton ><Ons.Icon icon='md-settings' onClick={this.props.navToProjectSettings} /></Ons.ToolbarButton>
+		: <Ons.ToolbarButton onClick={this.popPage.bind(this, navigator)}>Save</Ons.ToolbarButton>
 
 		return (
 			<Ons.Toolbar>
 				<div className='left'>{leftButton}</div>
 				<div className='center'>{route.title}</div>
-				<div className='right'>
-				{!route.hasBackButton &&
-					<Ons.ToolbarButton >
-						<Ons.Icon icon='md-settings' onClick={this.props.navToProjectSettings} />
-					</Ons.ToolbarButton>
-				}
-				</div>
+				<div className='right'>{rightButton}</div>
 			</Ons.Toolbar>
 		);
 	},
