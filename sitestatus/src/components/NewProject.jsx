@@ -66,7 +66,7 @@ var NewProject = React.createClass({
 			note: this.state.note,
 			status: this.state.status,
 			shortListedContractors: this.state.shortListedContractors,
-
+			//delete: defaults to false. 
 			errorMessages: this.state.errorMessages
 		}
 		return new Project(project);

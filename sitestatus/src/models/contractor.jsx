@@ -25,7 +25,8 @@ Contractor.prototype = {
       emailAddress: rawDetails.emailAddress,
       company: rawDetails.company,
       trade: rawDetails.trade,
-      note: rawDetails.note
+      note: rawDetails.note,
+      deleted: false //contractor object is always set to false by default. when deleting, modify prepareputobject object to deleted:true
     }
     return firebaseContractor;
   },

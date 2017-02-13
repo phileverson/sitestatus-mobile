@@ -18,6 +18,13 @@ var SingleProjectSingleStatusUpdate = React.createClass({
 		}
 	},
 
+	handleCall: function(e){
+		//console.log(e.target.value);
+		console.log(this.state.relatedContractor.phone);
+		var phoneNum = this.state.relatedContractor.phone;
+		window.location.href='tel://'+phoneNum;
+	},
+
 	render: function() {
 		// console.log(this.state.singleUpdate);
 		// console.log(this.state.relatedContractor);
@@ -47,6 +54,10 @@ var SingleProjectSingleStatusUpdate = React.createClass({
 					</Ons.ListItem>
 					<Ons.ListItem>
 						{this.state.singleUpdate.Body}
+					</Ons.ListItem>
+					<Ons.ListItem>
+						<Ons.Button value={this.state.relatedContractor.phone} onClick={this.handleCall}>Call {this.state.relatedContractor.firstName}</Ons.Button>
+						<a href="tel://1-555-555-5555">+1 (555) 555-5555</a>
 					</Ons.ListItem>
 				</Ons.List>
 			</section>
