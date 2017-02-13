@@ -31,13 +31,24 @@ var App = React.createClass({
           lastName: ''
         }
       },
-      user: null
+      user: null,
+      firebaseAuthAlertDialogShowing: false,
+      firebaseAuthAlertDialogError: ""
     }
   },
 
   authenticateUser: function() {
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
+        if (this.state.noAuthUser.company) { // if this isn't null, it means we were creating a new user!
+          var user = firebase.database().ref("users/" + user.uid);
+          user.set({
+            company: this.state.noAuthUser.company,
+            firstName: this.state.noAuthUser.firstName,
+            lastName: this.state.noAuthUser.lastName
+          });
+        }
+
         this.setState({
           authChecked: true,
           loggedIn: true,
@@ -81,6 +92,12 @@ var App = React.createClass({
     }
   },
 
+  clearFirebaseAuthErrorShowing: function() {
+    this.setState({
+      firebaseAuthAlertDialogShowing: false
+    })
+  },
+
   navTo_NoAuthHome: function() {
     this.setState({
       appState: PagesConstants.NO_AUTH_WELCOME
@@ -106,6 +123,7 @@ var App = React.createClass({
   },
 
   submitLoginOrSignUp: function() {
+    var me = this;
     console.log('REQUEST: submitLoginOrSignUp');
     if (this.state.appState == PagesConstants.NO_AUTH_SIGN_UP) {
       var newUserObject = new User(this.state.noAuthUser);
@@ -115,12 +133,16 @@ var App = React.createClass({
         firebase.auth().createUserWithEmailAndPassword(this.state.noAuthUser.emailAddress, this.state.noAuthUser.password).catch(function(error) {
           console.log(error.message);
           console.log(error.code);
+          me.setState({
+            firebaseAuthAlertDialogShowing: true,
+            firebaseAuthAlertDialogError: error.message
+          })
         });
       } else {
         console.log(isValidResult);
         var noAuthUserWithErrors = newUserObject;
         var noAuthUserWithErrors = _.merge(newUserObject, {errorMessages: isValidResult.errorMessages});
-        this.setState({
+        me.setState({
           noAuthUser: noAuthUserWithErrors
         });
         console.log(this.state);
@@ -130,6 +152,10 @@ var App = React.createClass({
       firebase.auth().signInWithEmailAndPassword(this.state.noAuthUser.emailAddress, this.state.noAuthUser.password).catch(function(error) {
         console.log(error.message);
         console.log(error.code);
+        me.setState({
+          firebaseAuthAlertDialogShowing: true,
+          firebaseAuthAlertDialogError: error.message
+        })
       });
     }
   },
@@ -152,13 +178,33 @@ var App = React.createClass({
         if (this.state.appState == PagesConstants.NO_AUTH_LOGIN) {
           appLanding = <Login updateNoAuthUser={this.updateNoAuthUser} submit={this.submitLoginOrSignUp}/>;
         } else if (this.state.appState == PagesConstants.NO_AUTH_SIGN_UP) {
-          appLanding = <SignUp noAuthUser={this.state.noAuthUser} updateNoAuthUser={this.updateNoAuthUser} submit={this.submitLoginOrSignUp}/>;
+          appLanding = <SignUp 
+                          noAuthUser={this.state.noAuthUser}
+                          updateNoAuthUser={this.updateNoAuthUser}
+                          submit={this.submitLoginOrSignUp}
+                          clearFirebaseAuthErrorShowing={this.clearFirebaseAuthErrorShowing}
+                          firebaseAuthAlertDialogShowing={this.state.firebaseAuthAlertDialogShowing}
+                          firebaseAuthAlertDialogError={this.state.firebaseAuthAlertDialogError}
+                          />;
         }
       }
 
       return (
         <Ons.Page renderToolbar={this.renderToolbar}>
           {appLanding}
+          <Ons.AlertDialog
+            isOpen={this.state.firebaseAuthAlertDialogShowing}
+            isCancelable={false}>
+            <div className='alert-dialog-title'>Error</div>
+            <div className='alert-dialog-content'>
+              {this.state.firebaseAuthAlertDialogError}
+            </div>
+            <div className='alert-dialog-footer'>
+              <button onClick={this.clearFirebaseAuthErrorShowing} className='alert-dialog-button'>
+                Ok
+              </button>
+            </div>
+          </Ons.AlertDialog>
         </Ons.Page>
       );
     }

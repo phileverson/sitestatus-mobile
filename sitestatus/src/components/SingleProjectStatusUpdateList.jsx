@@ -36,18 +36,24 @@ var SingleProjectStatusUpdateList = React.createClass({
 		this.bindAsArray(statusUpdates, "statusUpdates");
 	},
 
-	setActiveStatusUpdateKey: function(keyPassed, contractorPassed) {
+	setActiveStatusUpdateKey: function(keyPassed, contractorPassed, passedNavigator) {
 		this.setState({
 			activeStatusUpdateKey: keyPassed,
 			activeStatusUpdateRelatedContractor: contractorPassed
 		})
-	},
 
-	pushPage: function(navigator) {
-		navigator.pushPage({
+		passedNavigator.pushPage({
 			title: 'Update Details',
 			hasBackButton: true
 		});
+	},
+
+	pushPage: function(navigator) {
+		// navigator.pushPage({
+		// 	title: 'Update Details',
+		// 	hasBackButton: true
+		// });
+		console.log('called old pushPage navigator...');
 	},
 
   	backToUpdateList: function(navigator) {
@@ -114,6 +120,7 @@ var SingleProjectStatusUpdateList = React.createClass({
 							relatedContractor={relatedContractor}
 							index={i}
 							key={i}
+							passedNavigator={navigator}
 							launchUpdate_PushPage={me.pushPage.bind(me, navigator)}
 							launchUpdate_SetActiveStatus={me.setActiveStatusUpdateKey}
 							/>
