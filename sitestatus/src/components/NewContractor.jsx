@@ -10,6 +10,7 @@ var NewContractor = React.createClass({
 
 	getInitialState: function(){
 		console.log(this.props);
+		var creatingNewContractor = (this.props.singleProjectKey) ? false : true;
 		return {
 			firstName: this.props.singleContractor.firstName,
 			lastName: this.props.singleContractor.lastName,
@@ -52,6 +53,12 @@ var NewContractor = React.createClass({
 			errorMessages: this.state.errorMessages
 		}
 		return new Contractor(contractor);
+	},
+
+	handleContractorDelete: function(){
+		var changingContractor=this.createContractorObject();
+		changingContractor.deleted=true;
+		this.props.updateSingleContractor(changingContractor);
 	},
 
 	handleFirstNameChange: function(e){
@@ -276,6 +283,11 @@ var NewContractor = React.createClass({
 								placeholder='Note' ></textarea>
 							</div>
 						</Ons.ListItem>
+						{!(this.state.creatingNewContractor) &&
+						<Ons.ListItem modifier="nodivider">
+							<Ons.Button onClick={this.handleContractorDelete}>Delete Contractor</Ons.Button>
+						</Ons.ListItem>
+						}
 					</Ons.List>
 				</section>
 			</Ons.Page>
