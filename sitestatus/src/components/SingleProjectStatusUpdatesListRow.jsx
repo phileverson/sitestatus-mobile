@@ -13,6 +13,13 @@ var SingleProjectStatusUpdatesListRow = React.createClass({
 	},
 
 	render: function() {
+		// bail out if things haven't loaded yet...
+	    if (!this.props.relatedContractor) {
+	    	return (
+	    		<div>Loading...</div>
+	    	)
+	    }
+
 		// this.props.singleUpdate contains status update object
 		// console.log(this.props.singleUpdate);
 		// this.props.relatedContractor contains contractor object

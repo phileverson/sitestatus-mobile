@@ -10,6 +10,7 @@ function Contractor(obj){
   this.company = (obj.company) ? obj.company : "";
   this.trade = (obj.trade) ? obj.trade : "";
   this.note = (obj.note) ? obj.note : "";
+  this.owner = (obj.owner) ? obj.owner : "";
 
   this.errorMessages = (obj.errorMessages) ? obj.errorMessages : {};
 }
@@ -26,7 +27,7 @@ Contractor.prototype = {
       company: rawDetails.company,
       trade: rawDetails.trade,
       note: rawDetails.note,
-      deleted: false //contractor object is always set to false by default. when deleting, modify prepareputobject object to deleted:true
+      owner: rawDetails.owner
     }
     return firebaseContractor;
   },

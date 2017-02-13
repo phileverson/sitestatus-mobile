@@ -11,7 +11,7 @@ var NewProject = React.createClass({
 	mixins: [ReactFireMixin],
 
 	getInitialState: function(){
-		console.log(this.props);
+		// console.log(this.props);
 		var creatingNewProject = (this.props.singleProjectKey) ? false : true;
 
 		return {
@@ -66,7 +66,8 @@ var NewProject = React.createClass({
 			note: this.state.note,
 			status: this.state.status,
 			shortListedContractors: this.state.shortListedContractors,
-			//delete: defaults to false. 
+			owner: this.props.currentUser.uid,
+
 			errorMessages: this.state.errorMessages
 		}
 		return new Project(project);
@@ -191,7 +192,7 @@ var NewProject = React.createClass({
 
 	render: function() {
 		var listOfContractors = this.renderListOfContractors();
-		console.log(this.state.errorMessages);
+		// console.log(this.props);
 	    var errorMessageTextStyle = {
 	      color: 'red',
 	      fontSize: '8px',

@@ -147,7 +147,7 @@ var App = React.createClass({
       // We've checked auth at least once, and can now figure out where to go...
       var appLanding = <NoAuthHome navToLogin={this.navTo_NoAuthLogin} navToSignUp={this.navTo_NoAuthSignUp}/>;
       if (this.state.loggedIn) {
-        appLanding = <AuthHome />;
+        appLanding = <AuthHome user={this.state.user}/>;
       } else {
         if (this.state.appState == PagesConstants.NO_AUTH_LOGIN) {
           appLanding = <Login updateNoAuthUser={this.updateNoAuthUser} submit={this.submitLoginOrSignUp}/>;

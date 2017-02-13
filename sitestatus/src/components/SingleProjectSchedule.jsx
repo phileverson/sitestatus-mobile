@@ -4,145 +4,111 @@ var ons = require('onsenui');
 var Ons = require('react-onsenui');
 
 var PagesConstants = require('constants/pages.jsx');
+var Styles = require('constants/styles.jsx');
 var Utils = require('util/util.jsx');
 
 var Project = require('../models/project.jsx');
 
-var ProjectsListRow = require('./ProjectsListRow.jsx');
-var NewProject = require('./NewProject.jsx');
-var SingleProjectScheduleRow = require('./SingleProjectScheduleRow.jsx');
+var SingleProjectScheduleGantt = require('./SingleProjectScheduleGantt.jsx');
+var SingleProjectScheduleManageContractors = require('./SingleProjectScheduleManageContractors.jsx');
 
 var SingleProjectSchedule = React.createClass({
 	mixins: [ReactFireMixin],
 
-	getInitialState: function() {
-		return {
-			items: [
-				'02/07/2017',
-				'02/08/2017',
-				'02/09/2017',
-				'02/10/2017',
-				'02/11/2017',
-				'02/12/2017',
-				'02/13/2017',
-				'02/14/2017',
-				'02/15/2017',
-				'02/16/2017',
-				'02/17/2017',
-			],
-			index: 0
-		};
+	// getInitialState: function(){
+	//   return {
+	//   	activeStatusUpdateKey: '',
+	//   	activeStatusUpdateRelatedContractor: ''
+	//   }
+	// },
+
+	// setActiveStatusUpdateKey: function(keyPassed, contractorPassed) {
+	// 	this.setState({
+	// 		activeStatusUpdateKey: keyPassed,
+	// 		activeStatusUpdateRelatedContractor: contractorPassed
+	// 	})
+	// },
+
+	pushPage_ManageContractors: function(navigator) {
+		navigator.pushPage({
+			title: 'Manage Contractors',
+			hasBackButton: true
+		});
 	},
 
-	componentWillMount: function() {
-		// var projects = firebase.database().ref("projects");
-		// this.bindAsArray(projects, "projects");
-	},
+  	popPage: function(navigator) {
+  		navigator.popPage();
+  	},
 
-	renderToolbar: function() {
-	    return (
-		    <Ons.Toolbar>
-				<div className='center'>Project Schedule</div>
+	renderToolbar: function(route, navigator) {
+		const leftButton = route.hasBackButton
+		? <Ons.BackButton onClick={this.popPage.bind(this, navigator)}>Back</Ons.BackButton>
+		: <Ons.ToolbarButton ><Ons.Icon icon='md-home' onClick={this.props.navToHub} /></Ons.ToolbarButton>
+
+		return (
+			<Ons.Toolbar>
+				<div className='left'>{leftButton}</div>
+				<div className='center'>{route.title}</div>
 				<div className='right'>
+				{!route.hasBackButton &&
 					<Ons.ToolbarButton >
 						<Ons.Icon icon='md-settings' onClick={this.props.navToProjectSettings} />
 					</Ons.ToolbarButton>
+				}
 				</div>
-				<div className='left'>
-					<Ons.ToolbarButton >
-						<Ons.Icon icon='md-home' onClick={this.props.navToHub} />
-					</Ons.ToolbarButton>
-          		</div>
-		    </Ons.Toolbar>
-	  	)
+			</Ons.Toolbar>
+		);
 	},
 
-	// renderContractors: function() {
-	// 	return (
-	// 		)
-	// },
-
-	renderListOfContractors: function() {
+	renderPage: function(route, navigator) {
 		var me = this;
-		var borderColor = "#CCCCCC";
-		var singleDayHeaderStyle = {
-			paddingLeft: '5px',
-			fontSize: '12px',
-			display: 'block',
-			height: '66px'
-		}
-		var contractorCellStyle = {
-			paddingLeft: '0px',
-			fontSize: '12px'
-		}
-		var contractorColStyle = {
-			borderBottomColor: borderColor,
-			borderBottomWidth: '1px',
-			borderBottomStyle: 'solid',
-			borderRightColor: borderColor,
-			borderRightWidth: '1px',
-			borderRightStyle: 'solid',
-			paddingLeft: '5px',
-			paddingRight: '5px',
-			fontSize: '12px',
-			overflow: 'hidden',
-			height: '50px',
-			display: 'flex',
-			flexDirection: 'column',
-			justifyContent: 'center'
-		}
-		var contractorTradeStyle = {
-			fontSize: '10px',
-			fontStyle: 'italic'
+		var pageContent;
+		if (route.title == "Project Schedule") {
+			pageContent = <SingleProjectScheduleGantt
+							singleProject={this.props.singleProject} 
+							allContractors={this.props.allContractors} 
+							shortListedContractorsDetails={this.props.shortListedContractorsDetails} 
+							navToHub={this.props.navToHub} 
+							navToProjectSettings={this.props.navTo_ProjectSettings} 
+							navToManageContractors={me.pushPage_ManageContractors.bind(me, navigator)}
+							/>
+		} else {
+			pageContent = <SingleProjectScheduleManageContractors 
+							singleProject={this.props.singleProject} 
+							allContractors={this.props.allContractors} 
+							addContractorToShortlist={this.props.addContractorToShortlist} 
+							removeContractorFromShortlist={this.props.removeContractorFromShortlist} 
+							/>
 		}
 		return (
-			<div>
-				<div style={{height: '40px', background: borderColor}}>
-				</div>
-				{this.props.commonContractors.map(function(contractor, i){
-					return (
-						<Ons.Row><Ons.Col style={contractorColStyle}>
-							<div>{contractor.firstName + " " + contractor.lastName}</div>
-							<div style={contractorTradeStyle}>{contractor.trade}</div>
-						</Ons.Col></Ons.Row>
-					);
-				})}
-				<div style={{height: '40px'}}>
-					<Ons.Button style={{fontSize:'10px', height:'25px', marginLeft: '5px', marginTop:'10px', lineHeight:'16px'}}>
-						Add Contractor
-					</Ons.Button>
-				</div>
-			</div>
-		)
+			<Ons.Page key={route.title} renderToolbar={this.renderToolbar.bind(this, route, navigator)}>
+				{pageContent}
+			</Ons.Page>
+		);
+	},
+
+	updateTabbarVisibility_Show: function() {
+		this.props.toggleTabbarVisibility(true);
+	},
+
+	updateTabbarVisibility_Hide: function() {
+		this.props.toggleTabbarVisibility(false);
 	},
 
 	render: function() {
-		var me = this;
-		var carouselStyle ={
-      		height: '100%',
-      		left:'25%',
-      		width:'75%'
-    	}
-    	var contractorList = this.renderListOfContractors();
 		return (
-			<Ons.Page renderToolbar={this.renderToolbar}>
-				<Ons.Row>
-					<Ons.Col width="25%">
-						{contractorList}
-					</Ons.Col>
-					<Ons.Col width="75%">
-						<Ons.Carousel style={carouselStyle} onPostChange={this.handleChange} index={this.state.index} itemWidth="20%" fullscreen swipeable autoScroll overscrollable>
-						{this.state.items.map(function(item, index){
-							var day = ''; //.renderSingleDayCol(item);
-							return (
-								<SingleProjectScheduleRow commonContractors={me.props.commonContractors} day={item}/>
-								);
-						})}
-						</Ons.Carousel>
-					</Ons.Col>
-				</Ons.Row>
+			<Ons.Page>
+				<Ons.Navigator
+					renderPage={this.renderPage}
+					initialRoute={{
+						title: 'Project Schedule',
+						hasBackButton: false
+					}}
+					onPrePush={this.updateTabbarVisibility_Hide}
+					onPostPop={this.updateTabbarVisibility_Show}
+				/>
 			</Ons.Page>
-		)
+		);
 	}
 });
 

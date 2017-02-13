@@ -10,6 +10,7 @@ function Project(obj){
   this.note = (obj.note) ? obj.note : "";
   this.status = (obj.status) ? obj.status : "";
   this.shortListedContractors = (obj.shortListedContractors) ? obj.shortListedContractors : [];
+  this.owner = (obj.owner) ? obj.owner : "";
 
   this.errorMessages = (obj.errorMessages) ? obj.errorMessages : {};
 }
@@ -26,6 +27,7 @@ Project.prototype = {
       note: rawDetails.note,
       status: rawDetails.status,
       shortListedContractors: rawDetails.shortListedContractors,
+      owner: rawDetails.owner,
       deleted: false // By default, a project should always be not deleted. When we delete, we modify what preparePutObject object gives us in the component that uses it.
     }
     return firebaseProject;
