@@ -60,6 +60,17 @@ var SingleProjectSchedule = React.createClass({
 		);
 	},
 
+	renderSingleProjectScheduleManageContractors: function() {
+		return (
+			<SingleProjectScheduleManageContractors 
+							singleProject={this.props.singleProject} 
+							allContractors={this.props.allContractors} 
+							addContractorToShortlist={this.props.addContractorToShortlist} 
+							removeContractorFromShortlist={this.props.removeContractorFromShortlist} 
+							/>
+		);
+	},
+
 	renderPage: function(route, navigator) {
 		var me = this;
 		var pageContent;
@@ -73,12 +84,7 @@ var SingleProjectSchedule = React.createClass({
 							navToManageContractors={me.pushPage_ManageContractors.bind(me, navigator)}
 							/>
 		} else {
-			pageContent = <SingleProjectScheduleManageContractors 
-							singleProject={this.props.singleProject} 
-							allContractors={this.props.allContractors} 
-							addContractorToShortlist={this.props.addContractorToShortlist} 
-							removeContractorFromShortlist={this.props.removeContractorFromShortlist} 
-							/>
+			pageContent = this.renderSingleProjectScheduleManageContractors();
 		}
 		return (
 			<Ons.Page key={route.title} renderToolbar={this.renderToolbar.bind(this, route, navigator)}>
@@ -104,6 +110,7 @@ var SingleProjectSchedule = React.createClass({
 						title: 'Project Schedule',
 						hasBackButton: false
 					}}
+					animation="lift"
 					onPrePush={this.updateTabbarVisibility_Hide}
 					onPostPop={this.updateTabbarVisibility_Show}
 				/>
