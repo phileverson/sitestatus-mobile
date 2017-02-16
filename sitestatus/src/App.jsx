@@ -40,6 +40,7 @@ var App = React.createClass({
   authenticateUser: function() {
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
+        mixpanel.identify(user.uid);
         if (this.state.noAuthUser.company) { // if this isn't null, it means we were creating a new user!
           var user = firebase.database().ref("users/" + user.uid);
           user.set({
@@ -47,12 +48,22 @@ var App = React.createClass({
             firstName: this.state.noAuthUser.firstName,
             lastName: this.state.noAuthUser.lastName
           });
+          mixpanel.people.set({
+            "$email": this.state.noAuthUser.emailAddress,
+            "company": this.state.noAuthUser.company,
+            "$first_name": this.state.noAuthUser.firstName,
+            "$last_name": this.state.noAuthUser.lastName
+          });
         }
 
         this.setState({
           authChecked: true,
           loggedIn: true,
           user: user
+        });
+        
+        mixpanel.people.set({
+          "$last_login": new Date()
         });
       }
       else {

@@ -26,7 +26,6 @@ var ProjectsHub = React.createClass({
 
 	componentWillMount: function() {
 		var projects = firebase.database().ref("projects/" + this.props.currentUser.uid + "/").orderByChild("deleted").equalTo(false);
-		// var projects = firebase.database().ref("projects");
 		this.bindAsArray(projects, "projects");
 	},
 
@@ -37,17 +36,24 @@ var ProjectsHub = React.createClass({
 		})
 	},
 
-	navTo_SingleProject: function(activeProjectKey) {
+	navTo_SingleProject: function(singleProjectObj) {
 		this.setState({
 			authProjectsAppState: PagesConstants.SINGLE_PROJECT,
-			activeProjectKey: activeProjectKey
-		})
+			activeProjectKey: singleProjectObj['.key']
+		}, function(){
+			mixpanel.track("Launched Single Project",
+			{
+				"Project Name": singleProjectObj.name
+			})
+		});
 	},
 
 	navTo_ProjectsHub: function() {
 		this.setState({
 			authProjectsAppState: PagesConstants.PROJECTS_HUB
-		})
+		}, function(){
+			mixpanel.track("Navigated to Projects Hub");
+		});
 	},
 
 	createProject: function(projectObj) {
@@ -62,7 +68,13 @@ var ProjectsHub = React.createClass({
 			me.setState({
 				authProjectsAppState: PagesConstants.SINGLE_PROJECT,
 				activeProjectKey: newProjectEntry.key
-			})
+			}, function(){
+				mixpanel.track("Created Project",
+					{
+						"Project Name":  projectObj.name
+					});
+				}
+			);
 			var client = new HttpClient();
 			var requestURL = GlobalConstants.MM_SERVER_CREATE_NUMBER + me.props.currentUser.uid + "/" + newProjectEntry.key;
 			client.get(requestURL, function(response) {

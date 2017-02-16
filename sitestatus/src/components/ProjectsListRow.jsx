@@ -9,7 +9,7 @@ var ProjectsListRow = React.createClass({
 	mixins: [ReactFireMixin],
 
 	setActiveProjectInHub: function() {
-		this.props.launchProject(this.props.singleProject['.key'])
+		this.props.launchProject(this.props.singleProject)
 	},
 
 	render: function() {
