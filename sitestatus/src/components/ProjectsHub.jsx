@@ -4,7 +4,9 @@ var ons = require('onsenui');
 var Ons = require('react-onsenui');
 
 var PagesConstants = require('constants/pages.jsx');
+var GlobalConstants = require('constants/global.jsx');
 var Utils = require('util/util.jsx');
+var HttpClient = require('util/HttpClient.jsx');
 
 var Project = require('../models/project.jsx');
 
@@ -48,7 +50,7 @@ var ProjectsHub = React.createClass({
 		})
 	},
 
-	createUpdateProject: function(projectObj) {
+	createProject: function(projectObj) {
 		var me = this;
 		console.log('projectObj:');
 		console.log(projectObj);
@@ -61,6 +63,12 @@ var ProjectsHub = React.createClass({
 				authProjectsAppState: PagesConstants.SINGLE_PROJECT,
 				activeProjectKey: newProjectEntry.key
 			})
+			var client = new HttpClient();
+			var requestURL = GlobalConstants.MM_SERVER_CREATE_NUMBER + me.props.currentUser.uid + "/" + newProjectEntry.key;
+			client.get(requestURL, function(response) {
+				console.log('Requested creation of phone number.');
+			});
+
 		});
 	},
 
@@ -118,7 +126,7 @@ var ProjectsHub = React.createClass({
     									activeProjectKey={this.state.activeProjectKey} 
     									singleProject={blankProject} 
     									cancelCreate={this.navTo_ProjectsHub} 
-    									createNewOrUpdateProject={this.createUpdateProject}
+    									createNewOrUpdateProject={this.createProject}
     									/>;
     	}
 
