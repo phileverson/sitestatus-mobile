@@ -14,7 +14,7 @@ var SingleProjectScheduleManageContractors = React.createClass({
 	mixins: [ReactFireMixin],
 
 	handleContractorSwitch: function(contractorKey) {
-		var alreadySelected = _.includes(this.props.singleProject.shortListedContractors, contractorKey);
+		var alreadySelected = _.includes(this.props.shortListedContractors_Editable, contractorKey);
 
 		if (alreadySelected) {
 			this.props.removeContractorFromShortlist(contractorKey);
@@ -30,7 +30,7 @@ var SingleProjectScheduleManageContractors = React.createClass({
 				<Ons.ListHeader>Select Project Contrators</Ons.ListHeader>
 				<Ons.List>
 				{this.props.contractors.map(function(contractor, i){
-					var alreadySelected = _.includes(me.props.singleProject.shortListedContractors, contractor['key']);
+					var alreadySelected = _.includes(me.props.shortListedContractors_Editable, contractor['key']);
 					return <ContractorsListRow 
 							singleContractor={contractor}
 							index={i}

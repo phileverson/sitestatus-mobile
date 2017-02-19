@@ -103,29 +103,6 @@ var SingleProjectHome = React.createClass({
 		});
 	},
 
-	addContractorToProjectShortlist: function(contractorKey) {
-		console.log('Adding contractor to shortlist. Contractor Key:');
-		console.log(contractorKey)
-		var freshProjectObj = new Project(this.props.singleProject);
-		freshProjectObj.shortListedContractors.push(contractorKey);
-		freshProjectObj = freshProjectObj.preparePutObject();
-		this.updateProjectDetails(freshProjectObj);
-	},
-
-	removeContractorFromProjectShortlist: function(contractorKey) {
-		console.log('Removing contractor from shortlist. Contractor Key:');
-		console.log(contractorKey)
-
-		var shortListedContractorsToUpdate = _.clone(this.props.singleProject.shortListedContractors);
-		var indexToRemove = shortListedContractorsToUpdate.indexOf(contractorKey);
-		shortListedContractorsToUpdate.splice(indexToRemove, 1);
-
-		var freshProjectObj = new Project(this.props.singleProject);
-		freshProjectObj.shortListedContractors = shortListedContractorsToUpdate;
-		freshProjectObj = freshProjectObj.preparePutObject();
-		this.updateProjectDetails(freshProjectObj);
-	},
-
 	navTo_ProjectSettings: function() {
 		this.setState({
 			authSingleProjectAppState: PagesConstants.SINGLE_PROJECT_SETTINGS
@@ -176,6 +153,7 @@ var SingleProjectHome = React.createClass({
 							navToProjectSettings={this.navTo_ProjectSettings} 
 							addContractorToShortlist={this.addContractorToProjectShortlist}
 							removeContractorFromShortlist={this.removeContractorFromProjectShortlist}
+							updateProjectDetails={this.updateProjectDetails}
 							/>,
 				tab: <Ons.Tab label='Schedule' icon='ion-android-folder-open' />
 			}
