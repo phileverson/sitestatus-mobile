@@ -144,7 +144,7 @@ var SingleProjectHome = React.createClass({
 							statusUpdatesLoading={this.state.statusUpdatesLoading}
 							fetchFirebaseStatusUpdates={this.fetchFirebaseStatusUpdates}
 							/>,
-				tab: <Ons.Tab label='Updates' icon='md-settings' />
+				tab: <Ons.Tab label='Updates' icon='envelope-o' />
 			},
 			{
 				content: <SingleProjectSchedule 
@@ -160,7 +160,7 @@ var SingleProjectHome = React.createClass({
 							updateProjectDetails={this.updateProjectDetails}
 							currentUser={this.props.currentUser}
 							/>,
-				tab: <Ons.Tab label='Schedule' icon='ion-android-folder-open' />
+				tab: <Ons.Tab label='Schedule' icon='calendar-check-o' />
 			}
 		];
 	},
