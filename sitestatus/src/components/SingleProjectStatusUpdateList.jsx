@@ -159,7 +159,7 @@ var SingleProjectStatusUpdateList = React.createClass({
 
 	renderPage: function(route, navigator) {
 		var pageContent;
-		if (route.title == "Update Detail") {
+		if (route.title == "Update Details") {
 			pageContent = this.renderSingleUpdate();
 		} else {
 			pageContent = this.renderListOfUpdates(navigator);
