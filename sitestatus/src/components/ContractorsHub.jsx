@@ -94,7 +94,7 @@ var ContractorsHub = React.createClass({
 	      case 'preaction':
 	        return 'Release to Refresh';
 	      case 'action':
-	        return 'Loading...';
+	        return <Loading />;
 	    }
 	},
 	

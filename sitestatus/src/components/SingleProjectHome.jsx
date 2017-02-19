@@ -73,16 +73,17 @@ var SingleProjectHome = React.createClass({
 			},
 			then: function(data){
 				console.log('Fetched Status Updates')
-				if (pullHook_Done) {
-					this.setState({
-						statusUpdates: data
-					}, pullHook_Done);
-				} else {
-					this.setState({
+				this.setState({
 						statusUpdatesLoading:false,
 						statusUpdates: data
+					}, function(){
+						if (pullHook_Done) {
+							setTimeout(() => {
+								console.log('Released Status Updates PullHook');
+								pullHook_Done();
+							}, GlobalConstants.PULLHOOK_MIN_LOADING);
+						}
 					});
-				}
 			}
 		});
 	},

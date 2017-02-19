@@ -9,7 +9,7 @@ var Loading = React.createClass({
 		return (
 			<div>
 				<Ons.ProgressBar indeterminate />
-				<div style={{textAlign: 'center', marginTop:'10px'}}>
+				<div style={{textAlign: 'center', marginTop:'5px'}}>
 					Loading...
 				</div>
 			</div>

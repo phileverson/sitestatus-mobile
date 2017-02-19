@@ -70,18 +70,18 @@ var AuthHome = React.createClass({
 				equalTo: false
 			},
 			then: function(data){
-				console.log('Fetched Projects')
-				if (pullHook_Done) {
-					this.setState({
+				console.log('Fetched Projects');
+				this.setState({
 						projectsLoading:false,
 						projects: data
-					}, pullHook_Done);
-				} else {
-					this.setState({
-						projectsLoading:false,
-						projects: data
+					}, function(){
+						if (pullHook_Done) {
+							setTimeout(() => {
+								console.log('Released Projects PullHook');
+								pullHook_Done();
+							}, GlobalConstants.PULLHOOK_MIN_LOADING);
+						}
 					});
-				}
 			}
 		});
 	},
@@ -115,18 +115,18 @@ var AuthHome = React.createClass({
 				equalTo: false
 			},
 			then: function(data){
-				console.log('Fetched Contractors')
-				if (pullHook_Done) {
-					this.setState({
+				console.log('Fetched Contractors');
+				this.setState({
 						contractorsLoading:false,
 						contractors: data
-					}, pullHook_Done);
-				} else {
-					this.setState({
-						contractorsLoading:false,
-						contractors: data
+					}, function(){
+						if (pullHook_Done) {
+							setTimeout(() => {
+								console.log('Released Contractors PullHook');
+								pullHook_Done();
+							}, GlobalConstants.PULLHOOK_MIN_LOADING);
+						}
 					});
-				}
 			}
 		});
 	},
