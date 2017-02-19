@@ -112,7 +112,7 @@ var ContractorsHub = React.createClass({
 		    )
 		} else if (this.props.contractors.length == 0) {
 			return (
-	        	<div> No contractors, create some bro...</div>
+	        	<div>whoops looks like theres no contractors here.</div>
 	        )
 		} else {
 			return (

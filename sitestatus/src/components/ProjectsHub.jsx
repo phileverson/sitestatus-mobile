@@ -134,7 +134,7 @@ var ProjectsHub = React.createClass({
 		    )
 		} else if (this.props.projects.length == 0) {
 			return (
-	        	<div> No projects, create some bro...</div>
+	        	<div>whoops looks like theres no projects here.</div>
 	        )
 		} else {
 			return (
