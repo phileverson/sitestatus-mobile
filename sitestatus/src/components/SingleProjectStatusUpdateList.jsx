@@ -159,10 +159,10 @@ var SingleProjectStatusUpdateList = React.createClass({
 
 	renderPage: function(route, navigator) {
 		var pageContent;
-		if (route.title == "Project Updates") {
-			pageContent = this.renderListOfUpdates(navigator);
-		} else {
+		if (route.title == "Update Detail") {
 			pageContent = this.renderSingleUpdate();
+		} else {
+			pageContent = this.renderListOfUpdates(navigator);
 		}
 		return (
 			<Ons.Page key={route.title} renderToolbar={this.renderToolbar.bind(this, route, navigator)}>
@@ -186,7 +186,7 @@ var SingleProjectStatusUpdateList = React.createClass({
 				<Ons.Navigator
 					renderPage={this.renderPage}
 					initialRoute={{
-						title: 'Project Updates',
+						title: this.props.singleProject.name,
 						hasBackButton: false
 					}}
 					onPrePush={this.updateTabbarVisibility_Hide}

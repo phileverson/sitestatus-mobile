@@ -154,6 +154,7 @@ var SingleProjectHome = React.createClass({
 							addContractorToShortlist={this.addContractorToProjectShortlist}
 							removeContractorFromShortlist={this.removeContractorFromProjectShortlist}
 							updateProjectDetails={this.updateProjectDetails}
+							currentUser={this.props.currentUser}
 							/>,
 				tab: <Ons.Tab label='Schedule' icon='ion-android-folder-open' />
 			}

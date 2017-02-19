@@ -2,15 +2,26 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var ons = require('onsenui');
 var Ons = require('react-onsenui');
+var Rebase = require('re-base');
 
 var PagesConstants = require('constants/pages.jsx');
+var GlobalConstants = require('constants/global.jsx');
 var Styles = require('constants/styles.jsx');
 var Utils = require('util/util.jsx');
 
 var Project = require('../models/project.jsx');
+var Contractor = require('../models/contractor.jsx');
 
 var SingleProjectScheduleGantt = require('./SingleProjectScheduleGantt.jsx');
 var SingleProjectScheduleManageContractors = require('./SingleProjectScheduleManageContractors.jsx');
+var NewContractor = require('./NewContractor.jsx');
+
+var base = Rebase.createClass({
+    apiKey: GlobalConstants.FIREBASE_API_KEY,
+    authDomain: GlobalConstants.FIREBASE_AUTH_DOMAIN,
+    databaseURL: GlobalConstants.FIREBASE_DATABASE_URL,
+    storageBucket: GlobalConstants.FIREBASE_STORAGE_BUCKET
+});
 
 var SingleProjectSchedule = React.createClass({
 	mixins: [ReactFireMixin],
@@ -51,6 +62,7 @@ var SingleProjectSchedule = React.createClass({
 		this.props.updateProjectDetails(freshProjectObj);
 
   		navigator.popPage();
+  		this.props.toggleTabbarVisibility(true);
   	},
 
 	pushPage_ManageContractors: function(navigator) {
@@ -60,6 +72,35 @@ var SingleProjectSchedule = React.createClass({
 		});
 	},
 
+	pushPage_AddContractor: function(navigator) {
+		navigator.pushPage({
+			title: 'Add Contractor',
+			hasBackButton: true
+		});
+	},
+
+  	popPage_CancelAddContractor: function(navigator) {
+  		navigator.popPage();
+  	},
+
+  	popPage_SaveNewContractor: function(navigator, contractorObject) {
+  		console.log(contractorObject);
+
+  		var contractorsEndPoint = "contractors/" + this.props.currentUser.uid + "/";
+  		var newlyAddedContractor = base.push(contractorsEndPoint,{
+  			data: contractorObject,
+  			then: function(err) {
+  				if(!err) {
+  					navigator.popPage();
+  				}
+  			}
+  		})
+
+  		// Toggling that contractor to "on" and saving it in the EDITABLE short list
+  		// (thus user will have to press save in order for it to save)
+		this.addContractorToShortlist(newlyAddedContractor.key);
+  	},
+
   	popPage_CancelManageContractors: function(navigator) {
   		// Reset the editable short list to only include what was last provided by singleproject.
   		// Voiding the user's changes (as they cancelled them).
@@ -67,9 +108,14 @@ var SingleProjectSchedule = React.createClass({
   			shortListedContractors_Editable: this.props.singleProject.shortListedContractors
   		})
   		navigator.popPage();
+  		this.props.toggleTabbarVisibility(true);
   	},
 
 	renderToolbar: function(route, navigator) {
+		if (route.title == "Add Contractor") {
+			return ('');
+		}
+
 		const leftButton = route.hasBackButton
 		? <Ons.ToolbarButton onClick={this.popPage_CancelManageContractors.bind(this, navigator)}>Cancel</Ons.ToolbarButton>
 		: <Ons.ToolbarButton ><Ons.Icon icon='md-home' onClick={this.props.navToHub} /></Ons.ToolbarButton>
@@ -89,7 +135,24 @@ var SingleProjectSchedule = React.createClass({
 	renderPage: function(route, navigator) {
 		var me = this;
 		var pageContent;
-		if (route.title == "Project Schedule") {
+		if (route.title == "Manage Contractors") {
+			pageContent = <SingleProjectScheduleManageContractors 
+							singleProject={this.props.singleProject} 
+							contractors={this.props.contractors} 
+							addContractorToShortlist={this.addContractorToShortlist}
+							removeContractorFromShortlist={this.removeContractorFromShortlist}
+							shortListedContractors_Editable={this.state.shortListedContractors_Editable}
+							navToAddContractor={me.pushPage_AddContractor.bind(me, navigator)}
+							/>
+		} else if (route.title == "Add Contractor") {
+			var blankContractor = new Contractor({});
+			pageContent = <NewContractor 
+							singleContractor={blankContractor} 
+							cancelCreate={me.popPage_CancelAddContractor.bind(me, navigator)}
+							updateSingleContractor={me.popPage_SaveNewContractor.bind(me, navigator)}
+							currentUser={this.props.currentUser}
+							/>
+		} else {
 			pageContent = <SingleProjectScheduleGantt
 							singleProject={this.props.singleProject} 
 							contractors={this.props.contractors} 
@@ -97,14 +160,6 @@ var SingleProjectSchedule = React.createClass({
 							navToHub={this.props.navToHub} 
 							navToProjectSettings={this.props.navTo_ProjectSettings} 
 							navToManageContractors={me.pushPage_ManageContractors.bind(me, navigator)}
-							/>
-		} else {
-			pageContent = <SingleProjectScheduleManageContractors 
-							singleProject={this.props.singleProject} 
-							contractors={this.props.contractors} 
-							addContractorToShortlist={this.addContractorToShortlist}
-							removeContractorFromShortlist={this.removeContractorFromShortlist}
-							shortListedContractors_Editable={this.state.shortListedContractors_Editable}
 							/>
 		}
 
@@ -116,7 +171,7 @@ var SingleProjectSchedule = React.createClass({
 	},
 
 	updateTabbarVisibility_Show: function() {
-		this.props.toggleTabbarVisibility(true);
+		// this.props.toggleTabbarVisibility(true);
 	},
 
 	updateTabbarVisibility_Hide: function() {
@@ -129,7 +184,7 @@ var SingleProjectSchedule = React.createClass({
 				<Ons.Navigator
 					renderPage={this.renderPage}
 					initialRoute={{
-						title: 'Project Schedule',
+						title: this.props.singleProject.name,
 						hasBackButton: false
 					}}
 					animation="lift"
