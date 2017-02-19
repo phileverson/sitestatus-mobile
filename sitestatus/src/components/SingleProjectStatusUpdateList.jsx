@@ -2,8 +2,10 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var ons = require('onsenui');
 var Ons = require('react-onsenui');
+var Rebase = require('re-base');
 
 var PagesConstants = require('constants/pages.jsx');
+var GlobalConstants = require('constants/global.jsx');
 var Utils = require('util/util.jsx');
 
 var Project = require('../models/project.jsx');
@@ -12,6 +14,7 @@ var SingleProjectStatusUpdatesListRow = require('./SingleProjectStatusUpdatesLis
 var SingleProjectSingleStatusUpdate = require('./SingleProjectSingleStatusUpdate.jsx');
 var NewProject = require('./NewProject.jsx');
 var SingleProjectHome = require('./SingleProjectHome.jsx');
+var Loading = require('./Loading.jsx');
 
 var index = 0;
 
@@ -29,11 +32,6 @@ var SingleProjectStatusUpdateList = React.createClass({
 	  	zeroContractorsScheduledToday: zeroContractorsScheduledToday,
 	  	zeroContractorsScheduledTodayWarningShown: false
 	  }
-	},
-
-	componentWillMount: function() {
-		var statusUpdates = firebase.database().ref("projects-status-updates/" + this.props.singleProject['.key']).orderByKey();
-		this.bindAsArray(statusUpdates, "statusUpdates");
 	},
 
 	setActiveStatusUpdateKey: function(keyPassed, contractorPassed, passedNavigator) {
@@ -91,7 +89,7 @@ var SingleProjectStatusUpdateList = React.createClass({
 	},
 
 	renderSingleUpdate: function() {
-		var singleUpdateData = Utils.findStatusUpdateByKey(this.state.activeStatusUpdateKey, this.state.statusUpdates);
+		var singleUpdateData = Utils.findStatusUpdateByKey(this.state.activeStatusUpdateKey, this.props.statusUpdates);
 		return (
 			<SingleProjectSingleStatusUpdate
 				singleUpdate={singleUpdateData}
@@ -100,35 +98,62 @@ var SingleProjectStatusUpdateList = React.createClass({
 		);
 	},
 
+	pullHookGetContent: function() {
+	    switch (this.state.state) {
+	      case 'initial':
+	        return 'Pull to Refresh';
+	      case 'preaction':
+	        return 'Release to Refresh';
+	      case 'action':
+	        return 'Loading...';
+	    }
+	},
+	
+	pullHookHandleChange: function(e) {
+    	this.setState({
+    		state: e.state
+    	});
+    },
+
 	renderListOfUpdates: function(navigator) {
 		var me = this;
-		var allContractorsCopy = _.cloneDeep(me.props.allContractors);
-		var allStatusUpdates = _.cloneDeep(this.state.statusUpdates);
-		allStatusUpdates.reverse();
-		var previousUpdateDate = null;
-		if(allContractorsCopy) { // so for somereason, sometimes, allContractors is null. No clue why. This if prevents a reactfire error.
-			return (
-				<Ons.List>
-				{allStatusUpdates.map(function(update, i){
-					var relatedContractor = Utils.findContractorByPhoneNumber(update.From, allContractorsCopy);
-					var previousUpdate = allStatusUpdates[(i-1)];
+		var allContractorsCopy = _.cloneDeep(me.props.contractors);
 
-					return (
-						<SingleProjectStatusUpdatesListRow
-							previousUpdate={previousUpdate}
-							singleUpdate={update}
-							relatedContractor={relatedContractor}
-							index={i}
-							key={i}
-							passedNavigator={navigator}
-							launchUpdate_PushPage={me.pushPage.bind(me, navigator)}
-							launchUpdate_SetActiveStatus={me.setActiveStatusUpdateKey}
-							/>
-						);
-					previousUpdateDate = updateDate;
-				})}
-				</Ons.List>
-			)
+		if(allContractorsCopy) { // so for somereason, sometimes, allContractors is null. No clue why. This if prevents a reactfire error.
+			if (this.props.statusUpdatesLoading || !this.props.statusUpdates) {
+				return (
+			    	<Loading />
+			    )
+			} else if (this.props.statusUpdates == 0) {
+				return (
+		        	<div> No updates bro...</div>
+		        )
+			} else {
+				return (
+					<Ons.List>
+					<Ons.PullHook onChange={this.pullHookHandleChange} onLoad={this.props.fetchFirebaseStatusUpdates} >
+						{this.pullHookGetContent()}
+					</Ons.PullHook>
+					{me.props.statusUpdates.map(function(update, i){
+						var relatedContractor = Utils.findContractorByPhoneNumber(update.From, allContractorsCopy);
+						var previousUpdate = me.props.statusUpdates[(i-1)];
+
+						return (
+							<SingleProjectStatusUpdatesListRow
+								previousUpdate={previousUpdate}
+								singleUpdate={update}
+								relatedContractor={relatedContractor}
+								index={i}
+								key={i}
+								passedNavigator={navigator}
+								launchUpdate_PushPage={me.pushPage.bind(me, navigator)}
+								launchUpdate_SetActiveStatus={me.setActiveStatusUpdateKey}
+								/>
+							);
+					})}
+					</Ons.List>
+				)
+			}
 		}
 	},
 

@@ -23,13 +23,15 @@ var ProjectsListRow = React.createClass({
 						{this.props.singleProject.address}
 					</span>
 				</div>
-				<div className="right">
-					<NotificationBadge count='1' effect={Effect.ROTATE_X}/>
-				</div>
 
 			</Ons.ListItem>
 		)
 	}
 });
+
+				// Phil's tired of this stupid error in the console.
+				// <div className="right">
+				// 	<NotificationBadge count='1' effect={Effect.ROTATE_X}/>
+				// </div>
 
 module.exports = ProjectsListRow;

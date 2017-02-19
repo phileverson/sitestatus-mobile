@@ -29,8 +29,8 @@ var SingleProjectScheduleManageContractors = React.createClass({
 			<section>
 				<Ons.ListHeader>Select Project Contrators</Ons.ListHeader>
 				<Ons.List>
-				{this.props.allContractors.map(function(contractor, i){
-					var alreadySelected = _.includes(me.props.singleProject.shortListedContractors, contractor['.key']);
+				{this.props.contractors.map(function(contractor, i){
+					var alreadySelected = _.includes(me.props.singleProject.shortListedContractors, contractor['key']);
 					return <ContractorsListRow 
 							singleContractor={contractor}
 							index={i}

@@ -15,20 +15,6 @@ var SingleProjectScheduleManageContractors = require('./SingleProjectScheduleMan
 var SingleProjectSchedule = React.createClass({
 	mixins: [ReactFireMixin],
 
-	// getInitialState: function(){
-	//   return {
-	//   	activeStatusUpdateKey: '',
-	//   	activeStatusUpdateRelatedContractor: ''
-	//   }
-	// },
-
-	// setActiveStatusUpdateKey: function(keyPassed, contractorPassed) {
-	// 	this.setState({
-	// 		activeStatusUpdateKey: keyPassed,
-	// 		activeStatusUpdateRelatedContractor: contractorPassed
-	// 	})
-	// },
-
 	pushPage_ManageContractors: function(navigator) {
 		navigator.pushPage({
 			title: 'Manage Contractors',
@@ -60,11 +46,11 @@ var SingleProjectSchedule = React.createClass({
 	renderSingleProjectScheduleManageContractors: function() {
 		return (
 			<SingleProjectScheduleManageContractors 
-							singleProject={this.props.singleProject} 
-							allContractors={this.props.allContractors} 
-							addContractorToShortlist={this.props.addContractorToShortlist} 
-							removeContractorFromShortlist={this.props.removeContractorFromShortlist} 
-							/>
+			singleProject={this.props.singleProject} 
+			contractors={this.props.contractors} 
+			addContractorToShortlist={this.props.addContractorToShortlist} 
+			removeContractorFromShortlist={this.props.removeContractorFromShortlist} 
+			/>
 		);
 	},
 
@@ -74,7 +60,7 @@ var SingleProjectSchedule = React.createClass({
 		if (route.title == "Project Schedule") {
 			pageContent = <SingleProjectScheduleGantt
 							singleProject={this.props.singleProject} 
-							allContractors={this.props.allContractors} 
+							contractors={this.props.contractors} 
 							shortListedContractorsDetails={this.props.shortListedContractorsDetails} 
 							navToHub={this.props.navToHub} 
 							navToProjectSettings={this.props.navTo_ProjectSettings} 

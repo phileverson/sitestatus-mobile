@@ -2,6 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var ons = require('onsenui');
 var Ons = require('react-onsenui');
+var Rebase = require('re-base');
 
 var PagesConstants = require('constants/pages.jsx');
 var GlobalConstants = require('constants/global.jsx');
@@ -13,20 +14,23 @@ var Project = require('../models/project.jsx');
 var ProjectsListRow = require('./ProjectsListRow.jsx');
 var NewProject = require('./NewProject.jsx');
 var SingleProjectHome = require('./SingleProjectHome.jsx');
+var Loading = require('./Loading.jsx');
+
+var base = Rebase.createClass({
+    apiKey: GlobalConstants.FIREBASE_API_KEY,
+    authDomain: GlobalConstants.FIREBASE_AUTH_DOMAIN,
+    databaseURL: GlobalConstants.FIREBASE_DATABASE_URL,
+    storageBucket: GlobalConstants.FIREBASE_STORAGE_BUCKET
+});
 
 var ProjectsHub = React.createClass({
-	mixins: [ReactFireMixin],
+	// mixins: [ReactFireMixin],
 
 	getInitialState: function(){
 	  return {
 	  	authProjectsAppState: PagesConstants.PROJECTS_HUB,
 	  	activeProjectKey: ''
 	  }
-	},
-
-	componentWillMount: function() {
-		var projects = firebase.database().ref("projects/" + this.props.currentUser.uid + "/").orderByChild("deleted").equalTo(false);
-		this.bindAsArray(projects, "projects");
 	},
 
 	navTo_NewProject: function() {
@@ -39,7 +43,7 @@ var ProjectsHub = React.createClass({
 	navTo_SingleProject: function(singleProjectObj) {
 		this.setState({
 			authProjectsAppState: PagesConstants.SINGLE_PROJECT,
-			activeProjectKey: singleProjectObj['.key']
+			activeProjectKey: singleProjectObj['key']
 		}, function(){
 			mixpanel.track("Launched Single Project",
 			{
@@ -104,15 +108,46 @@ var ProjectsHub = React.createClass({
 		}
 	},
 
+	pullHookGetContent: function() {
+	    switch (this.state.state) {
+	      case 'initial':
+	        return 'Pull to Refresh';
+	      case 'preaction':
+	        return 'Release to Refresh';
+	      case 'action':
+	        return 'Loading...';
+	    }
+	},
+	
+	pullHookHandleChange: function(e) {
+    	this.setState({
+    		state: e.state
+    	});
+    },
+
 	renderListOfProjects: function() {
 		var me = this;
-		return (
-			<Ons.List>
-			{this.state.projects.map(function(project, i){
-				return <ProjectsListRow singleProject={project} index={i} key={i} launchProject={me.navTo_SingleProject}/> ;
-			})}
-			</Ons.List>
-		)
+
+		if (this.props.projectsLoading) {
+			return (
+				<Loading />
+		    )
+		} else if (this.props.projects.length == 0) {
+			return (
+	        	<div> No projects, create some bro...</div>
+	        )
+		} else {
+			return (
+				<Ons.List>
+					<Ons.PullHook onChange={this.pullHookHandleChange} onLoad={this.props.fetchFirebaseProjects} >
+						{this.pullHookGetContent()}
+					</Ons.PullHook>
+					{this.props.projects.map(function(project, i){
+						return <ProjectsListRow singleProject={project} index={i} key={i} launchProject={me.navTo_SingleProject}/> ;
+					})}
+				</Ons.List>
+			)
+		}
 	},
 
 	render: function() {
@@ -122,13 +157,13 @@ var ProjectsHub = React.createClass({
     		authProjectsAppComponent = this.renderListOfProjects(); 
 
     	} else if (this.state.authProjectsAppState == PagesConstants.SINGLE_PROJECT) {
-    		var activeProjectObject = Utils.findProjectByKey(this.state.activeProjectKey, this.state.projects);
-    		// console.log(activeProjectObject);
+    		var activeProjectObject = Utils.findProjectByKey(this.state.activeProjectKey, this.props.projects);
     		authProjectsAppComponent = <SingleProjectHome 
     									currentUser={this.props.currentUser} 
     									activeProjectKey={this.state.activeProjectKey} 
     									singleProject={activeProjectObject} 
     									navToHub={this.navTo_ProjectsHub} 
+    									contractors={this.props.contractors}
     									/>;
 
     	} else if (this.state.authProjectsAppState == PagesConstants.ADD_PROJECT) {
