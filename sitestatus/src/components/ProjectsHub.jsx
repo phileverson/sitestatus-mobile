@@ -106,13 +106,19 @@ var ProjectsHub = React.createClass({
 
 	renderListOfProjects: function() {
 		var me = this;
-		return (
+		if (this.state.projects.length==0){
+			return "whoops looks like theres no projects here."
+		}
+		else{
+			return (
 			<Ons.List>
 			{this.state.projects.map(function(project, i){
 				return <ProjectsListRow singleProject={project} index={i} key={i} launchProject={me.navTo_SingleProject}/> ;
 			})}
 			</Ons.List>
 		)
+		}
+		
 	},
 
 	render: function() {

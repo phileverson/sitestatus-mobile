@@ -115,7 +115,7 @@ var SingleProjectHome = React.createClass({
 							navToProjectSettings={this.navTo_ProjectSettings} 
 							scheduledContractors_Today={this.state.scheduledContractors_Today}
 							/>,
-				tab: <Ons.Tab label='Updates' icon='md-settings' />
+				tab: <Ons.Tab label='Updates' icon='envelope-o' />
 			},
 			{
 				content: <SingleProjectSchedule 
@@ -129,7 +129,7 @@ var SingleProjectHome = React.createClass({
 							addContractorToShortlist={this.addContractorToProjectShortlist}
 							removeContractorFromShortlist={this.removeContractorFromProjectShortlist}
 							/>,
-				tab: <Ons.Tab label='Schedule' icon='ion-android-folder-open' />
+				tab: <Ons.Tab label='Schedule' icon='calendar-check-o' />
 			}
 		];
 	},

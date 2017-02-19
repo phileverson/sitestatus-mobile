@@ -90,13 +90,19 @@ var ContractorsHub = React.createClass({
 
 	renderListOfContractors: function() {
 		var me = this;
-		return (
+		if (this.state.contractors.length==0){
+			return "whoops looks like theres no contractors here."
+		}
+		else{
+			return (
 			<Ons.List>
 			{this.state.contractors.map(function(contractor, i){
 				return <ContractorsListRow singleContractor={contractor} index={i} requestContractorEdit={me.navTo_EditContractor}/> ;
 			})}
 			</Ons.List>
 			)
+		}
+		
 	},
 
 	render: function() {
