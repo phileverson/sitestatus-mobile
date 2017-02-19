@@ -3,7 +3,7 @@ var moment = require('moment');
 module.exports = {
 	findContractorByKey: function(key, contractorsList) {
 		for (var i = 0; i < contractorsList.length; i++) {
-			if (contractorsList[i]['.key'] == key) {
+			if (contractorsList[i]['key'] == key) {
 				// console.log('returning:');
 				// console.log(contractorsList[i]);
 				return contractorsList[i];
@@ -20,14 +20,14 @@ module.exports = {
 	},
 	findProjectByKey: function(key, projectsList) {
 		for (var i = 0; i < projectsList.length; i++) {
-			if (projectsList[i]['.key'] == key) {
+			if (projectsList[i]['key'] == key) {
 				return projectsList[i];
 			}
 		}
 	},
 	findStatusUpdateByKey: function(key, statusUpdateList) {
 		for (var i = 0; i < statusUpdateList.length; i++) {
-			if (statusUpdateList[i]['.key'] == key) {
+			if (statusUpdateList[i]['key'] == key) {
 				return statusUpdateList[i];
 			}
 		}

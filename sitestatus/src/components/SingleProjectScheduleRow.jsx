@@ -22,7 +22,7 @@ var SingleProjectScheduleRow = React.createClass({
 	componentWillMount: function() {
 		var fullDate = moment(this.props.day);
 		var dateKey = fullDate.format("MM-DD-YYYY");
-		var projectKey = this.props.singleProject['.key']
+		var projectKey = this.props.singleProject['key']
 
 		var projectsScheduleDayRef = firebase.database().ref("projects-schedule/" + projectKey + "/" + dateKey + "/contractors/");
 		this.bindAsArray(projectsScheduleDayRef, "scheduledContractors");
@@ -31,7 +31,7 @@ var SingleProjectScheduleRow = React.createClass({
 	toggleContractorSchedule: function(contractorKey) {
 		var fullDate = moment(this.props.day);
 		var dateKey = fullDate.format("MM-DD-YYYY");
-		var projectKey = this.props.singleProject['.key']
+		var projectKey = this.props.singleProject['key']
 
 		var contractorKeyScheduledContractorsIndex = Utils.daysScheduleContractorIndex(contractorKey, this.state.scheduledContractors);
 		// console.log(contractorKeyScheduledContractorsIndex);
@@ -108,9 +108,9 @@ var SingleProjectScheduleRow = React.createClass({
 								<div>Loading...</div>
 							);
 						}
-						var activeCheck = scheduledContractorsAsArray.includes(contractor['.key']);
+						var activeCheck = scheduledContractorsAsArray.includes(contractor['key']);
 						return (
-							<SingleProjectScheduleCell projectKey={me.props.singleProject['.key']} contractorKey={contractor['.key']} dateKey={dateKey} onTap={me.toggleContractorSchedule} active={activeCheck} />
+							<SingleProjectScheduleCell projectKey={me.props.singleProject['key']} contractorKey={contractor['key']} dateKey={dateKey} onTap={me.toggleContractorSchedule} active={activeCheck} />
 						);
 					})}
 				</div>

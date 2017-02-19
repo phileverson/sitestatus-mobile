@@ -7,7 +7,7 @@ var ContractorsListRow = React.createClass({
 	mixins: [ReactFireMixin],
 
 	setActiveContractorInHub: function() {
-		this.props.requestContractorEdit(this.props.singleContractor['.key'])
+		this.props.requestContractorEdit(this.props.singleContractor['key'])
 	},
 
 	renderToggleSwitch: function() {
@@ -17,7 +17,7 @@ var ContractorsListRow = React.createClass({
 	},
 
 	handleToggleSwitchChange: function() {
-		this.props.toggleSwitchChange(this.props.singleContractor['.key']);
+		this.props.toggleSwitchChange(this.props.singleContractor['key']);
 	},
 
 	render: function() {

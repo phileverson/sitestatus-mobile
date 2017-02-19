@@ -3,8 +3,10 @@ var ReactDOM = require('react-dom');
 var ons = require('onsenui');
 var Ons = require('react-onsenui');
 var moment = require('moment');
+var Rebase = require('re-base');
 
 var PagesConstants = require('constants/pages.jsx');
+var GlobalConstants = require('constants/global.jsx');
 var Utils = require('util/util.jsx');
 var Project = require('../models/project.jsx');
 
@@ -12,13 +14,19 @@ var SingleProjectStatusUpdateList = require('./SingleProjectStatusUpdateList.jsx
 var SingleProjectSchedule = require('./SingleProjectSchedule.jsx');
 var NewProject = require('./NewProject.jsx');
 
+var base = Rebase.createClass({
+    apiKey: GlobalConstants.FIREBASE_API_KEY,
+    authDomain: GlobalConstants.FIREBASE_AUTH_DOMAIN,
+    databaseURL: GlobalConstants.FIREBASE_DATABASE_URL,
+    storageBucket: GlobalConstants.FIREBASE_STORAGE_BUCKET
+});
+
 var SingleProjectHome = React.createClass({
 	mixins: [ReactFireMixin],
 
 	getInitialState: function(){
 	  return {
 	  	index:0,
-	  	allContractors: [],
 	  	scheduledContractors_Today: false,
 	  	tabbarVisible: true,
 	  	authSingleProjectAppState: PagesConstants.SINGLE_PROJECT
@@ -26,17 +34,55 @@ var SingleProjectHome = React.createClass({
 	},
 
 	componentWillMount: function() {
-		// All contractors, as we need them for schedule update stuff:
-		var allContractors = firebase.database().ref("contractors/" + this.props.currentUser.uid + "/" );
-		this.bindAsArray(allContractors, "allContractors");
+		this.fetchFirebaseStatusUpdates();
+		this.listenFirebaseStatusUpdates();
 
 		// Contractors scheduled to send updates today:
 		var fullDate = moment();
 		var dateKey = fullDate.format("MM-DD-YYYY");
-		var projectKey = this.props.singleProject['.key']
+		var projectKey = this.props.singleProject['key']
 
 		var projectsScheduleDayRef = firebase.database().ref("projects-schedule/" + projectKey + "/" + dateKey + "/contractors/");
 		this.bindAsArray(projectsScheduleDayRef, "scheduledContractors_Today");
+	},
+
+	listenFirebaseStatusUpdates: function() {
+		var statusUpdatesEndPoint = "projects-status-updates/" + this.props.singleProject['key'];
+		base.listenTo(statusUpdatesEndPoint, {
+			context: this,
+			asArray: true,
+			queries: {},
+			then: function(data){
+				this.setState({
+					statusUpdates: data
+				});
+				console.log('Detected Change: Status Updates');
+			}
+		});
+	},
+
+	fetchFirebaseStatusUpdates: function(pullHook_Done) {
+		var statusUpdatesEndPoint = "projects-status-updates/" + this.props.singleProject['key'];
+		base.fetch(statusUpdatesEndPoint, {
+			context: this,
+			state: 'statusUpdates',
+			asArray: true,
+			queries: {
+			},
+			then: function(data){
+				console.log('Fetched Status Updates')
+				if (pullHook_Done) {
+					this.setState({
+						statusUpdates: data
+					}, pullHook_Done);
+				} else {
+					this.setState({
+						statusUpdatesLoading:false,
+						statusUpdates: data
+					});
+				}
+			}
+		});
 	},
 
 	updateProjectDetails: function(projectObj) {
@@ -44,7 +90,7 @@ var SingleProjectHome = React.createClass({
 		console.log('projectObj:');
 		console.log(projectObj);
 		// adding new project:
-		var project = firebase.database().ref("projects/" + this.props.currentUser.uid + "/" + this.props.singleProject['.key']);
+		var project = firebase.database().ref("projects/" + this.props.currentUser.uid + "/" + this.props.singleProject['key']);
 		// var updatedProjectDetail = project.set(projectObj);
 		// console.log('New Project Saved');
 		// console.log(updatedProjectDetail);
@@ -55,29 +101,6 @@ var SingleProjectHome = React.createClass({
 				me.navTo_SingleProjectTabs();
 			}
 		});
-	},
-
-	addContractorToProjectShortlist: function(contractorKey) {
-		console.log('Adding contractor to shortlist. Contractor Key:');
-		console.log(contractorKey)
-		var freshProjectObj = new Project(this.props.singleProject);
-		freshProjectObj.shortListedContractors.push(contractorKey);
-		freshProjectObj = freshProjectObj.preparePutObject();
-		this.updateProjectDetails(freshProjectObj);
-	},
-
-	removeContractorFromProjectShortlist: function(contractorKey) {
-		console.log('Removing contractor from shortlist. Contractor Key:');
-		console.log(contractorKey)
-
-		var shortListedContractorsToUpdate = _.clone(this.props.singleProject.shortListedContractors);
-		var indexToRemove = shortListedContractorsToUpdate.indexOf(contractorKey);
-		shortListedContractorsToUpdate.splice(indexToRemove, 1);
-
-		var freshProjectObj = new Project(this.props.singleProject);
-		freshProjectObj.shortListedContractors = shortListedContractorsToUpdate;
-		freshProjectObj = freshProjectObj.preparePutObject();
-		this.updateProjectDetails(freshProjectObj);
 	},
 
 	navTo_ProjectSettings: function() {
@@ -99,7 +122,7 @@ var SingleProjectHome = React.createClass({
 		if (this.props.singleProject.shortListedContractors) {
 			for (var i = 0; i < this.props.singleProject.shortListedContractors.length; i++) {
 				var newContractor = null;
-				newContractor = Utils.findContractorByKey(this.props.singleProject.shortListedContractors[i], this.state.allContractors);
+				newContractor = Utils.findContractorByKey(this.props.singleProject.shortListedContractors[i], this.props.contractors);
 				shortListedContractorsDetails.push(newContractor);
 			}
 		}
@@ -110,10 +133,12 @@ var SingleProjectHome = React.createClass({
 							key='SingleProjectStatusUpdateList' 
 							toggleTabbarVisibility={this.toggleTabbarVisibility} 
 							singleProject={this.props.singleProject} 
-							allContractors={this.state.allContractors} 
+							contractors={this.props.contractors} 
 							navToHub={this.props.navToHub} 
 							navToProjectSettings={this.navTo_ProjectSettings} 
 							scheduledContractors_Today={this.state.scheduledContractors_Today}
+							statusUpdates={this.state.statusUpdates}
+							fetchFirebaseStatusUpdates={this.fetchFirebaseStatusUpdates}
 							/>,
 				tab: <Ons.Tab label='Updates' icon='envelope-o' />
 			},
@@ -122,12 +147,14 @@ var SingleProjectHome = React.createClass({
 							key='SingleProjectSchedule' 
 							toggleTabbarVisibility={this.toggleTabbarVisibility} 
 							singleProject={this.props.singleProject} 
-							allContractors={this.state.allContractors} 
+							contractors={this.props.contractors} 
 							shortListedContractorsDetails={shortListedContractorsDetails} 
 							navToHub={this.props.navToHub} 
 							navToProjectSettings={this.navTo_ProjectSettings} 
 							addContractorToShortlist={this.addContractorToProjectShortlist}
 							removeContractorFromShortlist={this.removeContractorFromProjectShortlist}
+							updateProjectDetails={this.updateProjectDetails}
+							currentUser={this.props.currentUser}
 							/>,
 				tab: <Ons.Tab label='Schedule' icon='calendar-check-o' />
 			}
@@ -177,7 +204,7 @@ var SingleProjectHome = React.createClass({
 		} else { // Editing project details
 			var singleProjectForProjectDetail = new Project(this.props.singleProject);
 			return (
-				<NewProject singleProject={singleProjectForProjectDetail} singleProjectKey={this.props.singleProject['.key']} createNewOrUpdateProject={this.updateProjectDetails} cancelCreate={this.navTo_SingleProjectTabs} />
+				<NewProject singleProject={singleProjectForProjectDetail} singleProjectKey={this.props.singleProject['key']} createNewOrUpdateProject={this.updateProjectDetails} cancelCreate={this.navTo_SingleProjectTabs} currentUser={this.props.currentUser}/>
 			)
 		} 
 	}

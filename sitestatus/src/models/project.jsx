@@ -2,7 +2,6 @@
 
 function Project(obj){
   // Fields:
-  this.projectID = (obj.projectID) ? obj.projectID : "";
   this.name = (obj.name) ? obj.name : "";
   this.address = (obj.address) ? obj.address : "";
   this.question = (obj.question) ? obj.question : "";

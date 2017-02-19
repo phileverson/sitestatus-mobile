@@ -2,14 +2,17 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var ons = require('onsenui');
 var Ons = require('react-onsenui');
+var Rebase = require('re-base');
 
 var PagesConstants = require('constants/pages.jsx');
+var GlobalConstants = require('constants/global.jsx');
 var Utils = require('util/util.jsx');
 
 var Contractor = require('../models/contractor.jsx');
 
 var ContractorsListRow = require('./ContractorsListRow.jsx');
 var NewContractor = require('./NewContractor.jsx');
+var Loading = require('./Loading.jsx');
 
 var ContractorsHub = React.createClass({
 	mixins: [ReactFireMixin],
@@ -17,14 +20,10 @@ var ContractorsHub = React.createClass({
 	getInitialState: function(){
 	  return {
 	  	authContractorAppState: PagesConstants.CONTRACTORS_LIST,
-	  	activeContractorKey: ''
+	  	activeContractorKey: '',
+	  	contractors: GlobalConstants.LOADING,
+	  	contractorsLoading: true
 	  }
-	},
-
-	componentWillMount: function() {
-		//var contractors = firebase.database().ref("contractors/" + this.props.currentUser.uid + "/");
-		var contractors = firebase.database().ref("contractors/" + this.props.currentUser.uid + "/").orderByChild("deleted").equalTo(false);
-		this.bindAsArray(contractors, "contractors");
 	},
 
 	updateSingleContractor: function(contractorObj) {
@@ -88,30 +87,54 @@ var ContractorsHub = React.createClass({
 		}
 	},
 
+	pullHookGetContent: function() {
+	    switch (this.state.state) {
+	      case 'initial':
+	        return 'Pull to Refresh';
+	      case 'preaction':
+	        return 'Release to Refresh';
+	      case 'action':
+	        return 'Loading...';
+	    }
+	},
+	
+	pullHookHandleChange: function(e) {
+    	this.setState({
+    		state: e.state
+    	});
+    },
+
 	renderListOfContractors: function() {
 		var me = this;
-		if (this.state.contractors.length==0){
-			return "whoops looks like theres no contractors here."
-		}
-		else{
+		if (this.props.contractorsLoading || (!this.props.contractors)) {
 			return (
-			<Ons.List>
-			{this.state.contractors.map(function(contractor, i){
-				return <ContractorsListRow singleContractor={contractor} index={i} requestContractorEdit={me.navTo_EditContractor}/> ;
-			})}
-			</Ons.List>
+		    	<Loading />
+		    )
+		} else if (this.props.contractors.length == 0) {
+			return (
+	        	<div> No contractors, create some bro...</div>
+	        )
+		} else {
+			return (
+				<Ons.List>
+				<Ons.PullHook onChange={this.pullHookHandleChange} onLoad={this.props.fetchFirebaseContractors} >
+					{this.pullHookGetContent()}
+				</Ons.PullHook>
+				{this.props.contractors.map(function(contractor, i){
+					return <ContractorsListRow singleContractor={contractor} index={i} requestContractorEdit={me.navTo_EditContractor}/> ;
+				})}
+				</Ons.List>
 			)
 		}
-		
 	},
 
 	render: function() {
-		console.log(this.state);
+		// console.log(this.state);
 		var authContractorAppComponent = '';
     	if (this.state.authContractorAppState == PagesConstants.CONTRACTORS_LIST) {
     		authContractorAppComponent = this.renderListOfContractors(); 
     	} else if (this.state.authContractorAppState == PagesConstants.EDIT_CONTRACTOR) {
-    		var activeContractorObject = Utils.findContractorByKey(this.state.activeContractorKey, this.state.contractors);
+    		var activeContractorObject = Utils.findContractorByKey(this.state.activeContractorKey, this.props.contractors);
     		activeContractorObject = new Contractor(activeContractorObject);
     		authContractorAppComponent = <NewContractor 
     										activeContractorKey={this.state.activeContractorKey} 

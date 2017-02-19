@@ -8,7 +8,7 @@ var SingleProjectStatusUpdatesListRow = React.createClass({
 	mixins: [ReactFireMixin],
 
 	navToSingleStatusUpdate: function() {
-		this.props.launchUpdate_SetActiveStatus(this.props.singleUpdate['.key'], this.props.relatedContractor, this.props.passedNavigator);
+		this.props.launchUpdate_SetActiveStatus(this.props.singleUpdate['key'], this.props.relatedContractor, this.props.passedNavigator);
 		// this.props.launchUpdate_PushPage();
 	},
 

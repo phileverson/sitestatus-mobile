@@ -2,7 +2,6 @@
 
 function Contractor(obj){
   // Fields:
-  this.contractorID = (obj.contractorID) ? obj.contractorID : "";
   this.firstName = (obj.firstName) ? obj.firstName : "";
   this.lastName = (obj.lastName) ? obj.lastName : "";
   this.phone = (obj.phone) ? obj.phone : "";
