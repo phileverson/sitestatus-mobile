@@ -29,7 +29,9 @@ var SingleProjectHome = React.createClass({
 	  	index:0,
 	  	scheduledContractors_Today: false,
 	  	tabbarVisible: true,
-	  	authSingleProjectAppState: PagesConstants.SINGLE_PROJECT
+	  	authSingleProjectAppState: PagesConstants.SINGLE_PROJECT,
+	  	statusUpdates: GlobalConstants.LOADING,
+	  	statusUpdatesLoading: true
 	  }
 	},
 
@@ -138,6 +140,7 @@ var SingleProjectHome = React.createClass({
 							navToProjectSettings={this.navTo_ProjectSettings} 
 							scheduledContractors_Today={this.state.scheduledContractors_Today}
 							statusUpdates={this.state.statusUpdates}
+							statusUpdatesLoading={this.state.statusUpdatesLoading}
 							fetchFirebaseStatusUpdates={this.fetchFirebaseStatusUpdates}
 							/>,
 				tab: <Ons.Tab label='Updates' icon='md-settings' />
