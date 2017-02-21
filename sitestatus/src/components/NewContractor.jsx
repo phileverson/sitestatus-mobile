@@ -6,10 +6,8 @@ var Ons = require('react-onsenui');
 var Contractor = require('../models/contractor.jsx');
 
 var NewContractor = React.createClass({
-	mixins: [ReactFireMixin],
 
 	getInitialState: function(){
-		//console.log(this.props);
 		return {
 			firstName: this.props.singleContractor.firstName,
 			lastName: this.props.singleContractor.lastName,
@@ -167,8 +165,7 @@ var NewContractor = React.createClass({
 	      color: 'red',
 	      fontSize: '8px',
 	      background: 'white',
-	      width: '100%',
-
+	      width: '100%'
 	    }
 	    var inputItemStyle = {
 	      width: '100%'
@@ -188,9 +185,7 @@ var NewContractor = React.createClass({
 	    }
 	    var noteBoxOutside ={
 	      width: '100%',
-	      height: '100px',
-	      
-	      
+	      height: '100px'
 	    }
 		return (
 			<Ons.Page renderToolbar={this.renderToolbar}>

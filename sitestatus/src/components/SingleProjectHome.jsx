@@ -3,7 +3,8 @@ var ReactDOM = require('react-dom');
 var ons = require('onsenui');
 var Ons = require('react-onsenui');
 var moment = require('moment');
-var Rebase = require('re-base');
+
+var SiteStatusBase = require('util/SiteStatusBase.jsx');
 
 var PagesConstants = require('constants/pages.jsx');
 var GlobalConstants = require('constants/global.jsx');
@@ -14,15 +15,7 @@ var SingleProjectStatusUpdateList = require('./SingleProjectStatusUpdateList.jsx
 var SingleProjectSchedule = require('./SingleProjectSchedule.jsx');
 var NewProject = require('./NewProject.jsx');
 
-var base = Rebase.createClass({
-    apiKey: GlobalConstants.FIREBASE_API_KEY,
-    authDomain: GlobalConstants.FIREBASE_AUTH_DOMAIN,
-    databaseURL: GlobalConstants.FIREBASE_DATABASE_URL,
-    storageBucket: GlobalConstants.FIREBASE_STORAGE_BUCKET
-});
-
 var SingleProjectHome = React.createClass({
-	mixins: [ReactFireMixin],
 
 	getInitialState: function(){
 	  return {
@@ -44,13 +37,20 @@ var SingleProjectHome = React.createClass({
 		var dateKey = fullDate.format("MM-DD-YYYY");
 		var projectKey = this.props.singleProject['key']
 
-		var projectsScheduleDayRef = firebase.database().ref("projects-schedule/" + projectKey + "/" + dateKey + "/contractors/");
-		this.bindAsArray(projectsScheduleDayRef, "scheduledContractors_Today");
+		var todaysScheduledEndPoint = "projects-schedule/" + projectKey + "/" + dateKey + "/contractors/"
+		SiteStatusBase.bindToState(todaysScheduledEndPoint, {
+			context: this,
+			state: 'scheduledContractors_Today',
+			asArray: true,
+			then: function(){
+				console.log("Updated state (through bindToState) for scheduledContractors_Today.");
+			}
+		});
 	},
 
 	listenFirebaseStatusUpdates: function() {
 		var statusUpdatesEndPoint = "projects-status-updates/" + this.props.singleProject['key'];
-		base.listenTo(statusUpdatesEndPoint, {
+		SiteStatusBase.listenTo(statusUpdatesEndPoint, {
 			context: this,
 			asArray: true,
 			queries: {},
@@ -65,7 +65,7 @@ var SingleProjectHome = React.createClass({
 
 	fetchFirebaseStatusUpdates: function(pullHook_Done) {
 		var statusUpdatesEndPoint = "projects-status-updates/" + this.props.singleProject['key'];
-		base.fetch(statusUpdatesEndPoint, {
+		SiteStatusBase.fetch(statusUpdatesEndPoint, {
 			context: this,
 			state: 'statusUpdates',
 			asArray: true,
@@ -92,16 +92,21 @@ var SingleProjectHome = React.createClass({
 		var me = this;
 		console.log('projectObj:');
 		console.log(projectObj);
-		// adding new project:
-		var project = firebase.database().ref("projects/" + this.props.currentUser.uid + "/" + this.props.singleProject['key']);
-		// var updatedProjectDetail = project.set(projectObj);
-		// console.log('New Project Saved');
-		// console.log(updatedProjectDetail);
-		project.set(projectObj, function(){
-			if (projectObj.deleted) {
-				me.props.navToHub();
-			} else {
-				me.navTo_SingleProjectTabs();
+
+		// Updating Project:
+		var projectUpdateEndPoint = "projects/" + this.props.currentUser.uid + "/" + this.props.singleProject['key'];
+		SiteStatusBase.update(projectUpdateEndPoint, {
+			data: projectObj,
+			then: function(err) {
+				if (!err) {
+					if (projectObj.deleted) {
+						me.props.navToHub();
+					} else {
+						me.navTo_SingleProjectTabs();
+					}
+				} else {
+					console.log(err);
+				}
 			}
 		});
 	},
@@ -181,11 +186,6 @@ var SingleProjectHome = React.createClass({
 
 	toggleTabbarVisibility: function(showHideSetter) {
 		this.refs.tabs.refs.tabbar.setTabbarVisibility(showHideSetter);
-		// if(showHideSetter){
-		// 	this.refs.tabs.refs.tabbar.lastChild.style = 'left: -100%; transition: left 0.4s;';
-		// } else {
-		// 	this.refs.tabs.refs.tabbar.lastChild.style = 'left: 0; transition: left 0.4s;';
-		// }
 	},
 
 	render: function() {

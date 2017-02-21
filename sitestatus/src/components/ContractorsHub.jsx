@@ -2,7 +2,8 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var ons = require('onsenui');
 var Ons = require('react-onsenui');
-var Rebase = require('re-base');
+
+var SiteStatusBase = require('util/SiteStatusBase.jsx');
 
 var PagesConstants = require('constants/pages.jsx');
 var GlobalConstants = require('constants/global.jsx');
@@ -15,8 +16,6 @@ var NewContractor = require('./NewContractor.jsx');
 var Loading = require('./Loading.jsx');
 
 var ContractorsHub = React.createClass({
-	mixins: [ReactFireMixin],
-
 	getInitialState: function(){
 	  return {
 	  	authContractorAppState: PagesConstants.CONTRACTORS_LIST,
@@ -27,24 +26,46 @@ var ContractorsHub = React.createClass({
 	},
 
 	updateSingleContractor: function(contractorObj) {
+		var me = this;
 		console.log('contractorObj:');
 		console.log(contractorObj);
 		if (this.state.activeContractorKey) {
 			// updating an already existing contractor:
-			var activeContractorEntry = firebase.database().ref("contractors/" + this.props.currentUser.uid + "/" + this.state.activeContractorKey);
-			activeContractorEntry.set(contractorObj);
-			console.log('Contractor Updated');
+			var activeContractorEntryEndPoint = "contractors/" + this.props.currentUser.uid + "/" + this.state.activeContractorKey;
+			SiteStatusBase.update(activeContractorEntryEndPoint, {
+				data: contractorObj,
+				then: function(err) {
+					if(!err){
+						console.log('Contractor Updated');
+						me.setState({
+							authContractorAppState: PagesConstants.CONTRACTORS_LIST,
+							activeContractorKey: ''
+						})
+					} else {
+						console.log('Error Updating Contractor:');
+						console.log(err);
+					}
+				}
+			});
 		} else { 
 			// adding new contractor:
-			var contractors = firebase.database().ref("contractors/" + this.props.currentUser.uid + "/" + this.state.activeContractorKey);
-			var newContractorEntry = contractors.push();
-			newContractorEntry.set(contractorObj);
-			console.log('New Contractor Saved');
+			var newContractorEntryEndPoint = "contractors/" + this.props.currentUser.uid + "/";
+			SiteStatusBase.push(activeContractorEntryEndPoint, {
+				data: contractorObj,
+				then: function(err) {
+					if(!err){
+						console.log('Contractor Added');
+						me.setState({
+							authContractorAppState: PagesConstants.CONTRACTORS_LIST,
+							activeContractorKey: ''
+						})
+					} else {
+						console.log('Error Adding New Contractor:');
+						console.log(err);
+					}
+				}
+			});
 		}
-		this.setState({
-			authContractorAppState: PagesConstants.CONTRACTORS_LIST,
-			activeContractorKey: ''
-		})
 	},
 
 	navTo_AddContractor: function() {

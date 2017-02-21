@@ -11,8 +11,7 @@ var Utils = require('util/util.jsx');
 var ContractorsListRow = require('./ContractorsListRow.jsx');
 
 var SingleProjectScheduleManageContractors = React.createClass({
-	mixins: [ReactFireMixin],
-
+	
 	handleContractorSwitch: function(contractorKey) {
 		var alreadySelected = _.includes(this.props.shortListedContractors_Editable, contractorKey);
 

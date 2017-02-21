@@ -13,7 +13,6 @@ var SingleProjectScheduleRow = require('./SingleProjectScheduleRow.jsx');
 var SingleProjectScheduleContractorLabelCell = require('./SingleProjectScheduleContractorLabelCell.jsx');
 
 var SingleProjectScheduleGantt = React.createClass({
-	mixins: [ReactFireMixin],
 
 	getInitialState: function() {
 		var daysToRender = Utils.back7Forward14Days();
@@ -45,7 +44,7 @@ var SingleProjectScheduleGantt = React.createClass({
 
 		// Really, really, really shitty work around for pushing it to the current date.
 		setTimeout(function() {
-		  console.log('Pushing carousel to today.')
+		  console.log('Pushing gantt chart carousel to today.')
 		  me.setIndex(7)
 		}, 2000);
 	},
@@ -65,25 +64,6 @@ var SingleProjectScheduleGantt = React.createClass({
 			addContractorsActive: newDialogState
 		})
 	},
-
-//   Navigator covers this... don't need to render our own toolbar now! :)
-	// renderToolbar: function() {
-	//     return (
-	// 	    <Ons.Toolbar>
-	// 			<div className='center'>Project Schedule</div>
-	// 			<div className='right'>
-	// 				<Ons.ToolbarButton >
-	// 					<Ons.Icon icon='md-settings' onClick={this.props.navToProjectSettings} />
-	// 				</Ons.ToolbarButton>
-	// 			</div>
-	// 			<div className='left'>
-	// 				<Ons.ToolbarButton >
-	// 					<Ons.Icon icon='md-home' onClick={this.props.navToHub} />
-	// 				</Ons.ToolbarButton>
- //          		</div>
-	// 	    </Ons.Toolbar>
-	//   	)
-	// },
 
 	renderListOfContractors: function() {
 		var me = this;
@@ -135,8 +115,6 @@ var SingleProjectScheduleGantt = React.createClass({
     	var contractorList = this.renderListOfContractors();
     	var showAddFirstContractorTip = false;
     	showAddFirstContractorTip = (this.props.shortListedContractorsDetails.length > 0) ? false : true;
-
-    	// console.log(this.state.carouselDayIndex);
 
 		return (
 			<Ons.Page>

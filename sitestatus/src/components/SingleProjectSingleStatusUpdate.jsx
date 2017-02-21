@@ -9,7 +9,7 @@ var Utils = require('util/util.jsx');
 var Project = require('../models/project.jsx');
 
 var SingleProjectSingleStatusUpdate = React.createClass({
-	mixins: [ReactFireMixin],
+	// mixins: [ReactFireMixin],
 
 	getInitialState: function(){
 		return {
@@ -24,6 +24,7 @@ var SingleProjectSingleStatusUpdate = React.createClass({
 		var phoneNum = this.state.relatedContractor.phone;
 		window.location.href='tel://'+phoneNum;
 	},
+	
 	handleText: function(e){
 		console.log(this.state.relatedContractor.phone);
 		var phoneNum = this.state.relatedContractor.phone;

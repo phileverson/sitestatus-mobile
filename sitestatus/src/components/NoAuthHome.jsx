@@ -7,7 +7,6 @@ var Ons = require('react-onsenui');
 import PagesConstants from '../constants/pages.jsx';
 
 var NoAuthHome = React.createClass({
-  mixins: [ReactFireMixin],
 
   getInitialState: function(){
     return {
@@ -17,20 +16,15 @@ var NoAuthHome = React.createClass({
     }
   },
 
-  componentWillMount: function() {
-    // var ref = firebase.database().ref("items");
-    // this.bindAsArray(ref, "items");
-  },
-
   render: function() {
     console.log(this.props);
     return (
       <div>
         <Ons.List >
-          <Ons.ListItem modifier='nodivider'>
+          <Ons.ListItem modifier='nodivider' style={{paddingLeft: '6px'}}>
             <Ons.Button modifier='large' onClick={this.props.navToLogin}>Login</Ons.Button>
           </Ons.ListItem>
-          <Ons.ListItem modifier='nodivider'>
+          <Ons.ListItem modifier='nodivider' style={{paddingLeft: '6px'}}>
             <Ons.Button modifier='large' onClick={this.props.navToSignUp}>Sign Up</Ons.Button>
           </Ons.ListItem>
         </Ons.List>

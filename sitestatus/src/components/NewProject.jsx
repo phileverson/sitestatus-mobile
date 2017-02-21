@@ -8,7 +8,6 @@ var Project = require('../models/project.jsx');
 var ContractorsListRow = require('./ContractorsListRow.jsx');
 
 var NewProject = React.createClass({
-	mixins: [ReactFireMixin],
 
 	getInitialState: function(){
 		// console.log(this.props);
@@ -27,11 +26,6 @@ var NewProject = React.createClass({
 
 			errorMessages: this.props.singleProject.errorMessages
 		}
-	},
-
-	componentWillMount: function() {
-		var contractors = firebase.database().ref("contractors");
-		this.bindAsArray(contractors, "contractors");
 	},
 
 	createNewOrUpdateProject: function(e) {
@@ -109,8 +103,6 @@ var NewProject = React.createClass({
 		});
 	},
 
-
-
 	handleAddressChange: function(e){
 		var me = this;
 		me.setState({
@@ -133,24 +125,24 @@ var NewProject = React.createClass({
 		this.setState({checked: e.target.checked});
 	},
 
-	handleContractorSwitch: function(contractor) {
-		var alreadySelected = _.includes(this.state.shortListedContractors, contractor);
+	// handleContractorSwitch: function(contractor) {
+	// 	var alreadySelected = _.includes(this.state.shortListedContractors, contractor);
 
-		if (alreadySelected) {
-			var shortListedContractorsToUpdate = _.clone(this.state.shortListedContractors);
-			var indexToRemove = shortListedContractorsToUpdate.indexOf(contractor);
-			shortListedContractorsToUpdate.splice(indexToRemove, 1);
-			this.setState({
-				shortListedContractors: shortListedContractorsToUpdate
-			})
-		} else {
-			var shortListedContractorsToUpdate = _.clone(this.state.shortListedContractors);
-			shortListedContractorsToUpdate.push(contractor);
-			this.setState({
-				shortListedContractors: shortListedContractorsToUpdate
-			})
-		}
-	},
+	// 	if (alreadySelected) {
+	// 		var shortListedContractorsToUpdate = _.clone(this.state.shortListedContractors);
+	// 		var indexToRemove = shortListedContractorsToUpdate.indexOf(contractor);
+	// 		shortListedContractorsToUpdate.splice(indexToRemove, 1);
+	// 		this.setState({
+	// 			shortListedContractors: shortListedContractorsToUpdate
+	// 		})
+	// 	} else {
+	// 		var shortListedContractorsToUpdate = _.clone(this.state.shortListedContractors);
+	// 		shortListedContractorsToUpdate.push(contractor);
+	// 		this.setState({
+	// 			shortListedContractors: shortListedContractorsToUpdate
+	// 		})
+	// 	}
+	// },
 
 	renderToolbar: function() {
 		var projectDetailsHeader = (this.state.creatingNewProject) ? 'Create Project' : 'Project Settings'
@@ -171,34 +163,33 @@ var NewProject = React.createClass({
 	  	)
 	},
 
-	renderListOfContractors: function() {
-		var me = this;
-		return (
-			<Ons.List>
-			{this.state.contractors.map(function(contractor, i){
-				var alreadySelected = _.includes(me.state.shortListedContractors, contractor['.key']);
-				return <ContractorsListRow 
-							singleContractor={contractor}
-							index={i}
-							key={i}
-							newProject='true' 
-							toggleSwitchChange={me.handleContractorSwitch}
-							contractorChecked={alreadySelected}
-							/> ;
-			})}
-			</Ons.List>
-		)
-	},
+	// renderListOfContractors: function() {
+	// 	var me = this;
+	// 	return (
+	// 		<Ons.List>
+	// 		{this.state.contractors.map(function(contractor, i){
+	// 			var alreadySelected = _.includes(me.state.shortListedContractors, contractor['.key']);
+	// 			return <ContractorsListRow 
+	// 						singleContractor={contractor}
+	// 						index={i}
+	// 						key={i}
+	// 						newProject='true' 
+	// 						toggleSwitchChange={me.handleContractorSwitch}
+	// 						contractorChecked={alreadySelected}
+	// 						/> ;
+	// 		})}
+	// 		</Ons.List>
+	// 	)
+	// },
 
 	render: function() {
-		var listOfContractors = this.renderListOfContractors();
+		// var listOfContractors = this.renderListOfContractors();
 		// console.log(this.props);
 	    var errorMessageTextStyle = {
 	      color: 'red',
 	      fontSize: '8px',
 	      background: 'white',
 	      width: '100%',
-
 	    }
 	    var inputItemStyle = {
 	      width: '100%'
@@ -218,9 +209,7 @@ var NewProject = React.createClass({
 	    }
 	    var noteBoxOutside ={
 	      width: '100%',
-	      height: '100px',
-	      
-	      
+	      height: '100px'
 	    }
 
 		return (
@@ -306,16 +295,6 @@ var NewProject = React.createClass({
 						}
 					</Ons.List>
 				</section>
-				{false &&
-				<section>
-					<Ons.List>
-						<Ons.ListHeader>
-							"Short Listed Contractors"
-						</Ons.ListHeader>
-						{listOfContractors}
-					</Ons.List>
-				</section>
-				}
 			</Ons.Page>
 		)
 	}

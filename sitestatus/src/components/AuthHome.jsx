@@ -2,7 +2,8 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var ons = require('onsenui');
 var Ons = require('react-onsenui');
-var Rebase = require('re-base');
+
+var SiteStatusBase = require('util/SiteStatusBase.jsx');
 
 var PagesConstants = require('constants/pages.jsx');
 var GlobalConstants = require('constants/global.jsx');
@@ -12,13 +13,6 @@ var SingleProjectHome = require('./SingleProjectHome.jsx');
 var NewProject = require('./NewProject.jsx');
 var ContractorsHub = require('./ContractorsHub.jsx');
 var UserProfile = require('./UserProfile.jsx');
-
-var base = Rebase.createClass({
-    apiKey: GlobalConstants.FIREBASE_API_KEY,
-    authDomain: GlobalConstants.FIREBASE_AUTH_DOMAIN,
-    databaseURL: GlobalConstants.FIREBASE_DATABASE_URL,
-    storageBucket: GlobalConstants.FIREBASE_STORAGE_BUCKET
-});
 
 var AuthHome = React.createClass({
 	getInitialState: function(){
@@ -43,7 +37,7 @@ var AuthHome = React.createClass({
 
 	listenFirebaseProjects: function() {
 		var projectsEndPoint = "projects/" + this.props.user.uid + "/";
-		base.listenTo(projectsEndPoint, {
+		SiteStatusBase.listenTo(projectsEndPoint, {
 			context: this,
 			asArray: true,
 			queries: {
@@ -61,7 +55,7 @@ var AuthHome = React.createClass({
 
 	fetchFirebaseProjects: function(pullHook_Done) {
 		var projectsEndPoint = "projects/" + this.props.user.uid + "/";
-		base.fetch(projectsEndPoint, {
+		SiteStatusBase.fetch(projectsEndPoint, {
 			context: this,
 			state: 'projects',
 			asArray: true,
@@ -72,23 +66,23 @@ var AuthHome = React.createClass({
 			then: function(data){
 				console.log('Fetched Projects');
 				this.setState({
-						projectsLoading:false,
-						projects: data
-					}, function(){
-						if (pullHook_Done) {
-							setTimeout(() => {
-								console.log('Released Projects PullHook');
-								pullHook_Done();
-							}, GlobalConstants.PULLHOOK_MIN_LOADING);
-						}
-					});
+					projectsLoading:false,
+					projects: data
+				}, function(){
+					if (pullHook_Done) {
+						setTimeout(() => {
+							console.log('Released Projects PullHook');
+							pullHook_Done();
+						}, GlobalConstants.PULLHOOK_MIN_LOADING);
+					}
+				});
 			}
 		});
 	},
 
 	listenFirebaseContractors: function() {
 		var contractorsEndPoint = "contractors/" + this.props.user.uid + "/";
-		base.listenTo(contractorsEndPoint, {
+		SiteStatusBase.listenTo(contractorsEndPoint, {
 			context: this,
 			asArray: true,
 			queries: {
@@ -106,7 +100,7 @@ var AuthHome = React.createClass({
 
 	fetchFirebaseContractors: function(pullHook_Done) {
 		var contractorsEndPoint = "contractors/" + this.props.user.uid + "/";
-		base.fetch(contractorsEndPoint, {
+		SiteStatusBase.fetch(contractorsEndPoint, {
 			context: this,
 			state: 'contractors',
 			asArray: true,
@@ -117,16 +111,16 @@ var AuthHome = React.createClass({
 			then: function(data){
 				console.log('Fetched Contractors');
 				this.setState({
-						contractorsLoading:false,
-						contractors: data
-					}, function(){
-						if (pullHook_Done) {
-							setTimeout(() => {
-								console.log('Released Contractors PullHook');
-								pullHook_Done();
-							}, GlobalConstants.PULLHOOK_MIN_LOADING);
-						}
-					});
+					contractorsLoading:false,
+					contractors: data
+				}, function(){
+					if (pullHook_Done) {
+						setTimeout(() => {
+							console.log('Released Contractors PullHook');
+							pullHook_Done();
+						}, GlobalConstants.PULLHOOK_MIN_LOADING);
+					}
+				});
 			}
 		});
 	},
@@ -165,12 +159,8 @@ var AuthHome = React.createClass({
 	},
 
 	navTo_Logout: function() {
-		firebase.auth().signOut().then(function() {
-			// Sign-out successful.
-			console.log('logged out');
-		}, function(error) {
-			console.log(error);
-		});
+		SiteStatusBase.unauth();
+		console.log('Logged out.');
 	},
 
     render: function() {

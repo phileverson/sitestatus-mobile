@@ -4,6 +4,8 @@ var ons = require('onsenui');
 var Ons = require('react-onsenui');
 var _ = require('lodash');
 
+var GlobalConstants = require('constants/global.jsx');
+
 var User = require('../models/user.jsx');
 
 var SignUp = React.createClass({

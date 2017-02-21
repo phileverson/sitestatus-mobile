@@ -3,10 +3,11 @@ var ReactDOM = require('react-dom');
 var ons = require('onsenui');
 var Ons = require('react-onsenui');
 
+var SiteStatusBase = require('util/SiteStatusBase.jsx');
+
 var User = require('../models/user.jsx');
 
 var UserProfile = React.createClass({
-	mixins: [ReactFireMixin],
 
 	getInitialState: function(){
 		var blankUser = new User({});
@@ -15,13 +16,15 @@ var UserProfile = React.createClass({
 	  }
 	},
 
-
 	componentWillMount: function() {
-		// This user, as we need them for schedule update stuff:
-		var thisUser = firebase.database().ref("users/" + this.props.currentUser.uid + "/" );
-		this.bindAsObject(thisUser, "currentUser");
+		// Full user details (stored in db), not just what Firebase's auth database has. 
+		var currentUserEndPoint = "users/" + this.props.currentUser.uid + "/";
+		SiteStatusBase.bindToState(currentUserEndPoint, {
+			context: this,
+			state: 'currentUser',
+			asArray: false
+		});
 	},
-
 
 	renderToolbar: function() {
 	    return (

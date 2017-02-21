@@ -6,7 +6,6 @@ var ons = require('onsenui');
 var Ons = require('react-onsenui');
 
 var ProjectsListRow = React.createClass({
-	mixins: [ReactFireMixin],
 
 	setActiveProjectInHub: function() {
 		this.props.launchProject(this.props.singleProject)

@@ -8,7 +8,6 @@ var Styles = require('constants/styles.jsx');
 var Utils = require('util/util.jsx');
 
 var SingleProjectScheduleContractorLabelCell = React.createClass({
-	mixins: [ReactFireMixin],
 
 	render: function() {
 		var me = this;

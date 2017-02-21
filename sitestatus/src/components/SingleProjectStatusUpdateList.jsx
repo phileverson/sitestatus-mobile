@@ -19,7 +19,6 @@ var Loading = require('./Loading.jsx');
 var index = 0;
 
 var SingleProjectStatusUpdateList = React.createClass({
-	mixins: [ReactFireMixin],
 
 	getInitialState: function(){
 		var zeroContractorsScheduledToday = false;

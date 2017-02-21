@@ -5,7 +5,6 @@ var Ons = require('react-onsenui');
 var moment = require('moment');
 
 var SingleProjectStatusUpdatesListRow = React.createClass({
-	mixins: [ReactFireMixin],
 
 	navToSingleStatusUpdate: function() {
 		this.props.launchUpdate_SetActiveStatus(this.props.singleUpdate['key'], this.props.relatedContractor, this.props.passedNavigator);
@@ -19,11 +18,6 @@ var SingleProjectStatusUpdatesListRow = React.createClass({
 	    		<div>Loading...</div>
 	    	)
 	    }
-
-		// this.props.singleUpdate contains status update object
-		// console.log(this.props.singleUpdate);
-		// this.props.relatedContractor contains contractor object
-		// console.log(this.props.relatedContractor);
 
 		var showHeader = true; // if there's no previous update, we should show header
 		var currentUpdateDate = moment(this.props.singleUpdate['Date Sent']).format("dddd, MMMM Do YYYY");

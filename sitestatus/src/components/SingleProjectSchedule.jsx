@@ -2,12 +2,12 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var ons = require('onsenui');
 var Ons = require('react-onsenui');
-var Rebase = require('re-base');
-
 var PagesConstants = require('constants/pages.jsx');
 var GlobalConstants = require('constants/global.jsx');
 var Styles = require('constants/styles.jsx');
 var Utils = require('util/util.jsx');
+
+var SiteStatusBase = require('util/SiteStatusBase.jsx');
 
 var Project = require('../models/project.jsx');
 var Contractor = require('../models/contractor.jsx');
@@ -16,15 +16,7 @@ var SingleProjectScheduleGantt = require('./SingleProjectScheduleGantt.jsx');
 var SingleProjectScheduleManageContractors = require('./SingleProjectScheduleManageContractors.jsx');
 var NewContractor = require('./NewContractor.jsx');
 
-var base = Rebase.createClass({
-    apiKey: GlobalConstants.FIREBASE_API_KEY,
-    authDomain: GlobalConstants.FIREBASE_AUTH_DOMAIN,
-    databaseURL: GlobalConstants.FIREBASE_DATABASE_URL,
-    storageBucket: GlobalConstants.FIREBASE_STORAGE_BUCKET
-});
-
 var SingleProjectSchedule = React.createClass({
-	mixins: [ReactFireMixin],
 
 	getInitialState: function(){
 		return {
@@ -36,6 +28,9 @@ var SingleProjectSchedule = React.createClass({
 		console.log('Adding contractor to editable shortlist. Contractor Key:');
 		console.log(contractorKey)
 		var shortListedContractorsToUpdate = _.clone(this.state.shortListedContractors_Editable);
+		if (!shortListedContractorsToUpdate) {
+			shortListedContractorsToUpdate = [];
+		}
 		shortListedContractorsToUpdate.push(contractorKey);
 		this.setState({
 			shortListedContractors_Editable: shortListedContractorsToUpdate
@@ -87,7 +82,7 @@ var SingleProjectSchedule = React.createClass({
   		console.log(contractorObject);
 
   		var contractorsEndPoint = "contractors/" + this.props.currentUser.uid + "/";
-  		var newlyAddedContractor = base.push(contractorsEndPoint,{
+  		var newlyAddedContractor = SiteStatusBase.push(contractorsEndPoint,{
   			data: contractorObject,
   			then: function(err) {
   				if(!err) {

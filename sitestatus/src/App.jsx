@@ -2,8 +2,13 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var ons = require('onsenui');
 var Ons = require('react-onsenui');
+var Rebase = require('re-base');
+
+var SiteStatusBase = require('util/SiteStatusBase.jsx');
 
 import PagesConstants from './constants/pages.jsx';
+
+var GlobalConstants = require('./constants/global.jsx');
 
 var User = require('./models/user.jsx');
 
@@ -15,7 +20,6 @@ import SignUp from './components/SignUp.jsx';
 import AuthHome from './components/AuthHome.jsx';
 
 var App = React.createClass({
-  mixins: [ReactFireMixin],
 
   getInitialState: function(){
     return {
@@ -38,25 +42,38 @@ var App = React.createClass({
   },
 
   authenticateUser: function() {
-    firebase.auth().onAuthStateChanged(function(user) {
+    var me = this;
+    console.log('Checking auth of passed user / activating onAuthChecker variable.')
+
+    var onAuthChecker = SiteStatusBase.onAuth(function(user){
       if (user) {
         mixpanel.identify(user.uid);
-        if (this.state.noAuthUser.company) { // if this isn't null, it means we were creating a new user!
-          var user = firebase.database().ref("users/" + user.uid);
-          user.set({
-            company: this.state.noAuthUser.company,
-            firstName: this.state.noAuthUser.firstName,
-            lastName: this.state.noAuthUser.lastName
+        if (me.state.noAuthUser.company) { // if this isn't null, it means we were creating a new user!
+          var userObj = {
+            company: me.state.noAuthUser.company,
+            firstName: me.state.noAuthUser.firstName,
+            lastName: me.state.noAuthUser.lastName
+          };
+          var userUpdateEndPoint = "users/" + user.uid + "/";
+          SiteStatusBase.update(userUpdateEndPoint, {
+            data: userObj,
+            then: function(err) {
+              if (!err) {
+                console.log('User details (first name, last name, company, etc. saved successfully.');
+              } else {
+                console.log(err);
+              }
+            }
           });
           mixpanel.people.set({
-            "$email": this.state.noAuthUser.emailAddress,
-            "company": this.state.noAuthUser.company,
-            "$first_name": this.state.noAuthUser.firstName,
-            "$last_name": this.state.noAuthUser.lastName
+            "$email": me.state.noAuthUser.emailAddress,
+            "company": me.state.noAuthUser.company,
+            "$first_name": me.state.noAuthUser.firstName,
+            "$last_name": me.state.noAuthUser.lastName
           });
         }
 
-        this.setState({
+        me.setState({
           authChecked: true,
           loggedIn: true,
           user: user
@@ -67,13 +84,13 @@ var App = React.createClass({
         });
       }
       else {
-        this.setState({
+        me.setState({
           authChecked: true,
           loggedIn: false,
           user: null
         });
       }
-    }.bind(this));
+    })
   },
 
   componentDidMount: function() {
@@ -136,20 +153,18 @@ var App = React.createClass({
   submitLoginOrSignUp: function() {
     var me = this;
     console.log('REQUEST: submitLoginOrSignUp');
+
     if (this.state.appState == PagesConstants.NO_AUTH_SIGN_UP) {
       var newUserObject = new User(this.state.noAuthUser);
       var isValidResult = newUserObject.isValid();
 
       if(isValidResult.isValid) {
-        firebase.auth().createUserWithEmailAndPassword(this.state.noAuthUser.emailAddress, this.state.noAuthUser.password).catch(function(error) {
-          console.log(error.message);
-          console.log(error.code);
-          me.setState({
-            firebaseAuthAlertDialogShowing: true,
-            firebaseAuthAlertDialogError: error.message
-          })
-        });
+        SiteStatusBase.createUser({
+          email: this.state.noAuthUser.emailAddress,
+          password: this.state.noAuthUser.password
+        }, this.baseAuthHandler);
       } else {
+        // Issues with form validation
         console.log(isValidResult);
         var noAuthUserWithErrors = newUserObject;
         var noAuthUserWithErrors = _.merge(newUserObject, {errorMessages: isValidResult.errorMessages});
@@ -160,14 +175,35 @@ var App = React.createClass({
       }
     } else {
       // Authenticate with Firebase with the login details from state
-      firebase.auth().signInWithEmailAndPassword(this.state.noAuthUser.emailAddress, this.state.noAuthUser.password).catch(function(error) {
-        console.log(error.message);
-        console.log(error.code);
-        me.setState({
-          firebaseAuthAlertDialogShowing: true,
-          firebaseAuthAlertDialogError: error.message
-        })
-      });
+      if (this.state.noAuthUser.emailAddress) {
+        SiteStatusBase.authWithPassword({
+          email: this.state.noAuthUser.emailAddress,
+          password: this.state.noAuthUser.password
+        }, this.baseAuthHandler);
+      } else {
+          me.setState({
+            firebaseAuthAlertDialogShowing: true,
+            firebaseAuthAlertDialogError: "Please enter an email address."
+          })
+      }
+    }
+  },
+
+  baseAuthHandler: function(error, user){
+    var me = this;
+    if (error){
+      console.log('Error signing user in:'); 
+      console.log(error); 
+      me.setState({
+        firebaseAuthAlertDialogShowing: true,
+        firebaseAuthAlertDialogError: error.message
+      })
+    } else {
+      this.setState({
+          authChecked: true,
+          loggedIn: true,
+          user: user
+        });
     }
   },
 

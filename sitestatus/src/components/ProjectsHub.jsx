@@ -9,6 +9,8 @@ var GlobalConstants = require('constants/global.jsx');
 var Utils = require('util/util.jsx');
 var HttpClient = require('util/HttpClient.jsx');
 
+var SiteStatusBase = require('util/SiteStatusBase.jsx');
+
 var Project = require('../models/project.jsx');
 
 var ProjectsListRow = require('./ProjectsListRow.jsx');
@@ -16,15 +18,7 @@ var NewProject = require('./NewProject.jsx');
 var SingleProjectHome = require('./SingleProjectHome.jsx');
 var Loading = require('./Loading.jsx');
 
-var base = Rebase.createClass({
-    apiKey: GlobalConstants.FIREBASE_API_KEY,
-    authDomain: GlobalConstants.FIREBASE_AUTH_DOMAIN,
-    databaseURL: GlobalConstants.FIREBASE_DATABASE_URL,
-    storageBucket: GlobalConstants.FIREBASE_STORAGE_BUCKET
-});
-
 var ProjectsHub = React.createClass({
-	// mixins: [ReactFireMixin],
 
 	getInitialState: function(){
 	  return {
@@ -64,27 +58,35 @@ var ProjectsHub = React.createClass({
 		var me = this;
 		console.log('projectObj:');
 		console.log(projectObj);
+
 		// adding new project:
-		var projects = firebase.database().ref("projects/" + this.props.currentUser.uid + "/");
-		var newProjectEntry = projects.push();
-
-		newProjectEntry.set(projectObj, function(){
-			me.setState({
-				authProjectsAppState: PagesConstants.SINGLE_PROJECT,
-				activeProjectKey: newProjectEntry.key
-			}, function(){
-				mixpanel.track("Created Project",
-					{
-						"Project Name":  projectObj.name
+		var newProjectEntryEndPoint = "projects/" + this.props.currentUser.uid + "/";
+		var projectBeingCreated = SiteStatusBase.push(newProjectEntryEndPoint, {
+			data: projectObj,
+			then: function(err) {
+				if(!err){
+					console.log('Project Added Added');
+					me.setState({
+						authProjectsAppState: PagesConstants.SINGLE_PROJECT,
+						activeProjectKey: projectBeingCreated.key
+					}, function(){
+						mixpanel.track("Created Project",
+							{
+								"Project Name":  projectObj.name
+							});
+						}
+					);
+					// Request that Twilio number is created:
+					var client = new HttpClient();
+					var requestURL = GlobalConstants.MM_SERVER_CREATE_NUMBER + me.props.currentUser.uid + "/" + projectBeingCreated.key;
+					client.get(requestURL, function(response) {
+						console.log('Requested creation of phone number. Assume successful.');
 					});
+				} else {
+					console.log('Error Adding New Project:');
+					console.log(err);
 				}
-			);
-			var client = new HttpClient();
-			var requestURL = GlobalConstants.MM_SERVER_CREATE_NUMBER + me.props.currentUser.uid + "/" + newProjectEntry.key;
-			client.get(requestURL, function(response) {
-				console.log('Requested creation of phone number.');
-			});
-
+			}
 		});
 	},
 
