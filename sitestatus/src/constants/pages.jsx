@@ -12,5 +12,5 @@ module.exports = {
 	EDIT_CONTRACTOR: 'Edit Contractor',
 	ADD_CONTRACTOR: 'New Contractor',
 
-	USER_PROFILE: 'User_Profile',
+	USER_PROFILE: 'Profile'
 };

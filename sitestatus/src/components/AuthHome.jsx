@@ -197,9 +197,8 @@ var AuthHome = React.createClass({
     									showLeftMenu={this.showLeftMenu}
     									activateGlobalModal={this.props.activateGlobalModal}
                             			deactivateGlobalModal={this.props.deactivateGlobalModal}
-
     									/>;
-    	} 
+    	}
     	return (
     		<Ons.Splitter>
 	    		<Ons.SplitterSide

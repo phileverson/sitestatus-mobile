@@ -202,7 +202,8 @@ var App = React.createClass({
             this.setState({
                 authChecked: true,
                 loggedIn: true,
-                user: user
+                user: user,
+                appState: null
             });
         }
     },
