@@ -106,6 +106,24 @@ var SingleProjectHome = React.createClass({
 		})
 	},
 
+	updateProjectDetails: function(projectObj) {		
+		var me = this;		
+		console.log('projectObj:');		
+		console.log(projectObj);		
+		
+		// Updating Project:		
+		var projectUpdateEndPoint = "projects/" + this.props.currentUser.uid + "/" + this.props.singleProject['key']		
+		SiteStatusBase.update(projectUpdateEndPoint, {		
+			data: projectObj,		
+			then: function(err) {		
+				if (!err) {		
+				} else {		
+					console.log(err);		
+				}		
+			}		
+		});		
+	},
+
 	renderTabs: function() {
 		if (!this.props.singleProject) {
 			return '';

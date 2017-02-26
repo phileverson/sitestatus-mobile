@@ -84,6 +84,12 @@ var ProjectsHub = React.createClass({
 		// });
 	},
 
+	navBackToSingleProject: function(navigator) {
+		navigator.replacePage({
+			title: PagesConstants.SINGLE_PROJECT,
+		})
+	},
+
 	createProject: function(projectObj, passedNavigator) {
 		var me = this;
 		// console.log('createProject projectObj:');
@@ -252,7 +258,7 @@ var ProjectsHub = React.createClass({
 							singleProject={activeProjectObject}
 							singleProjectKey={this.state.activeProjectKey}
 							createNewOrUpdateProject={this.updateProject}
-							cancelCreate={this.navTo_GeneralPop.bind(this, navigator)}
+							cancelCreate={this.navBackToSingleProject.bind(this, navigator)}
 							currentUser={this.props.currentUser}
 							passedNavigator={navigator}
 							/>;
