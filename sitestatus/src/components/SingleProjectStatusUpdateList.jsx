@@ -134,7 +134,7 @@ var SingleProjectStatusUpdateList = React.createClass({
 						{this.pullHookGetContent()}
 					</Ons.PullHook>
 					{me.props.statusUpdates.map(function(update, i){
-						var relatedContractor = Utils.findContractorByPhoneNumber(update.From, allContractorsCopy);
+						var relatedContractor = Utils.findContractorByPhoneNumber(update.from, allContractorsCopy);
 						var previousUpdate = me.props.statusUpdates[(i-1)];
 
 						return (

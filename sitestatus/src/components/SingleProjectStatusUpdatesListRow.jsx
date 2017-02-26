@@ -20,9 +20,9 @@ var SingleProjectStatusUpdatesListRow = React.createClass({
 	    }
 
 		var showHeader = true; // if there's no previous update, we should show header
-		var currentUpdateDate = moment(this.props.singleUpdate['Date Sent']).format("dddd, MMMM Do YYYY");
+		var currentUpdateDate = moment(this.props.singleUpdate['timestamp']).format("dddd, MMMM Do YYYY");
 		if (this.props.previousUpdate) {
-			var previousUpdateDate = moment(this.props.previousUpdate['Date Sent']).format("dddd, MMMM Do YYYY");
+			var previousUpdateDate = moment(this.props.previousUpdate['timestamp']).format("dddd, MMMM Do YYYY");
 			showHeader = (currentUpdateDate == previousUpdateDate) ? false : true;
 		}
 		
@@ -37,7 +37,7 @@ var SingleProjectStatusUpdatesListRow = React.createClass({
 						{this.props.relatedContractor.firstName} {this.props.relatedContractor.lastName} | {this.props.relatedContractor.trade} 
 					</span>
 					<span className="list__item__subtitle">
-						{this.props.singleUpdate.Body}
+						{this.props.singleUpdate.body}
 					</span>
 				</div>
 			</Ons.ListItem>

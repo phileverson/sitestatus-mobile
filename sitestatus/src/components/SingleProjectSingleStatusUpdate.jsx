@@ -2,6 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var ons = require('onsenui');
 var Ons = require('react-onsenui');
+var moment = require('moment');
 
 var PagesConstants = require('constants/pages.jsx');
 var Utils = require('util/util.jsx');
@@ -54,6 +55,7 @@ var SingleProjectSingleStatusUpdate = React.createClass({
 	    var buttonStyle={
 	    	marginLeft: '6px'
 		}
+		var prettyDate = moment(this.state.singleUpdate['timestamp']).format("dddd, MMMM Do YYYY, h:mm:ss a");
 		return (
 		
 			<section>
@@ -78,13 +80,13 @@ var SingleProjectSingleStatusUpdate = React.createClass({
 						<b>Date Sent:</b>
 					</Ons.ListHeader>
 					<Ons.ListItem>
-						{this.state.singleUpdate['Date Sent']}
+						{prettyDate}
 					</Ons.ListItem>
 					<Ons.ListHeader style={headerStyle}>
 						<b>Update:</b>
 					</Ons.ListHeader>
 					<Ons.ListItem>
-						{this.state.singleUpdate.Body}
+						{this.state.singleUpdate.body}
 					</Ons.ListItem>
 				</Ons.List>
 			</section>
