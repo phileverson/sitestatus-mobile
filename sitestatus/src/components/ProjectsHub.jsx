@@ -27,18 +27,23 @@ var ProjectsHub = React.createClass({
 	  }
 	},
 
-	navTo_NewProject: function() {
+	navTo_NewProject: function(navigator) {
 		this.setState({
-			authProjectsAppState: PagesConstants.ADD_PROJECT,
 			activeProjectKey: ''
+		}, function(){
+			navigator.pushPage({
+				title: PagesConstants.ADD_PROJECT
+			})
 		})
 	},
 
-	navTo_SingleProject: function(singleProjectObj) {
+	navTo_SingleProject: function(singleProjectObj, passedNavigator) {
 		this.setState({
-			authProjectsAppState: PagesConstants.SINGLE_PROJECT,
 			activeProjectKey: singleProjectObj['key']
 		}, function(){
+			passedNavigator.pushPage({
+				title: PagesConstants.SINGLE_PROJECT
+			});
 			mixpanel.track("Launched Single Project",
 			{
 				"Project Name": singleProjectObj.name
@@ -46,18 +51,19 @@ var ProjectsHub = React.createClass({
 		});
 	},
 
-	navTo_ProjectsHub: function() {
-		this.setState({
-			authProjectsAppState: PagesConstants.PROJECTS_HUB
-		}, function(){
-			mixpanel.track("Navigated to Projects Hub");
-		});
+	navTo_GeneralPop: function(navigator) {
+		navigator.popPage();
+		// this.setState({
+		// 	authProjectsAppState: PagesConstants.PROJECTS_HUB
+		// }, function(){
+		// 	mixpanel.track("Navigated to Projects Hub");
+		// });
 	},
 
-	createProject: function(projectObj) {
+	createProject: function(projectObj, passedNavigator) {
 		var me = this;
-		console.log('projectObj:');
-		console.log(projectObj);
+		// console.log('createProject projectObj:');
+		// console.log(projectObj);
 
 		// adding new project:
 		var newProjectEntryEndPoint = "projects/" + this.props.currentUser.uid + "/";
@@ -67,9 +73,11 @@ var ProjectsHub = React.createClass({
 				if(!err){
 					console.log('Project Added Added');
 					me.setState({
-						authProjectsAppState: PagesConstants.SINGLE_PROJECT,
 						activeProjectKey: projectBeingCreated.key
 					}, function(){
+						passedNavigator.replacePage({
+							title: PagesConstants.SINGLE_PROJECT
+						})
 						mixpanel.track("Created Project",
 							{
 								"Project Name":  projectObj.name
@@ -90,13 +98,38 @@ var ProjectsHub = React.createClass({
 		});
 	},
 
-	renderToolbar: function() {
-		if (this.state.authProjectsAppState == PagesConstants.PROJECTS_HUB) {
+	updateProject: function(projectObj, passedNavigator) {
+		var me = this;
+		// console.log('updateProject projectObj:');
+		// console.log(projectObj);
+
+		// Updating Project:
+		var projectUpdateEndPoint = "projects/" + this.props.currentUser.uid + "/" + this.state.activeProjectKey;
+		SiteStatusBase.update(projectUpdateEndPoint, {
+			data: projectObj,
+			then: function(err) {
+				if (!err) {
+					if (projectObj.deleted) {
+						passedNavigator.popPage();
+					} else {
+						passedNavigator.replacePage({
+							title: PagesConstants.SINGLE_PROJECT,
+						})
+					}
+				} else {
+					console.log(err);
+				}
+			}
+		});
+	},
+
+	renderToolbar: function(route, navigator) {
+		if (route.title == PagesConstants.PROJECTS_HUB) {
 		    return (
 			    <Ons.Toolbar>
 					<div className='center'>Projects</div>
 					<div className='right'>
-						<Ons.ToolbarButton onClick={this.navTo_NewProject}>
+						<Ons.ToolbarButton onClick={this.navTo_NewProject.bind(this, navigator)}>
 							New
 						</Ons.ToolbarButton>
 					</div>
@@ -127,7 +160,7 @@ var ProjectsHub = React.createClass({
     	});
     },
 
-	renderListOfProjects: function() {
+	renderListOfProjects: function(navigator) {
 		var me = this;
 
 		if (this.props.projectsLoading) {
@@ -145,43 +178,73 @@ var ProjectsHub = React.createClass({
 						{this.pullHookGetContent()}
 					</Ons.PullHook>
 					{this.props.projects.map(function(project, i){
-						return <ProjectsListRow singleProject={project} index={i} key={i} launchProject={me.navTo_SingleProject}/> ;
+						return <ProjectsListRow
+									singleProject={project}
+									index={i}
+									key={i}
+									launchProject={me.navTo_SingleProject}
+									passedNavigator={navigator}
+									/> ;
 					})}
 				</Ons.List>
 			)
 		}
 	},
 
-	render: function() {
-		var authProjectsAppComponent = '';
+	projectsHubPageController: function(route, navigator) {
+		console.log('projectsHubPageController ROUTE:');
+		console.log(route);
 
-    	if (this.state.authProjectsAppState == PagesConstants.PROJECTS_HUB) {
-    		authProjectsAppComponent = this.renderListOfProjects(); 
-
-    	} else if (this.state.authProjectsAppState == PagesConstants.SINGLE_PROJECT) {
-    		var activeProjectObject = Utils.findProjectByKey(this.state.activeProjectKey, this.props.projects);
-    		authProjectsAppComponent = <SingleProjectHome 
-    									currentUser={this.props.currentUser} 
-    									activeProjectKey={this.state.activeProjectKey} 
-    									singleProject={activeProjectObject} 
-    									navToHub={this.navTo_ProjectsHub} 
-    									contractors={this.props.contractors}
-    									/>;
-
-    	} else if (this.state.authProjectsAppState == PagesConstants.ADD_PROJECT) {
-    		var blankProject = new Project({});
-    		authProjectsAppComponent = <NewProject 
-    									currentUser={this.props.currentUser} 
-    									activeProjectKey={this.state.activeProjectKey} 
-    									singleProject={blankProject} 
-    									cancelCreate={this.navTo_ProjectsHub} 
-    									createNewOrUpdateProject={this.createProject}
-    									/>;
-    	}
-
+		var pageContent;
+		if (route.title == PagesConstants.PROJECTS_HUB) {
+			pageContent = this.renderListOfProjects(navigator);
+		} else if (route.title == PagesConstants.SINGLE_PROJECT) {
+			var activeProjectObject = Utils.findProjectByKey(this.state.activeProjectKey, this.props.projects);
+    		pageContent = <SingleProjectHome 
+							currentUser={this.props.currentUser} 
+							activeProjectKey={this.state.activeProjectKey} 
+							singleProject={activeProjectObject} 
+							navTo_GeneralPop={this.navTo_GeneralPop.bind(this, navigator)}
+							contractors={this.props.contractors}
+							passedNavigator={navigator}
+							/>;
+		} else if (route.title == PagesConstants.ADD_PROJECT) {
+			var blankProject = new Project({});
+    		pageContent = <NewProject 
+							currentUser={this.props.currentUser} 
+							activeProjectKey={this.state.activeProjectKey} 
+							singleProject={blankProject} 
+							cancelCreate={this.navTo_GeneralPop.bind(this, navigator)} 
+							createNewOrUpdateProject={this.createProject}
+							passedNavigator={navigator}
+							/>;
+		} else if (route.title == PagesConstants.SINGLE_PROJECT_SETTINGS) {
+			var activeProjectObject = Utils.findProjectByKey(this.state.activeProjectKey, this.props.projects);
+    		pageContent = <NewProject
+							singleProject={activeProjectObject}
+							singleProjectKey={this.state.activeProjectKey}
+							createNewOrUpdateProject={this.updateProject}
+							cancelCreate={this.navTo_GeneralPop.bind(this, navigator)}
+							currentUser={this.props.currentUser}
+							passedNavigator={navigator}
+							/>;
+		}
 		return (
-			<Ons.Page renderToolbar={this.renderToolbar}>
-			{authProjectsAppComponent}
+			<Ons.Page key={route.title} renderToolbar={this.renderToolbar.bind(this, route, navigator)}>
+				{pageContent}
+			</Ons.Page>
+		);
+	},
+
+	render: function() {
+		return (
+			<Ons.Page>
+				<Ons.Navigator
+					renderPage={this.projectsHubPageController}
+					initialRoute={{
+						title: PagesConstants.PROJECTS_HUB
+					}}
+				/>
 			</Ons.Page>
 		)
 	}

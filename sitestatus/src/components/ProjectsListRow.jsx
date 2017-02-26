@@ -8,7 +8,7 @@ var Ons = require('react-onsenui');
 var ProjectsListRow = React.createClass({
 
 	setActiveProjectInHub: function() {
-		this.props.launchProject(this.props.singleProject)
+		this.props.launchProject(this.props.singleProject, this.props.passedNavigator)
 	},
 
 	render: function() {

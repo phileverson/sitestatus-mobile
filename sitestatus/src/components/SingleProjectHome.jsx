@@ -88,32 +88,14 @@ var SingleProjectHome = React.createClass({
 		});
 	},
 
-	updateProjectDetails: function(projectObj) {
-		var me = this;
-		console.log('projectObj:');
-		console.log(projectObj);
-
-		// Updating Project:
-		var projectUpdateEndPoint = "projects/" + this.props.currentUser.uid + "/" + this.props.singleProject['key'];
-		SiteStatusBase.update(projectUpdateEndPoint, {
-			data: projectObj,
-			then: function(err) {
-				if (!err) {
-					if (projectObj.deleted) {
-						me.props.navToHub();
-					} else {
-						me.navTo_SingleProjectTabs();
-					}
-				} else {
-					console.log(err);
-				}
-			}
-		});
-	},
-
 	navTo_ProjectSettings: function() {
-		this.setState({
-			authSingleProjectAppState: PagesConstants.SINGLE_PROJECT_SETTINGS
+		var singleProjectForProjectDetail = new Project(this.props.singleProject);
+		this.props.passedNavigator.replacePage({
+			title: PagesConstants.SINGLE_PROJECT_SETTINGS,
+			props: {
+				singleProject: singleProjectForProjectDetail,
+				currentUser: this.props.currentUser
+			}
 		})
 	},
 
@@ -125,6 +107,9 @@ var SingleProjectHome = React.createClass({
 	},
 
 	renderTabs: function() {
+		if (!this.props.singleProject) {
+			return '';
+		}
 
 		var shortListedContractorsDetails = [];
 		if (this.props.singleProject.shortListedContractors) {
@@ -142,14 +127,14 @@ var SingleProjectHome = React.createClass({
 							toggleTabbarVisibility={this.toggleTabbarVisibility} 
 							singleProject={this.props.singleProject} 
 							contractors={this.props.contractors} 
-							navToHub={this.props.navToHub} 
+							navToHub={this.props.navTo_GeneralPop} 
 							navToProjectSettings={this.navTo_ProjectSettings} 
 							scheduledContractors_Today={this.state.scheduledContractors_Today}
 							statusUpdates={this.state.statusUpdates}
 							statusUpdatesLoading={this.state.statusUpdatesLoading}
 							fetchFirebaseStatusUpdates={this.fetchFirebaseStatusUpdates}
 							/>,
-				tab: <Ons.Tab label='Updates' icon='envelope-o' />
+				tab: <Ons.Tab key="Tab_SingleProjectStatusUpdateList" label='Updates' icon='envelope-o' />
 			},
 			{
 				content: <SingleProjectSchedule 
@@ -158,14 +143,14 @@ var SingleProjectHome = React.createClass({
 							singleProject={this.props.singleProject} 
 							contractors={this.props.contractors} 
 							shortListedContractorsDetails={shortListedContractorsDetails} 
-							navToHub={this.props.navToHub} 
+							navToHub={this.props.navTo_GeneralPop} 
 							navToProjectSettings={this.navTo_ProjectSettings} 
 							addContractorToShortlist={this.addContractorToProjectShortlist}
 							removeContractorFromShortlist={this.removeContractorFromProjectShortlist}
 							updateProjectDetails={this.updateProjectDetails}
 							currentUser={this.props.currentUser}
 							/>,
-				tab: <Ons.Tab label='Schedule' icon='calendar-check-o' />
+				tab: <Ons.Tab key="Tab_SingleProjectSchedule" label='Schedule' icon='calendar-check-o' />
 			}
 		];
 	},
@@ -176,7 +161,7 @@ var SingleProjectHome = React.createClass({
 				<div className='center'>Single Project</div>
 				<div className='right'></div>
 				<div className='left'>
-					<Ons.ToolbarButton onClick={this.props.navToHub}>
+					<Ons.ToolbarButton onClick={this.props.navTo_GeneralPop}>
 						<Ons.Icon icon='ion-android-folder-open' />
 					</Ons.ToolbarButton>
 				</div>
@@ -189,28 +174,27 @@ var SingleProjectHome = React.createClass({
 	},
 
 	render: function() {
-		console.log(this.state);
-		if (this.state.authSingleProjectAppState == PagesConstants.SINGLE_PROJECT) { // Updates & Scheduler
+		if (!this.props.singleProject) {
 			return (
-				<Ons.Tabbar
-					ref='tabs'
-					index={this.state.index}
-					onPreChange={(event) =>
-						{
-							if (event.index != this.state.index) {
-								this.setState({index: event.index});
-							}
+				<div></div>
+				);
+		}
+		// console.log('State at SingleProjectHome:');
+		// console.log(this.state);
+		return (
+			<Ons.Tabbar
+				ref='tabs'
+				index={this.state.index}
+				onPreChange={(event) =>
+					{
+						if (event.index != this.state.index) {
+							this.setState({index: event.index});
 						}
 					}
-					renderTabs={this.renderTabs}
-				/>
-			)
-		} else { // Editing project details
-			var singleProjectForProjectDetail = new Project(this.props.singleProject);
-			return (
-				<NewProject singleProject={singleProjectForProjectDetail} singleProjectKey={this.props.singleProject['key']} createNewOrUpdateProject={this.updateProjectDetails} cancelCreate={this.navTo_SingleProjectTabs} currentUser={this.props.currentUser}/>
-			)
-		} 
+				}
+				renderTabs={this.renderTabs}
+			/>
+		)
 	}
 });
 

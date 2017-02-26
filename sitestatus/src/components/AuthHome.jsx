@@ -177,6 +177,8 @@ var AuthHome = React.createClass({
     									contractorsLoading={this.state.contractorsLoading}
     									projectsLoading={this.state.projectsLoading}
     									fetchFirebaseProjects={this.fetchFirebaseProjects}
+    									activateGlobalModal={this.props.activateGlobalModal}
+                            			deactivateGlobalModal={this.props.deactivateGlobalModal}
     									/>;
     	} else if (this.state.authAppState == PagesConstants.CONTRACTORS_LIST) {
     		authAppStateComponent = <ContractorsHub 
@@ -186,11 +188,16 @@ var AuthHome = React.createClass({
     									contractors={this.state.contractors}
     									contractorsLoading={this.state.contractorsLoading}
     									fetchFirebaseContractors={this.fetchFirebaseContractors}
+    									activateGlobalModal={this.props.activateGlobalModal}
+                            			deactivateGlobalModal={this.props.deactivateGlobalModal}
     									/>;
     	} else if (this.state.authAppState == PagesConstants.USER_PROFILE) {
     		authAppStateComponent = <UserProfile 
     									currentUser={this.props.user} 
-    									showLeftMenu={this.showLeftMenu} 
+    									showLeftMenu={this.showLeftMenu}
+    									activateGlobalModal={this.props.activateGlobalModal}
+                            			deactivateGlobalModal={this.props.deactivateGlobalModal}
+
     									/>;
     	} 
     	return (

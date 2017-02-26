@@ -10,7 +10,7 @@ var ContractorsListRow = require('./ContractorsListRow.jsx');
 var NewProject = React.createClass({
 
 	getInitialState: function(){
-		// console.log(this.props);
+		console.log(this.props);
 		var creatingNewProject = (this.props.singleProjectKey) ? false : true;
 
 		return {
@@ -24,7 +24,7 @@ var NewProject = React.createClass({
 			status: this.props.singleProject.status,
 			shortListedContractors: this.props.singleProject.shortListedContractors,
 
-			errorMessages: this.props.singleProject.errorMessages
+			errorMessages: {}
 		}
 	},
 
@@ -35,8 +35,7 @@ var NewProject = React.createClass({
 
 		if (changingProjectIsValid.isValid) {
 			changingProject = changingProject.preparePutObject();
-			// allowing for this to be used outside single project
-			this.props.createNewOrUpdateProject(changingProject);
+			this.props.createNewOrUpdateProject(changingProject, this.props.passedNavigator);
 		} else {
 			var mergedErrorMessages = _.merge(this.state.errorMessages, changingProjectIsValid.errorMessages);
 			this.setState({
@@ -48,7 +47,7 @@ var NewProject = React.createClass({
 	handleProjectDelete: function() {
 		var changingProject = this.createProjectObject();
 		changingProject.deleted = true;
-		this.props.createNewOrUpdateProject(changingProject);
+		this.props.createNewOrUpdateProject(changingProject, this.props.passedNavigator);
 	},
 
 	createProjectObject: function() {
