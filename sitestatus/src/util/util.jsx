@@ -63,5 +63,15 @@ module.exports = {
 	        currentDate = moment(currentDate).add(1, 'days');
 	    }
 	    return dateArray;
+	},
+	updatesForSpecificProject: function(projectKey, allUpdates) {
+		if(!allUpdates) {
+			return null;
+		}
+		for (var i = 0; i < allUpdates.length; i++) {
+			if (allUpdates[i]['projectKey'] == projectKey) {
+				return allUpdates[i]
+			}
+		}
 	}
 };

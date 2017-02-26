@@ -3,6 +3,8 @@ var ReactDOM = require('react-dom');
 var ons = require('onsenui');
 var Ons = require('react-onsenui');
 var Rebase = require('re-base');
+var moment = require('moment');
+var _ = require('lodash');
 
 var PagesConstants = require('constants/pages.jsx');
 var GlobalConstants = require('constants/global.jsx');
@@ -29,7 +31,8 @@ var ProjectsHub = React.createClass({
 
 	navTo_NewProject: function(navigator) {
 		this.setState({
-			activeProjectKey: ''
+			activeProjectKey: '',
+			projects: this.props.projects
 		}, function(){
 			navigator.pushPage({
 				title: PagesConstants.ADD_PROJECT
@@ -38,17 +41,38 @@ var ProjectsHub = React.createClass({
 	},
 
 	navTo_SingleProject: function(singleProjectObj, passedNavigator) {
+		var me = this;
 		this.setState({
 			activeProjectKey: singleProjectObj['key']
 		}, function(){
 			passedNavigator.pushPage({
 				title: PagesConstants.SINGLE_PROJECT
-			});
+			})
 			mixpanel.track("Launched Single Project",
 			{
 				"Project Name": singleProjectObj.name
 			})
-		});
+
+			// Really, really, really shitty work around for updating project view date.
+			setTimeout(function() {
+			  me.updateProjectLastViewedTime();
+			}, 2000);
+			});
+	},
+
+	updateProjectLastViewedTime: function() {
+		var fullDate = moment();
+			var projectEndPoint = "projects/" + this.props.currentUser.uid + "/" + this.state.activeProjectKey
+			SiteStatusBase.update(projectEndPoint, {
+				data: {lastViewed: fullDate.toISOString()},
+				then: function(err) {
+					console.log('Updated Project Last Viewed')
+					if (err) {
+						console.log("ERROR Updating Project Last Viewed");
+						console.log(err);
+					}
+				}
+			})
 	},
 
 	navTo_GeneralPop: function(navigator) {
@@ -167,17 +191,21 @@ var ProjectsHub = React.createClass({
 			return (
 				<Loading />
 		    )
-		} else if (this.props.projects.length == 0) {
+		} else if (this.props.projects.length == 0 || (!this.props.projects)) {
 			return (
 	        	<div>whoops looks like theres no projects here.</div>
 	        )
-		} else {
+		} else if (this.props.projects) {
+			var projectsListSafe = _.cloneDeep(this.props.projects);
+			if (!projectsListSafe) {
+				return (<div></div>)
+			}
 			return (
 				<Ons.List>
 					<Ons.PullHook onChange={this.pullHookHandleChange} onLoad={this.props.fetchFirebaseProjects} >
 						{this.pullHookGetContent()}
 					</Ons.PullHook>
-					{this.props.projects.map(function(project, i){
+					{projectsListSafe.map(function(project, i){
 						return <ProjectsListRow
 									singleProject={project}
 									index={i}

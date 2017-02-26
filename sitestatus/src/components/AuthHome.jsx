@@ -20,7 +20,7 @@ var AuthHome = React.createClass({
 			isOpenLeft: false,
 			authAppState: PagesConstants.PROJECTS_LIST,
 
-			projects: null,
+			projects: [],
 			contractors: null,
 
 			projectsLoading: true,
@@ -39,15 +39,12 @@ var AuthHome = React.createClass({
 		var projectsEndPoint = "projects/" + this.props.user.uid + "/";
 		SiteStatusBase.listenTo(projectsEndPoint, {
 			context: this,
-			asArray: true,
 			queries: {
 				orderByChild: 'deleted',
 				equalTo: false
 			},
 			then: function(data){
-				this.setState({
-					projects: data
-				});
+				this.fetchFirebaseProjects();
 				console.log('Detected Change: Projects');
 			}
 		});
@@ -57,7 +54,6 @@ var AuthHome = React.createClass({
 		var projectsEndPoint = "projects/" + this.props.user.uid + "/";
 		SiteStatusBase.fetch(projectsEndPoint, {
 			context: this,
-			state: 'projects',
 			asArray: true,
 			queries: {
 				orderByChild: 'deleted',
@@ -84,15 +80,12 @@ var AuthHome = React.createClass({
 		var contractorsEndPoint = "contractors/" + this.props.user.uid + "/";
 		SiteStatusBase.listenTo(contractorsEndPoint, {
 			context: this,
-			asArray: true,
 			queries: {
 				orderByChild: 'deleted',
 				equalTo: false
 			},
 			then: function(data){
-				this.setState({
-					contractors: data
-				});
+				this.fetchFirebaseContractors();
 				console.log('Detected Change: Contractors');
 			}
 		});
@@ -102,7 +95,6 @@ var AuthHome = React.createClass({
 		var contractorsEndPoint = "contractors/" + this.props.user.uid + "/";
 		SiteStatusBase.fetch(contractorsEndPoint, {
 			context: this,
-			state: 'contractors',
 			asArray: true,
 			queries: {
 				orderByChild: 'deleted',
@@ -177,6 +169,7 @@ var AuthHome = React.createClass({
     									contractorsLoading={this.state.contractorsLoading}
     									projectsLoading={this.state.projectsLoading}
     									fetchFirebaseProjects={this.fetchFirebaseProjects}
+    									latestUpdatePerProject={this.state.latestUpdatePerProject}
     									activateGlobalModal={this.props.activateGlobalModal}
                             			deactivateGlobalModal={this.props.deactivateGlobalModal}
     									/>;
