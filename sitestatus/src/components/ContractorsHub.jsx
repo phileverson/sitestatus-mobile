@@ -50,7 +50,7 @@ var ContractorsHub = React.createClass({
 		} else { 
 			// adding new contractor:
 			var newContractorEntryEndPoint = "contractors/" + this.props.currentUser.uid + "/";
-			SiteStatusBase.push(activeContractorEntryEndPoint, {
+			SiteStatusBase.push(newContractorEntryEndPoint, {
 				data: contractorObj,
 				then: function(err) {
 					if(!err){
