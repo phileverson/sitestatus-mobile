@@ -31,8 +31,10 @@ var SingleProjectStatusUpdatesListRow = React.createClass({
 			var previousUpdateDate = moment(this.props.previousUpdate['Date Sent']).format("dddd, MMMM Do YYYY");
 			showHeader = (currentUpdateDate == previousUpdateDate) ? false : true;
 		}
-		
+		//console.log({this.props.scheduledContractors_Today});
+
 		return (
+
 			<div>
 			{showHeader &&
 				<Ons.ListHeader>{currentUpdateDate}</Ons.ListHeader>
