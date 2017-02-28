@@ -291,8 +291,7 @@ var NewProject = React.createClass({
 							</div>
 						</Ons.ListItem>
 						{!(this.state.creatingNewProject) &&
-						<Ons.ListItem modifier="nodivider">
-							<Ons.Button onClick={this.handleProjectDelete}>Delete Project</Ons.Button>
+						<Ons.ListItem modifier="tappable" onClick={this.handleProjectDelete}>Delete Project
 						</Ons.ListItem>
 						}
 					</Ons.List>

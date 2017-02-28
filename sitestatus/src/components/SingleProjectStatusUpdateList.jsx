@@ -146,6 +146,7 @@ var SingleProjectStatusUpdateList = React.createClass({
 							<SingleProjectStatusUpdatesListRow
 								previousUpdate={previousUpdate}
 								singleUpdate={update}
+								allContractors={allContractorsCopy}
 								relatedContractor={relatedContractor}
 								index={i}
 								key={i}
