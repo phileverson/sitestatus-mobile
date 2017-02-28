@@ -89,14 +89,12 @@ var SingleProjectHome = React.createClass({
 	},
 
 	navTo_ProjectSettings: function() {
-		var singleProjectForProjectDetail = new Project(this.props.singleProject);
-		this.props.passedNavigator.replacePage({
-			title: PagesConstants.SINGLE_PROJECT_SETTINGS,
-			props: {
-				singleProject: singleProjectForProjectDetail,
-				currentUser: this.props.currentUser
-			}
-		})
+		console.log('clicked navTo_ProjectSettings...');
+		this.props.navTo_ProjectSettings(this.props.passedNavigator);
+		// var singleProjectForProjectDetail = new Project(this.props.singleProject);
+		// this.props.passedNavigator.pushPage({
+		// 	title: PagesConstants.SINGLE_PROJECT_SETTINGS
+		// })
 	},
 
 	// the default:
@@ -173,20 +171,6 @@ var SingleProjectHome = React.createClass({
 		];
 	},
 
-	renderToolbar: function() {
-	    return (
-		    <Ons.Toolbar>
-				<div className='center'>Single Project</div>
-				<div className='right'></div>
-				<div className='left'>
-					<Ons.ToolbarButton onClick={this.props.navTo_GeneralPop}>
-						<Ons.Icon icon='ion-android-folder-open' />
-					</Ons.ToolbarButton>
-				</div>
-		    </Ons.Toolbar>
-	  	)
-	},
-
 	toggleTabbarVisibility: function(showHideSetter) {
 		this.refs.tabs.refs.tabbar.setTabbarVisibility(showHideSetter);
 	},
@@ -194,11 +178,15 @@ var SingleProjectHome = React.createClass({
 	render: function() {
 		if (!this.props.singleProject) {
 			return (
-				<div></div>
+				<div style={{marginTop:'150px', display:'inline-block', width:'100%', textAlign:'center'}}>
+					No project loaded.
+					<div style={{marginTop:'25px'}}>
+						<Ons.Button onClick={this.props.navTo_GeneralPop}>Return to Project Hub</Ons.Button>
+					</div>
+				</div>
 				);
 		}
-		// console.log('State at SingleProjectHome:');
-		// console.log(this.state);
+
 		return (
 			<Ons.Tabbar
 				ref='tabs'

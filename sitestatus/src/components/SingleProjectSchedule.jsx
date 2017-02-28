@@ -62,14 +62,14 @@ var SingleProjectSchedule = React.createClass({
 
 	pushPage_ManageContractors: function(navigator) {
 		navigator.pushPage({
-			title: 'Manage Contractors',
+			title: PagesConstants.SINGLE_PROJECT_SCHEDULE_MANAGE_CONTRACTORS,
 			hasBackButton: true
 		});
 	},
 
 	pushPage_AddContractor: function(navigator) {
 		navigator.pushPage({
-			title: 'Add Contractor',
+			title: PagesConstants.SINGLE_PROJECT_SCHEDULE_ADD_CONTRACTORS,
 			hasBackButton: true
 		});
 	},
@@ -113,15 +113,22 @@ var SingleProjectSchedule = React.createClass({
 
 		const leftButton = route.hasBackButton
 		? <Ons.ToolbarButton onClick={this.popPage_CancelManageContractors.bind(this, navigator)}>Cancel</Ons.ToolbarButton>
-		: <Ons.ToolbarButton ><Ons.Icon icon='md-home' onClick={this.props.navToHub} /></Ons.ToolbarButton>
+		: <Ons.ToolbarButton onClick={this.props.navToHub}><Ons.Icon icon='md-home' /></Ons.ToolbarButton>
 		const rightButton = !route.hasBackButton
-		? <Ons.ToolbarButton ><Ons.Icon icon='md-settings' onClick={this.props.navToProjectSettings} /></Ons.ToolbarButton>
+		? <Ons.ToolbarButton onClick={this.props.navToProjectSettings}><Ons.Icon icon='md-settings'/></Ons.ToolbarButton>
 		: <Ons.ToolbarButton onClick={this.popPage_SaveUpdatedShortlist.bind(this, navigator)}>Save</Ons.ToolbarButton>
+
+		var toolbarTitleCenter = this.props.singleProject.name;
+		if (route.title == PagesConstants.SINGLE_PROJECT_SCHEDULE_MANAGE_CONTRACTORS) {
+			toolbarTitleCenter = PagesConstants.SINGLE_PROJECT_SCHEDULE_MANAGE_CONTRACTORS;
+		} else if (route.title == PagesConstants.SINGLE_PROJECT_SCHEDULE_ADD_CONTRACTORS) {
+			toolbarTitleCenter = PagesConstants.SINGLE_PROJECT_SCHEDULE_ADD_CONTRACTORS;
+		}
 
 		return (
 			<Ons.Toolbar>
 				<div className='left'>{leftButton}</div>
-				<div className='center'>{route.title}</div>
+				<div className='center'>{toolbarTitleCenter}</div>
 				<div className='right'>{rightButton}</div>
 			</Ons.Toolbar>
 		);
@@ -130,7 +137,7 @@ var SingleProjectSchedule = React.createClass({
 	renderPage: function(route, navigator) {
 		var me = this;
 		var pageContent;
-		if (route.title == "Manage Contractors") {
+		if (route.title == PagesConstants.SINGLE_PROJECT_SCHEDULE_MANAGE_CONTRACTORS) {
 			pageContent = <SingleProjectScheduleManageContractors 
 							singleProject={this.props.singleProject} 
 							contractors={this.props.contractors} 
@@ -139,7 +146,7 @@ var SingleProjectSchedule = React.createClass({
 							shortListedContractors_Editable={this.state.shortListedContractors_Editable}
 							navToAddContractor={me.pushPage_AddContractor.bind(me, navigator)}
 							/>
-		} else if (route.title == "Add Contractor") {
+		} else if (route.title == PagesConstants.SINGLE_PROJECT_SCHEDULE_ADD_CONTRACTORS) {
 			var blankContractor = new Contractor({});
 			pageContent = <NewContractor 
 							singleContractor={blankContractor} 

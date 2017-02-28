@@ -8,6 +8,10 @@ module.exports = {
 	SINGLE_PROJECT: 'Single_Project',
 	SINGLE_PROJECT_SETTINGS: 'Single_Project_Settings',
 
+	SINGLE_PROJECT_STATE_UPDATE_DETAIL: 'Update Details',
+	SINGLE_PROJECT_SCHEDULE_MANAGE_CONTRACTORS: 'Manage Contractors',
+	SINGLE_PROJECT_SCHEDULE_ADD_CONTRACTORS: 'Add Contractor',
+
 	CONTRACTORS_LIST: 'Contractors',
 	EDIT_CONTRACTOR: 'Edit Contractor',
 	ADD_CONTRACTOR: 'New Contractor',

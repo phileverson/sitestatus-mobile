@@ -70,16 +70,21 @@ var SingleProjectStatusUpdateList = React.createClass({
 	renderToolbar: function(route, navigator) {
 		const leftButton = route.hasBackButton
 		? <Ons.BackButton onClick={this.backToUpdateList.bind(this, navigator)}>Back</Ons.BackButton>
-		: <Ons.ToolbarButton ><Ons.Icon icon='md-home' onClick={this.props.navToHub} /></Ons.ToolbarButton>
+		: <Ons.ToolbarButton onClick={this.props.navToHub}><Ons.Icon icon='md-home' /></Ons.ToolbarButton>
+
+		var toolbarTitleCenter = this.props.singleProject.name;
+		if (route.title == PagesConstants.SINGLE_PROJECT_STATE_UPDATE_DETAIL) {
+			toolbarTitleCenter = PagesConstants.SINGLE_PROJECT_STATE_UPDATE_DETAIL;
+		}
 
 		return (
 			<Ons.Toolbar>
 				<div className='left'>{leftButton}</div>
-				<div className='center'>{route.title}</div>
+				<div className='center'>{toolbarTitleCenter}</div>
 				<div className='right'>
 				{!route.hasBackButton &&
-					<Ons.ToolbarButton >
-						<Ons.Icon icon='md-settings' onClick={this.props.navToProjectSettings} />
+					<Ons.ToolbarButton onClick={this.props.navToProjectSettings} >
+						<Ons.Icon icon='md-settings'/>
 					</Ons.ToolbarButton>
 				}
 				</div>
@@ -158,7 +163,7 @@ var SingleProjectStatusUpdateList = React.createClass({
 
 	renderPage: function(route, navigator) {
 		var pageContent;
-		if (route.title == "Update Details") {
+		if (route.title == PagesConstants.SINGLE_PROJECT_STATE_UPDATE_DETAIL) {
 			pageContent = this.renderSingleUpdate();
 		} else {
 			pageContent = this.renderListOfUpdates(navigator);
