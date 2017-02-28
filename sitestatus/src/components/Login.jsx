@@ -58,7 +58,7 @@ var Login = React.createClass({
   },
 
   render: function() {
-    console.log(this.state.errorMessages);
+    // console.log(this.state.errorMessages);
     return (
     <section>
       <Ons.List>

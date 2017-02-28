@@ -33,18 +33,23 @@ module.exports = {
 		}
 	},
 	daysScheduleContractorIndex: function(contractorKey, daysSchedule) {
-		for (var i = 0; i < daysSchedule.length; i++) {
-			if (daysSchedule[i]['.value'] == contractorKey) {
-				return i;
+		// console.log('contractorKey');
+		// console.log(contractorKey);
+		// console.log('daysSchedule');
+		// console.log(daysSchedule);
+		for(var key in daysSchedule) {
+		    if (daysSchedule[key] == contractorKey) {
+				return key;
 			}
 		}
+		
 		return -1;
 	},
 	prettyfirebaseArray: function(firebaseArrayObject) {
 		var prettyArray = [];
 		if(firebaseArrayObject) {
-			for (var i = 0; i < firebaseArrayObject.length; i++) {
-				prettyArray.push(firebaseArrayObject[i]['.value']);
+			for(var key in firebaseArrayObject) {
+			    prettyArray.push(firebaseArrayObject[key]);
 			}
 		}
 		return prettyArray;
@@ -58,5 +63,15 @@ module.exports = {
 	        currentDate = moment(currentDate).add(1, 'days');
 	    }
 	    return dateArray;
+	},
+	updatesForSpecificProject: function(projectKey, allUpdates) {
+		if(!allUpdates) {
+			return null;
+		}
+		for (var i = 0; i < allUpdates.length; i++) {
+			if (allUpdates[i]['projectKey'] == projectKey) {
+				return allUpdates[i]
+			}
+		}
 	}
 };

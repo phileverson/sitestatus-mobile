@@ -4,6 +4,8 @@ var ons = require('onsenui');
 var Ons = require('react-onsenui');
 var moment = require('moment');
 
+var SiteStatusBase = require('util/SiteStatusBase.jsx');
+
 var PagesConstants = require('constants/pages.jsx');
 var Styles = require('constants/styles.jsx');
 var Utils = require('util/util.jsx');
@@ -11,7 +13,6 @@ var Utils = require('util/util.jsx');
 var SingleProjectScheduleCell = require('./SingleProjectScheduleCell.jsx');
 
 var SingleProjectScheduleRow = React.createClass({
-	mixins: [ReactFireMixin],
 
 	getInitialState: function(){
 	  return {
@@ -19,13 +20,20 @@ var SingleProjectScheduleRow = React.createClass({
 	  }
 	},
 
-	componentWillMount: function() {
+	componentDidMount: function() {
 		var fullDate = moment(this.props.day);
 		var dateKey = fullDate.format("MM-DD-YYYY");
 		var projectKey = this.props.singleProject['key']
 
-		var projectsScheduleDayRef = firebase.database().ref("projects-schedule/" + projectKey + "/" + dateKey + "/contractors/");
-		this.bindAsArray(projectsScheduleDayRef, "scheduledContractors");
+		var dayProjectScheduleEndPoint = "projects-schedule/" + projectKey + "/" + dateKey + "/contractors/"
+		SiteStatusBase.bindToState(dayProjectScheduleEndPoint, {
+			context: this,
+			state: 'scheduledContractors',
+			asArray: false,
+			then: function(){
+				console.log("Updated state (through bindToState) for scheduledContractors.");
+			}
+		});
 	},
 
 	toggleContractorSchedule: function(contractorKey) {
@@ -33,19 +41,38 @@ var SingleProjectScheduleRow = React.createClass({
 		var dateKey = fullDate.format("MM-DD-YYYY");
 		var projectKey = this.props.singleProject['key']
 
-		var contractorKeyScheduledContractorsIndex = Utils.daysScheduleContractorIndex(contractorKey, this.state.scheduledContractors);
-		// console.log(contractorKeyScheduledContractorsIndex);
+		var scheduledContractorsAsArray = Utils.prettyfirebaseArray(this.state.scheduledContractors);
+		var contractorKeyScheduledContractorsIndex = Utils.daysScheduleContractorIndex(contractorKey, scheduledContractorsAsArray);
+		console.log(contractorKeyScheduledContractorsIndex);
 
 		if(contractorKeyScheduledContractorsIndex >= 0) {
 			console.log('Contractor is already assigned to this date, now removing.');
-			var firebaseKey = this.state.scheduledContractors[contractorKeyScheduledContractorsIndex]['.key'];
-			// console.log(firebaseKey);
-			var singleContractorScheduleEntryRef = firebase.database().ref("projects-schedule/" + projectKey + "/" + dateKey + "/contractors/" + firebaseKey);
-			singleContractorScheduleEntryRef.remove();
+			var firebaseKey = Utils.daysScheduleContractorIndex(contractorKey, this.state.scheduledContractors);
+			console.log(firebaseKey);
+			var singleContractorScheduleEntryEndPoint = "projects-schedule/" + projectKey + "/" + dateKey + "/contractors/" + firebaseKey;
+			SiteStatusBase.remove(singleContractorScheduleEntryEndPoint, function(err){
+				if(!err){
+					console.log('Contractor removed.');
+				} else {
+					console.log('Error removing contractor for: ' + dateKey);
+					console.log(err);
+				}
+			});
 		} else {
 			console.log('Contractor is now being assigned to this date.');
-			var projectsScheduleDayRef = firebase.database().ref("projects-schedule/" + projectKey + "/" + dateKey + "/contractors/");
-			projectsScheduleDayRef.push(contractorKey);
+			var contractorsDayScheduleEntryEndPoint = "projects-schedule/" + projectKey + "/" + dateKey + "/contractors/";
+			SiteStatusBase.push(contractorsDayScheduleEntryEndPoint, {
+				data: contractorKey,
+				then: function(err) {
+					if(!err){
+						console.log('Contractor added.')
+					} else {
+						console.log('Error adding contractor for: ' + dateKey);
+						console.log(err);
+					}
+				}
+			});
+
 		}
 	},
 
@@ -110,7 +137,7 @@ var SingleProjectScheduleRow = React.createClass({
 						}
 						var activeCheck = scheduledContractorsAsArray.includes(contractor['key']);
 						return (
-							<SingleProjectScheduleCell projectKey={me.props.singleProject['key']} contractorKey={contractor['key']} dateKey={dateKey} onTap={me.toggleContractorSchedule} active={activeCheck} />
+							<SingleProjectScheduleCell key={i} projectKey={me.props.singleProject['key']} contractorKey={contractor['key']} dateKey={dateKey} onTap={me.toggleContractorSchedule} active={activeCheck} />
 						);
 					})}
 				</div>

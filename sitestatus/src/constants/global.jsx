@@ -6,5 +6,6 @@ module.exports = {
 	FIREBASE_DATABASE_URL: 'https://sitestatus-a547c.firebaseio.com',
 	FIREBASE_STORAGE_BUCKET: 'sitestatus-a547c.appspot.com',
 
-	LOADING: 'loading'
+	LOADING: 'loading',
+	PULLHOOK_MIN_LOADING: 1000
 };

@@ -9,7 +9,6 @@ var Styles = require('constants/styles.jsx');
 var Utils = require('util/util.jsx');
 
 var SingleProjectScheduleCell = React.createClass({
-	mixins: [ReactFireMixin],
 
 	onCellClick: function() {
 		// console.log('clicked!');

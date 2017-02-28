@@ -19,7 +19,6 @@ var Loading = require('./Loading.jsx');
 var index = 0;
 
 var SingleProjectStatusUpdateList = React.createClass({
-	mixins: [ReactFireMixin],
 
 	getInitialState: function(){
 		var zeroContractorsScheduledToday = false;
@@ -105,7 +104,7 @@ var SingleProjectStatusUpdateList = React.createClass({
 	      case 'preaction':
 	        return 'Release to Refresh';
 	      case 'action':
-	        return 'Loading...';
+	        return <Loading />;
 	    }
 	},
 	
@@ -135,7 +134,7 @@ var SingleProjectStatusUpdateList = React.createClass({
 						{this.pullHookGetContent()}
 					</Ons.PullHook>
 					{me.props.statusUpdates.map(function(update, i){
-						var relatedContractor = Utils.findContractorByPhoneNumber(update.From, allContractorsCopy);
+						var relatedContractor = Utils.findContractorByPhoneNumber(update.from, allContractorsCopy);
 						var previousUpdate = me.props.statusUpdates[(i-1)];
 
 						return (

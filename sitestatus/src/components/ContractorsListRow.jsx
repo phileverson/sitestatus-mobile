@@ -4,7 +4,6 @@ var ons = require('onsenui');
 var Ons = require('react-onsenui');
 
 var ContractorsListRow = React.createClass({
-	mixins: [ReactFireMixin],
 
 	setActiveContractorInHub: function() {
 		this.props.requestContractorEdit(this.props.singleContractor['key'])

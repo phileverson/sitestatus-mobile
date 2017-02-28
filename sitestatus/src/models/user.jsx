@@ -92,6 +92,32 @@ User.prototype = {
       isValid: ((numErrors == 0) ? true : false),
       errorMessages: errorMessages
     };
+  },
+
+  isValidProfile: function(){
+    var numErrors = 0;
+    var errorMessages = {
+      company: '',
+      firstName: '',
+      lastName: ''
+    };
+
+    // Checking each field
+    errorMessages.company = this.isValidCompany().company;
+    errorMessages.firstName = this.isValidFirstName().firstName;
+    errorMessages.lastName = this.isValidLastName().lastName;
+
+    // Did we get any error messages?
+    for (var field in errorMessages) {
+      if (errorMessages[field]) {
+        numErrors++;
+      }
+    }
+
+    return {
+      isValid: ((numErrors == 0) ? true : false),
+      errorMessages: errorMessages
+    };
   }
 }
 

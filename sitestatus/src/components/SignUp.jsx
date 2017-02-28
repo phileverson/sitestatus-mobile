@@ -4,19 +4,43 @@ var ons = require('onsenui');
 var Ons = require('react-onsenui');
 var _ = require('lodash');
 
+var GlobalConstants = require('constants/global.jsx');
+
 var User = require('../models/user.jsx');
 
 var SignUp = React.createClass({
 
   getInitialState: function(){
-    return {
-      emailAddress: '',
-      password: '',
-      passwordConf: '',
-      firstName: '',
-      lastName: '',
-      company: '',
-      errorMessages: this.props.noAuthUser.errorMessages
+    var newUserSigningUp = (this.props.currentUser) ? false : true;
+
+    if (!newUserSigningUp) {
+      return {
+        newUserSigningUp: newUserSigningUp,
+
+        emailAddress: this.props.currentUser.emailAddress,
+        firstName: this.props.currentUser.firstName,
+        lastName: this.props.currentUser.lastName,
+        company: this.props.currentUser.company,
+        errorMessages: {
+          company: '',
+          emailAddress: '',
+          password: '',
+          firstName: '',
+          lastName: ''
+        }
+      }
+    } else {
+      return {
+        newUserSigningUp: newUserSigningUp,
+
+        emailAddress: '',
+        password: '',
+        passwordConf: '',
+        firstName: '',
+        lastName: '',
+        company: '',
+        errorMessages: this.props.noAuthUser.errorMessages
+      }
     }
   },
 
@@ -107,6 +131,26 @@ var SignUp = React.createClass({
     })
   },
 
+  renderToolbar: function() {
+    if (!this.state.newUserSigningUp) {
+      return (
+        <Ons.Toolbar>
+        <div className='center'>Edit User Profile</div>
+        <div className='right'>
+          <Ons.ToolbarButton onClick={this.props.saveUserProfile}>
+            Save
+          </Ons.ToolbarButton>
+        </div>
+        <div className='left'>
+          <Ons.ToolbarButton onClick={this.props.cancelEdit}>
+            Cancel
+          </Ons.ToolbarButton>
+              </div>
+        </Ons.Toolbar>
+      )
+    }
+  },
+
   render: function() {
     console.log(this.state.errorMessages);
     var errorMessageTextStyle = {
@@ -114,7 +158,6 @@ var SignUp = React.createClass({
       fontSize: '8px',
       background: 'white',
       width: '100%',
-
     }
     var inputItemStyle = {
       width: '100%'
@@ -122,7 +165,15 @@ var SignUp = React.createClass({
     var divListItemStyle ={
       width: '100%'
     }
+
+    var showFirebaseAuthFields = this.state.newUserSigningUp;
+    // var showFirebaseAuthLink = this.state.newUserSigningUp;
+    var saveButtonLabel = 'Sign Up';
+    if (!this.state.newUserSigningUp) {
+      saveButtonLabel = "Save Profile" 
+    }
     return (
+      <Ons.Page renderToolbar={this.renderToolbar}>
     <section>
       <Ons.List>
           <Ons.ListItem modifier="nodivider" >
@@ -167,7 +218,7 @@ var SignUp = React.createClass({
               placeholder='Last Name' />
           </div>
         </Ons.ListItem>
-        
+        {showFirebaseAuthFields &&
         <Ons.ListItem modifier="nodivider">
           <div style={divListItemStyle}>
             {this.state.errorMessages.emailAddress && this.state.errorMessages.emailAddress.length > 0 &&
@@ -182,6 +233,8 @@ var SignUp = React.createClass({
               placeholder='Email' />
           </div>
         </Ons.ListItem>
+        }
+        {showFirebaseAuthFields &&
         <Ons.ListItem modifier="nodivider">
           <div style={divListItemStyle}>
             {this.state.errorMessages.password && this.state.errorMessages.password.length > 0 &&
@@ -197,11 +250,18 @@ var SignUp = React.createClass({
               placeholder='Password' />
           </div>
         </Ons.ListItem>
+        }
         <Ons.ListItem>
-          <Ons.Button modifier='large' onClick={this.props.submit}>Sign Up</Ons.Button>
+          <Ons.Button modifier='large' onClick={this.props.submit}>{saveButtonLabel}</Ons.Button>
         </Ons.ListItem>
       </Ons.List>
+      {!showFirebaseAuthFields &&
+      <div style={divListItemStyle}>
+        <div style={{textAlign: 'center', fontSize: '12px', marginTop:'10px'}}>To change your email address or password, please <a href="mailto:info@sitestatus.co">contact us</a>.</div>
+      </div>
+      }
     </section>
+    </Ons.Page>
     );
   }
 });

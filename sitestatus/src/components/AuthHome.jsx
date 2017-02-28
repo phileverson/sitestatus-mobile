@@ -2,7 +2,8 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var ons = require('onsenui');
 var Ons = require('react-onsenui');
-var Rebase = require('re-base');
+
+var SiteStatusBase = require('util/SiteStatusBase.jsx');
 
 var PagesConstants = require('constants/pages.jsx');
 var GlobalConstants = require('constants/global.jsx');
@@ -13,20 +14,13 @@ var NewProject = require('./NewProject.jsx');
 var ContractorsHub = require('./ContractorsHub.jsx');
 var UserProfile = require('./UserProfile.jsx');
 
-var base = Rebase.createClass({
-    apiKey: GlobalConstants.FIREBASE_API_KEY,
-    authDomain: GlobalConstants.FIREBASE_AUTH_DOMAIN,
-    databaseURL: GlobalConstants.FIREBASE_DATABASE_URL,
-    storageBucket: GlobalConstants.FIREBASE_STORAGE_BUCKET
-});
-
 var AuthHome = React.createClass({
 	getInitialState: function(){
 		return {
 			isOpenLeft: false,
 			authAppState: PagesConstants.PROJECTS_LIST,
 
-			projects: null,
+			projects: [],
 			contractors: null,
 
 			projectsLoading: true,
@@ -43,17 +37,14 @@ var AuthHome = React.createClass({
 
 	listenFirebaseProjects: function() {
 		var projectsEndPoint = "projects/" + this.props.user.uid + "/";
-		base.listenTo(projectsEndPoint, {
+		SiteStatusBase.listenTo(projectsEndPoint, {
 			context: this,
-			asArray: true,
 			queries: {
 				orderByChild: 'deleted',
 				equalTo: false
 			},
 			then: function(data){
-				this.setState({
-					projects: data
-				});
+				this.fetchFirebaseProjects();
 				console.log('Detected Change: Projects');
 			}
 		});
@@ -61,44 +52,40 @@ var AuthHome = React.createClass({
 
 	fetchFirebaseProjects: function(pullHook_Done) {
 		var projectsEndPoint = "projects/" + this.props.user.uid + "/";
-		base.fetch(projectsEndPoint, {
+		SiteStatusBase.fetch(projectsEndPoint, {
 			context: this,
-			state: 'projects',
 			asArray: true,
 			queries: {
 				orderByChild: 'deleted',
 				equalTo: false
 			},
 			then: function(data){
-				console.log('Fetched Projects')
-				if (pullHook_Done) {
-					this.setState({
-						projectsLoading:false,
-						projects: data
-					}, pullHook_Done);
-				} else {
-					this.setState({
-						projectsLoading:false,
-						projects: data
-					});
-				}
+				console.log('Fetched Projects');
+				this.setState({
+					projectsLoading:false,
+					projects: data
+				}, function(){
+					if (pullHook_Done) {
+						setTimeout(() => {
+							console.log('Released Projects PullHook');
+							pullHook_Done();
+						}, GlobalConstants.PULLHOOK_MIN_LOADING);
+					}
+				});
 			}
 		});
 	},
 
 	listenFirebaseContractors: function() {
 		var contractorsEndPoint = "contractors/" + this.props.user.uid + "/";
-		base.listenTo(contractorsEndPoint, {
+		SiteStatusBase.listenTo(contractorsEndPoint, {
 			context: this,
-			asArray: true,
 			queries: {
 				orderByChild: 'deleted',
 				equalTo: false
 			},
 			then: function(data){
-				this.setState({
-					contractors: data
-				});
+				this.fetchFirebaseContractors();
 				console.log('Detected Change: Contractors');
 			}
 		});
@@ -106,27 +93,26 @@ var AuthHome = React.createClass({
 
 	fetchFirebaseContractors: function(pullHook_Done) {
 		var contractorsEndPoint = "contractors/" + this.props.user.uid + "/";
-		base.fetch(contractorsEndPoint, {
+		SiteStatusBase.fetch(contractorsEndPoint, {
 			context: this,
-			state: 'contractors',
 			asArray: true,
 			queries: {
 				orderByChild: 'deleted',
 				equalTo: false
 			},
 			then: function(data){
-				console.log('Fetched Contractors')
-				if (pullHook_Done) {
-					this.setState({
-						contractorsLoading:false,
-						contractors: data
-					}, pullHook_Done);
-				} else {
-					this.setState({
-						contractorsLoading:false,
-						contractors: data
-					});
-				}
+				console.log('Fetched Contractors');
+				this.setState({
+					contractorsLoading:false,
+					contractors: data
+				}, function(){
+					if (pullHook_Done) {
+						setTimeout(() => {
+							console.log('Released Contractors PullHook');
+							pullHook_Done();
+						}, GlobalConstants.PULLHOOK_MIN_LOADING);
+					}
+				});
 			}
 		});
 	},
@@ -165,12 +151,8 @@ var AuthHome = React.createClass({
 	},
 
 	navTo_Logout: function() {
-		firebase.auth().signOut().then(function() {
-			// Sign-out successful.
-			console.log('logged out');
-		}, function(error) {
-			console.log(error);
-		});
+		SiteStatusBase.unauth();
+		console.log('Logged out.');
 	},
 
     render: function() {
@@ -187,6 +169,9 @@ var AuthHome = React.createClass({
     									contractorsLoading={this.state.contractorsLoading}
     									projectsLoading={this.state.projectsLoading}
     									fetchFirebaseProjects={this.fetchFirebaseProjects}
+    									latestUpdatePerProject={this.state.latestUpdatePerProject}
+    									activateGlobalModal={this.props.activateGlobalModal}
+                            			deactivateGlobalModal={this.props.deactivateGlobalModal}
     									/>;
     	} else if (this.state.authAppState == PagesConstants.CONTRACTORS_LIST) {
     		authAppStateComponent = <ContractorsHub 
@@ -196,13 +181,17 @@ var AuthHome = React.createClass({
     									contractors={this.state.contractors}
     									contractorsLoading={this.state.contractorsLoading}
     									fetchFirebaseContractors={this.fetchFirebaseContractors}
+    									activateGlobalModal={this.props.activateGlobalModal}
+                            			deactivateGlobalModal={this.props.deactivateGlobalModal}
     									/>;
     	} else if (this.state.authAppState == PagesConstants.USER_PROFILE) {
     		authAppStateComponent = <UserProfile 
     									currentUser={this.props.user} 
-    									showLeftMenu={this.showLeftMenu} 
+    									showLeftMenu={this.showLeftMenu}
+    									activateGlobalModal={this.props.activateGlobalModal}
+                            			deactivateGlobalModal={this.props.deactivateGlobalModal}
     									/>;
-    	} 
+    	}
     	return (
     		<Ons.Splitter>
 	    		<Ons.SplitterSide
