@@ -226,7 +226,8 @@ var NewProject = React.createClass({
 							value={this.state.name}
 							onChange={this.handleNameChange}
 							modifier='underbar'
-							placeholder='Project Name' />
+							placeholder='Project Name' 
+							float/>
 							</div>		
 						</Ons.ListItem>
 						<Ons.ListItem modifier="nodivider">
@@ -235,7 +236,8 @@ var NewProject = React.createClass({
 							value={this.state.address}
 							onChange={this.handleAddressChange}
 							modifier='underbar'
-							placeholder='Address' />
+							placeholder='Address' 
+							float/>
 						</Ons.ListItem>
 						<Ons.ListItem modifier="nodivider">
 							<div style= {divListItemStyle}>
@@ -248,7 +250,8 @@ var NewProject = React.createClass({
 							value={this.state.question}
 							onChange={this.handleQuestionChange}
 							modifier='underbar'
-							placeholder='Prompt Question. Eg: "What did you do today?"' />
+							placeholder='Prompt Question. Eg: "What did you do today?"' 
+							float/>
 							</div>
 						</Ons.ListItem>
 						<Ons.ListItem modifier="nodivider">
@@ -257,16 +260,14 @@ var NewProject = React.createClass({
 							<div modifier='nodivider' style={errorMessageTextStyle}>{this.state.errorMessages.questionTime}</div>
 							}
 							<Ons.Input
-
 							style={inputItemStyle}
-
 							style={{width:'100%'}}
-
 							value={this.state.questionTime}
 							onChange={this.handleQuestionTimeChange}
 							className="center" 
 							modifier='underbar'
-							placeholder="Time: "
+							placeholder="Ping Time: "
+							float
 							type="time"/>
 							</div>
 						</Ons.ListItem>
@@ -287,11 +288,16 @@ var NewProject = React.createClass({
 								placeholder='notes' ></textarea>
 							</div>
 						</Ons.ListItem>
-						{!(this.state.creatingNewProject) &&
-						<Ons.ListItem modifier="tappable" onClick={this.handleProjectDelete}>Delete Project
-						</Ons.ListItem>
-						}
 					</Ons.List>
+					<p> </p>
+					
+						{!(this.state.creatingNewProject) &&
+						
+						<Ons.List>
+						<Ons.ListItem modifier='longdivider' style={{color:'red'}} tappable="true" tapbackgroundcolor="red" onClick={this.handleProjectDelete}>Delete Project
+						</Ons.ListItem>
+						</Ons.List>
+						}
 				</section>
 			</Ons.Page>
 		)

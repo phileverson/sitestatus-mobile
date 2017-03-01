@@ -276,12 +276,16 @@ var NewContractor = React.createClass({
 								placeholder='Note' ></textarea>
 							</div>
 						</Ons.ListItem>
-						{(this.props.activeContractorKey) &&
-						<Ons.ListItem modifier="nodivider">
-							<Ons.Button onClick={this.handleContractorDelete}>Delete Contractor</Ons.Button>
-						</Ons.ListItem>
-						}
 					</Ons.List>
+					<p> </p>
+					
+						{(this.props.activeContractorKey) &&
+						
+						<Ons.List>
+						<Ons.ListItem modifier='longdivider' style={{color:'red'}} tappable="true" tapbackgroundcolor="red" onClick={this.handleContractorDelete}>Delete Contractor
+						</Ons.ListItem>
+						</Ons.List>
+						}
 				</section>
 			</Ons.Page>
 		)
