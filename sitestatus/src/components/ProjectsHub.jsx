@@ -30,9 +30,12 @@ var ProjectsHub = React.createClass({
 	},
 
 	navTo_NewProject: function(navigator) {
+			// 		navigator.pushPage({
+			// 	title: PagesConstants.ADD_PROJECT
+			// })
+					
 		this.setState({
 			activeProjectKey: '',
-			projects: this.props.projects
 		}, function(){
 			navigator.pushPage({
 				title: PagesConstants.ADD_PROJECT
@@ -84,9 +87,16 @@ var ProjectsHub = React.createClass({
 		// });
 	},
 
-	navBackToSingleProject: function(navigator) {
-		navigator.replacePage({
+	navBackToSingleProject: function(passedNavigator) {
+		passedNavigator.replacePage({
 			title: PagesConstants.SINGLE_PROJECT,
+		})
+	},
+
+
+	navTo_ProjectSettings: function(passedNavigator) {
+		passedNavigator.pushPage({
+			title: PagesConstants.SINGLE_PROJECT_SETTINGS,
 		})
 	},
 
@@ -142,7 +152,7 @@ var ProjectsHub = React.createClass({
 					if (projectObj.deleted) {
 						passedNavigator.popPage();
 					} else {
-						passedNavigator.replacePage({
+						passedNavigator.popPage({
 							title: PagesConstants.SINGLE_PROJECT,
 						})
 					}
@@ -225,20 +235,28 @@ var ProjectsHub = React.createClass({
 		}
 	},
 
+	generalPop: function(passedNavigator) {
+		passedNavigator.popPage();
+	},
+
 	projectsHubPageController: function(route, navigator) {
 		console.log('projectsHubPageController ROUTE:');
 		console.log(route);
+
+		var onsPageKey = route.title;
 
 		var pageContent;
 		if (route.title == PagesConstants.PROJECTS_HUB) {
 			pageContent = this.renderListOfProjects(navigator);
 		} else if (route.title == PagesConstants.SINGLE_PROJECT) {
 			var activeProjectObject = Utils.findProjectByKey(this.state.activeProjectKey, this.props.projects);
+    		onsPageKey = PagesConstants.SINGLE_PROJECT + this.state.activeProjectKey;
     		pageContent = <SingleProjectHome 
 							currentUser={this.props.currentUser} 
 							activeProjectKey={this.state.activeProjectKey} 
 							singleProject={activeProjectObject} 
 							navTo_GeneralPop={this.navTo_GeneralPop.bind(this, navigator)}
+							navTo_ProjectSettings={this.navTo_ProjectSettings}
 							contractors={this.props.contractors}
 							passedNavigator={navigator}
 							/>;
@@ -251,6 +269,7 @@ var ProjectsHub = React.createClass({
 							cancelCreate={this.navTo_GeneralPop.bind(this, navigator)} 
 							createNewOrUpdateProject={this.createProject}
 							passedNavigator={navigator}
+							generalPop={this.generalPop}
 							/>;
 		} else if (route.title == PagesConstants.SINGLE_PROJECT_SETTINGS) {
 			var activeProjectObject = Utils.findProjectByKey(this.state.activeProjectKey, this.props.projects);
@@ -261,10 +280,11 @@ var ProjectsHub = React.createClass({
 							cancelCreate={this.navBackToSingleProject.bind(this, navigator)}
 							currentUser={this.props.currentUser}
 							passedNavigator={navigator}
+							generalPop={this.generalPop}
 							/>;
 		}
 		return (
-			<Ons.Page key={route.title} renderToolbar={this.renderToolbar.bind(this, route, navigator)}>
+			<Ons.Page key={onsPageKey} renderToolbar={this.renderToolbar.bind(this, route, navigator)}>
 				{pageContent}
 			</Ons.Page>
 		);

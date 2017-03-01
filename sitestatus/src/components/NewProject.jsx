@@ -10,7 +10,6 @@ var ContractorsListRow = require('./ContractorsListRow.jsx');
 var NewProject = React.createClass({
 
 	getInitialState: function(){
-		console.log(this.props);
 		var creatingNewProject = (this.props.singleProjectKey) ? false : true;
 
 		return {
@@ -143,6 +142,10 @@ var NewProject = React.createClass({
 	// 	}
 	// },
 
+	cancelCreateManual: function() {
+		this.props.generalPop(this.props.passedNavigator);
+	},
+
 	renderToolbar: function() {
 		var projectDetailsHeader = (this.state.creatingNewProject) ? 'Create Project' : 'Project Settings'
 	    return (
@@ -154,7 +157,7 @@ var NewProject = React.createClass({
 					</Ons.ToolbarButton>
 				</div>
 				<div className='left'>
-					<Ons.ToolbarButton onClick={this.props.cancelCreate}>
+					<Ons.ToolbarButton onClick={this.cancelCreateManual}>
 						Cancel
 					</Ons.ToolbarButton>
 				</div>
