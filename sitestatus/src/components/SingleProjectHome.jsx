@@ -166,7 +166,7 @@ var SingleProjectHome = React.createClass({
 							updateProjectDetails={this.updateProjectDetails}
 							currentUser={this.props.currentUser}
 							/>,
-				tab: <Ons.Tab key="Tab_SingleProjectSchedule" label='Schedule' icon='calendar-check-o' />
+				tab: <Ons.Tab key="Tab_SingleProjectSchedule" label='Contractors Onsite' icon='calendar-check-o' />
 			}
 		];
 	},
