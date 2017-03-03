@@ -141,9 +141,10 @@ var SingleProjectStatusUpdateList = React.createClass({
 					{me.props.statusUpdates.map(function(update, i){
 						var relatedContractor = Utils.findContractorByPhoneNumber(update.from, allContractorsCopy);
 						var previousUpdate = me.props.statusUpdates[(i-1)];
-
+						
 						return (
 							<SingleProjectStatusUpdatesListRow
+
 								previousUpdate={previousUpdate}
 								singleUpdate={update}
 								allContractors={allContractorsCopy}
@@ -164,6 +165,25 @@ var SingleProjectStatusUpdateList = React.createClass({
 
 	renderPage: function(route, navigator) {
 		var pageContent;
+		//get all contractors that are supposed to be onsite for that day
+		var me = this;
+		var todayContractorListStyle={
+			fontSize:'10px',
+			paddingTop: '0px'
+		}
+		var allContractorsCopy = _.cloneDeep(me.props.contractors);
+		var expectedContractorIds=me.props.scheduledContractors_Today;
+		var expectedContractorNames=[];
+		for (var i=0; i<expectedContractorIds.length; i++){
+			var contractorObject=Utils.findContractorByKey(expectedContractorIds[i],allContractorsCopy);
+			var currContractorName= contractorObject.firstName+ " "+ contractorObject.lastName;
+			expectedContractorNames.push(currContractorName);
+		}
+		console.log(expectedContractorNames);
+		var showTodaysContractors=false;
+		if (expectedContractorNames.length>0){
+			showTodaysContractors=true;
+		}
 		if (route.title == PagesConstants.SINGLE_PROJECT_STATE_UPDATE_DETAIL) {
 			pageContent = this.renderSingleUpdate();
 		} else {
@@ -171,6 +191,16 @@ var SingleProjectStatusUpdateList = React.createClass({
 		}
 		return (
 			<Ons.Page key={route.title} renderToolbar={this.renderToolbar.bind(this, route, navigator)}>
+				{showTodaysContractors &&
+					<Ons.List 
+			          dataSource={expectedContractorNames}
+			          renderRow={(row) => <Ons.ListItem style={todayContractorListStyle}>{row}</Ons.ListItem>}
+			          renderHeader={() => <Ons.ListHeader>Expecting Responses From:</Ons.ListHeader>}
+			        />}
+		        {!showTodaysContractors &&
+		        	<Ons.ListHeader>YOU HAVE NO CONTRACTORS SCHEDULED TODAY! SCHEDULE ONE!</Ons.ListHeader>
+		        	//<Ons.ListItem tappable="true" tapbackgroundcolor="blue" onClick={this.}>Schedule Contractors</Ons.ListItem>
+		        }
 				{pageContent}
 			</Ons.Page>
 		);

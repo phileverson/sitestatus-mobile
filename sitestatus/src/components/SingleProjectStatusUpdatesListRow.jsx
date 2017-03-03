@@ -26,12 +26,14 @@ var SingleProjectStatusUpdatesListRow = React.createClass({
 			showHeader = (currentUpdateDate == previousUpdateDate) ? false : true;
 		}
 		//console.log({this.props.scheduledContractors_Today});
+		//console.log(this.props.expectedContractorNames);
 
 		return (
 
 			<div>
 			{showHeader &&
 				<Ons.ListHeader>{currentUpdateDate}</Ons.ListHeader>
+
 			}
 			<Ons.ListItem modifier='chevron' key={this.props.index} onClick={this.navToSingleStatusUpdate}>
 				<div className="center">
