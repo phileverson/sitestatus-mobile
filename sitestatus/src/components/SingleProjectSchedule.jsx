@@ -177,10 +177,6 @@ var SingleProjectSchedule = React.createClass({
 							currentUser={this.props.currentUser}
 							/>
 		} else {
-			mixpanel.track("Launched Single Project - Schedule",
-			{
-				"Project Name": this.props.singleproject.name
-			})
 			pageContent = <SingleProjectScheduleGantt
 							singleProject={this.props.singleProject} 
 							contractors={this.props.contractors} 
