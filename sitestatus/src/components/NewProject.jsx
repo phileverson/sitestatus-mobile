@@ -5,7 +5,12 @@ var Ons = require('react-onsenui');
 
 var Project = require('../models/project.jsx');
 
+var GlobalConstants = require('constants/global.jsx');
+var Styles = require('constants/styles.jsx');
+var Utils = require('util/util.jsx');
+
 var ContractorsListRow = require('./ContractorsListRow.jsx');
+var NewProjectQuestionTimeSelect = require('./NewProjectQuestionTimeSelect.jsx');
 
 var NewProject = React.createClass({
 
@@ -13,6 +18,7 @@ var NewProject = React.createClass({
 		var creatingNewProject = (this.props.singleProjectKey) ? false : true;
 
 		return {
+			questionTimeSelectActive: false,
 			creatingNewProject: creatingNewProject,
 
 			name: this.props.singleProject.name,
@@ -99,6 +105,7 @@ var NewProject = React.createClass({
 			questionTime: e.target.value,
 			errorMessages: errorMessages
 		});
+		console.log(this.state);
 	},
 
 	handleAddressChange: function(e){
@@ -123,27 +130,34 @@ var NewProject = React.createClass({
 		this.setState({checked: e.target.checked});
 	},
 
-	// handleContractorSwitch: function(contractor) {
-	// 	var alreadySelected = _.includes(this.state.shortListedContractors, contractor);
-
-	// 	if (alreadySelected) {
-	// 		var shortListedContractorsToUpdate = _.clone(this.state.shortListedContractors);
-	// 		var indexToRemove = shortListedContractorsToUpdate.indexOf(contractor);
-	// 		shortListedContractorsToUpdate.splice(indexToRemove, 1);
-	// 		this.setState({
-	// 			shortListedContractors: shortListedContractorsToUpdate
-	// 		})
-	// 	} else {
-	// 		var shortListedContractorsToUpdate = _.clone(this.state.shortListedContractors);
-	// 		shortListedContractorsToUpdate.push(contractor);
-	// 		this.setState({
-	// 			shortListedContractors: shortListedContractorsToUpdate
-	// 		})
-	// 	}
-	// },
-
 	cancelCreateManual: function() {
 		this.props.generalPop(this.props.passedNavigator);
+	},
+
+	openTimeSelect: function() {
+		this.setState({
+			questionTimeSelectActive: true,
+		})
+	},
+
+	cancelTimeSelect: function() {
+		this.setState({
+			questionTimeSelectActive: false,
+		})
+	},
+
+	setTimeFromTimeSelect: function(selectedTime) {
+		var me = this;
+		var tempProjectObject = new Project({
+			questionTime: selectedTime
+		});
+		var errorMessages = _.merge(me.state.errorMessages, tempProjectObject.isValidQuestionTime());
+		me.setState({
+			questionTime: selectedTime,
+			questionTimeSelectActive: false,
+			errorMessages: errorMessages
+		});
+		console.log(this.state);
 	},
 
 	renderToolbar: function() {
@@ -165,25 +179,6 @@ var NewProject = React.createClass({
 	  	)
 	},
 
-	// renderListOfContractors: function() {
-	// 	var me = this;
-	// 	return (
-	// 		<Ons.List>
-	// 		{this.state.contractors.map(function(contractor, i){
-	// 			var alreadySelected = _.includes(me.state.shortListedContractors, contractor['.key']);
-	// 			return <ContractorsListRow 
-	// 						singleContractor={contractor}
-	// 						index={i}
-	// 						key={i}
-	// 						newProject='true' 
-	// 						toggleSwitchChange={me.handleContractorSwitch}
-	// 						contractorChecked={alreadySelected}
-	// 						/> ;
-	// 		})}
-	// 		</Ons.List>
-	// 	)
-	// },
-
 	render: function() {
 		// var listOfContractors = this.renderListOfContractors();
 		// console.log(this.props);
@@ -197,7 +192,9 @@ var NewProject = React.createClass({
 	      width: '100%'
 	    }
 	    var divListItemStyle ={
-	      width: '100%'
+	      width: '100%',
+	      display: 'flex',
+	      flexWrap: 'wrap'
 	    }
 	    var noteBoxInside ={
 	      width: '98%',
@@ -213,97 +210,105 @@ var NewProject = React.createClass({
 	      width: '100%',
 	      height: '100px'
 	    }
+	    var inputLabelStyle = {
+	    	fontSize: '14px',
+	    	width: '100%'
+	    }
 
-		return (
-			<Ons.Page renderToolbar={this.renderToolbar}>
-				<section>
-					<Ons.List>
-						<Ons.ListItem modifier="nodivider">
-							<div style={divListItemStyle}>
-							{this.state.errorMessages.name && this.state.errorMessages.name.length > 0 &&
-							<div modifier='nodivider' style={errorMessageTextStyle}>{this.state.errorMessages.name}</div>
-							}
-							<Ons.Input
-							style={inputItemStyle}
-							className="center"
-							value={this.state.name}
-							onChange={this.handleNameChange}
-							modifier='underbar'
-							placeholder='Project Name' 
-							float/>
-							</div>		
-						</Ons.ListItem>
-						<Ons.ListItem modifier="nodivider">
-							<Ons.Input
-							className="center"
-							value={this.state.address}
-							onChange={this.handleAddressChange}
-							modifier='underbar'
-							placeholder='Address' 
-							float/>
-						</Ons.ListItem>
-						<Ons.ListItem modifier="nodivider">
-							<div style= {divListItemStyle}>
-							{this.state.errorMessages.question && this.state.errorMessages.question.length > 0 &&
-							<span>{this.state.errorMessages.question}</span>
-							}
-							<Ons.Input
-							style={inputItemStyle}
-							className="center"
-							value={this.state.question}
-							onChange={this.handleQuestionChange}
-							modifier='underbar'
-							placeholder='Prompt Question. Eg: "What did you do today?"' 
-							float/>
-							</div>
-						</Ons.ListItem>
-						<Ons.ListItem modifier="nodivider">
-							<div style={divListItemStyle}>
-							{this.state.errorMessages.questionTime && this.state.errorMessages.questionTime.length > 0 &&
-							<div modifier='nodivider' style={errorMessageTextStyle}>{this.state.errorMessages.questionTime}</div>
-							}
-							<Ons.Input
-							style={inputItemStyle}
-							style={{width:'100%'}}
-							value={this.state.questionTime}
-							onChange={this.handleQuestionTimeChange}
-							className="center" 
-							modifier='underbar'
-							placeholder="Ping Time: "
-							float
-							type="time"/>
-							</div>
-						</Ons.ListItem>
-						{false &&
-						<Ons.ListItem modifier="nodivider">
-						<div className='left'>Project Status:</div>
-						<div className='center'>{this.state.checked ? '  Active' : '  Inactive'}</div>
-							 <Ons.Switch classname='center' value={this.state.status} onChange={this.handleStatusChange}/>
-						</Ons.ListItem>
-						}
-						<Ons.ListItem modifier="nodivider">
-							<div style={noteBoxOutside}>
-								<textarea
-								style= {noteBoxInside}
-								className="center"
-								value={this.state.note}
-								onChange={this.handleNotesChange}
-								placeholder='notes' ></textarea>
-							</div>
-						</Ons.ListItem>
-					</Ons.List>
-					<p> </p>
-					
-						{!(this.state.creatingNewProject) &&
-						
+	    if (this.state.questionTimeSelectActive) {
+	    	return (
+	    		<NewProjectQuestionTimeSelect
+	    			cancelSelect={this.cancelTimeSelect}
+	    			selectedTime={this.state.questionTime}
+	    			selectTime={this.setTimeFromTimeSelect}
+	    			/>
+	    		)
+	    } else {
+	    	var prettyPrintQuestionTime = this.state.questionTime;
+	    	prettyPrintQuestionTime = Utils.lookupDisplayTime(this.state.questionTime, GlobalConstants.QUESTION_TIME_OPTIONS);
+
+	    	return (
+				<Ons.Page renderToolbar={this.renderToolbar}>
+					<section>
 						<Ons.List>
-						<Ons.ListItem modifier='longdivider' style={{color:'red'}} tappable="true" tapbackgroundcolor="red" onClick={this.handleProjectDelete}>Delete Project
-						</Ons.ListItem>
+							<Ons.ListItem modifier="nodivider">
+								<div style={divListItemStyle}>
+								{this.state.errorMessages.name && this.state.errorMessages.name.length > 0 &&
+								<div modifier='nodivider' style={errorMessageTextStyle}>{this.state.errorMessages.name}</div>
+								}
+								<Ons.Input
+								style={inputItemStyle}
+								className="center"
+								value={this.state.name}
+								onChange={this.handleNameChange}
+								modifier='underbar'
+								placeholder='Project Name' 
+								float/>
+								</div>		
+							</Ons.ListItem>
+							<Ons.ListItem modifier="nodivider">
+								<Ons.Input
+								className="center"
+								value={this.state.address}
+								onChange={this.handleAddressChange}
+								modifier='underbar'
+								placeholder='Address' 
+								float/>
+							</Ons.ListItem>
+							<Ons.ListItem modifier="nodivider">
+								<div style= {divListItemStyle}>
+								{this.state.errorMessages.question && this.state.errorMessages.question.length > 0 &&
+								<span style={errorMessageTextStyle}>{this.state.errorMessages.question}</span>
+								}
+								<Ons.Input
+								style={inputItemStyle}
+								className="center"
+								value={this.state.question}
+								onChange={this.handleQuestionChange}
+								modifier='underbar'
+								placeholder='Prompt Question. Eg: "What did you do today?"' 
+								float/>
+								</div>
+							</Ons.ListItem>
+							<Ons.ListItem onClick={this.openTimeSelect}>
+								<div style={divListItemStyle}>
+									{this.state.errorMessages.questionTime && this.state.errorMessages.questionTime.length > 0 &&
+									<div style={errorMessageTextStyle}>{this.state.errorMessages.questionTime}</div>
+									}
+									<label style={inputLabelStyle}>Ping Time</label>
+									<div style={{borderBottom: '1px solid rgb(204, 204, 204)', width: '100%'}}>{prettyPrintQuestionTime} <Ons.Icon style={{float:'right', fontSize: '28px', color: Styles.onsenGrey, width: '10px', position: 'relative', top: '-10px'}} icon='fa-angle-right' /></div>
+								</div>
+							</Ons.ListItem>
+							{false &&
+							<Ons.ListItem modifier="nodivider">
+							<div className='left'>Project Status:</div>
+							<div className='center'>{this.state.checked ? '  Active' : '  Inactive'}</div>
+								 <Ons.Switch classname='center' value={this.state.status} onChange={this.handleStatusChange}/>
+							</Ons.ListItem>
+							}
+							<Ons.ListItem modifier="nodivider">
+								<div style={noteBoxOutside}>
+									<textarea
+									style= {noteBoxInside}
+									className="center"
+									value={this.state.note}
+									onChange={this.handleNotesChange}
+									placeholder='notes' ></textarea>
+								</div>
+							</Ons.ListItem>
 						</Ons.List>
-						}
-				</section>
-			</Ons.Page>
-		)
+						<p></p>
+							{!(this.state.creatingNewProject) &&
+							<Ons.List>
+								<Ons.ListItem modifier='longdivider' style={{color:'red'}} tappable="true" tapbackgroundcolor="red" onClick={this.handleProjectDelete}>
+									Delete Project
+								</Ons.ListItem>
+							</Ons.List>
+							}
+					</section>
+				</Ons.Page>
+			)
+	    }
 	}
 });
 

@@ -73,5 +73,13 @@ module.exports = {
 				return allUpdates[i]
 			}
 		}
+	},
+	lookupDisplayTime: function(value, arrayOfTimes) {
+		for (var i = 0; i < arrayOfTimes.length; i++) {
+			if (arrayOfTimes[i].value == value) {
+				return arrayOfTimes[i].displayTime;
+			}
+		}
+		return null;
 	}
 };
