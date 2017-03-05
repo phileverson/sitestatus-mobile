@@ -189,7 +189,9 @@ var NewProject = React.createClass({
 	      width: '100%',
 	    }
 	    var inputItemStyle = {
-	      width: '100%'
+	      width: '100%',
+	      color: 'grey'
+
 	    }
 	    var divListItemStyle ={
 	      width: '100%',
@@ -214,7 +216,10 @@ var NewProject = React.createClass({
 	    	fontSize: '14px',
 	    	width: '100%'
 	    }
-
+	    var fieldHeaderStyle={
+	    	fontSize: '12px',
+	    	color:'#2664AB'
+	    }
 	    if (this.state.questionTimeSelectActive) {
 	    	return (
 	    		<NewProjectQuestionTimeSelect
@@ -233,33 +238,42 @@ var NewProject = React.createClass({
 						<Ons.List>
 							<Ons.ListItem modifier="nodivider">
 								<div style={divListItemStyle}>
-								{this.state.errorMessages.name && this.state.errorMessages.name.length > 0 &&
-								<div modifier='nodivider' style={errorMessageTextStyle}>{this.state.errorMessages.name}</div>
-								}
-								<Ons.Input
-								style={inputItemStyle}
-								className="center"
-								value={this.state.name}
-								onChange={this.handleNameChange}
-								modifier='underbar'
-								placeholder='Project Name' 
-								float/>
+									{this.state.errorMessages.name && this.state.errorMessages.name.length > 0 &&
+									<div modifier='nodivider' style={errorMessageTextStyle}>{this.state.errorMessages.name}</div>
+									}
+									<div className='list__item__title' style={fieldHeaderStyle}>
+										Name
+									</div>
+									<Ons.Input
+									style={inputItemStyle}
+									className="center"
+									value={this.state.name}
+									onChange={this.handleNameChange}
+									modifier='underbar'
+									placeholder='Project Name' 
+									/>
 								</div>		
 							</Ons.ListItem>
 							<Ons.ListItem modifier="nodivider">
+								<div className='list__item__title' style={fieldHeaderStyle}>
+									Address
+								</div>
 								<Ons.Input
-								className="center"
+								style={inputItemStyle}
 								value={this.state.address}
 								onChange={this.handleAddressChange}
 								modifier='underbar'
-								placeholder='Address' 
-								float/>
+								placeholder='123 Fourth Street, Toronto, Ontario' 
+								/>
 							</Ons.ListItem>
-							<Ons.ListItem modifier="nodivider">
+							<Ons.ListItem modifier="nodivider" >
 								<div style= {divListItemStyle}>
 								{this.state.errorMessages.question && this.state.errorMessages.question.length > 0 &&
 								<span style={errorMessageTextStyle}>{this.state.errorMessages.question}</span>
 								}
+								<div className='list__item__title' style={fieldHeaderStyle}>
+									Question
+								</div>
 								<Ons.Input
 								style={inputItemStyle}
 								className="center"
@@ -267,15 +281,17 @@ var NewProject = React.createClass({
 								onChange={this.handleQuestionChange}
 								modifier='underbar'
 								placeholder='Prompt Question. Eg: "What did you do today?"' 
-								float/>
+								/>
 								</div>
 							</Ons.ListItem>
 							<Ons.ListItem onClick={this.openTimeSelect}>
+								<div className='list__item__title' style={fieldHeaderStyle}>
+									Ping Time
+								</div>
 								<div style={divListItemStyle}>
 									{this.state.errorMessages.questionTime && this.state.errorMessages.questionTime.length > 0 &&
 									<div style={errorMessageTextStyle}>{this.state.errorMessages.questionTime}</div>
 									}
-									<label style={inputLabelStyle}>Ping Time</label>
 									<div style={{borderBottom: '1px solid rgb(204, 204, 204)', width: '100%'}}>{prettyPrintQuestionTime} <Ons.Icon style={{float:'right', fontSize: '28px', color: Styles.onsenGrey, width: '10px', position: 'relative', top: '-10px'}} icon='fa-angle-right' /></div>
 								</div>
 							</Ons.ListItem>
@@ -287,6 +303,9 @@ var NewProject = React.createClass({
 							</Ons.ListItem>
 							}
 							<Ons.ListItem modifier="nodivider">
+								<div className='list__item__title' style={fieldHeaderStyle}>
+									Notes
+								</div>
 								<div style={noteBoxOutside}>
 									<textarea
 									style= {noteBoxInside}
