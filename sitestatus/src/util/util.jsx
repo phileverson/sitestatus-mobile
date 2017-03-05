@@ -81,5 +81,8 @@ module.exports = {
 			}
 		}
 		return null;
+	},
+	insertInString: function(str, index, value) {
+    	return str.substr(0, index) + value + str.substr(index);
 	}
 };

@@ -179,7 +179,7 @@ var SingleProjectStatusUpdateList = React.createClass({
 			var currContractorName= contractorObject.firstName+ " "+ contractorObject.lastName;
 			expectedContractorNames.push(currContractorName);
 		}
-		console.log(expectedContractorNames);
+		// console.log(expectedContractorNames);
 		var showTodaysContractors=false;
 		if (expectedContractorNames.length>0){
 			showTodaysContractors=true;

@@ -4,12 +4,17 @@ function Contractor(obj){
   // Fields:
   this.firstName = (obj.firstName) ? obj.firstName : "";
   this.lastName = (obj.lastName) ? obj.lastName : "";
-  this.phone = (obj.phone) ? obj.phone : "";
   this.emailAddress = (obj.emailAddress) ? obj.emailAddress : "";
   this.company = (obj.company) ? obj.company : "";
   this.trade = (obj.trade) ? obj.trade : "";
   this.note = (obj.note) ? obj.note : "";
   this.owner = (obj.owner) ? obj.owner : "";
+  // Formatting Phone:
+  var workingPhone = (obj.phone) ? obj.phone : "";
+  if (workingPhone.charAt(0) == "+") {
+    workingPhone = workingPhone.substring(2, workingPhone.length);
+  }
+  this.phone = workingPhone;
 
   this.errorMessages = (obj.errorMessages) ? obj.errorMessages : {};
 }
@@ -18,10 +23,19 @@ Contractor.prototype = {
 
   preparePutObject: function(){
     var rawDetails = new Contractor(this);
+    var phoneFormated = rawDetails.phone;
+    if(rawDetails.phone) {
+      if(rawDetails.phone.charAt(0) != '+') {
+        phoneFormated = "+1" + rawDetails.phone;
+      }
+      if(rawDetails.phone) {
+        phoneFormated = phoneFormated.split('-').join('');
+      }
+    }
     var firebaseContractor = {
       firstName: rawDetails.firstName,
       lastName: rawDetails.lastName,
-      phone: rawDetails.phone,
+      phone: phoneFormated,
       emailAddress: rawDetails.emailAddress,
       company: rawDetails.company,
       trade: rawDetails.trade,

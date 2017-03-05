@@ -4,6 +4,7 @@ var ons = require('onsenui');
 var Ons = require('react-onsenui');
 
 var Contractor = require('../models/contractor.jsx');
+var Utils = require('util/util.jsx');
 
 var NewContractor = React.createClass({
 
@@ -187,6 +188,14 @@ var NewContractor = React.createClass({
 	      width: '100%',
 	      height: '100px'
 	    }
+
+	    var prettyPhoneFormat = this.state.phone;
+	    if (prettyPhoneFormat.length > 3 && (prettyPhoneFormat.charAt(3) != '-')) {
+	    	prettyPhoneFormat = Utils.insertInString(prettyPhoneFormat, 3, '-');
+	    }
+	    if (prettyPhoneFormat.length > 7 && (prettyPhoneFormat.charAt(7) != '-')) {
+	    	prettyPhoneFormat = Utils.insertInString(prettyPhoneFormat, 7, '-');
+	    }
 		return (
 			<Ons.Page renderToolbar={this.renderToolbar}>
 				<section>
@@ -226,9 +235,9 @@ var NewContractor = React.createClass({
 				            }
 								<Ons.Input
 								style={inputItemStyle}
-								maxlength="10"
+								maxlength="12"
 								className="center"
-								value={this.state.phone}
+								value={prettyPhoneFormat}
 								type='tel'
 								onChange={this.handlePhoneChange}
 								modifier='underbar'
