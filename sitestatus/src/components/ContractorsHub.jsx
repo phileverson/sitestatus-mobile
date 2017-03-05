@@ -113,6 +113,10 @@ var ContractorsHub = React.createClass({
 	      case 'initial':
 	        return 'Pull to Refresh';
 	      case 'preaction':
+	     mixpanel.track("Pulled to Refresh",
+		{
+		"App Location": "Contractors Hub"
+		});		
 	        return 'Release to Refresh';
 	      case 'action':
 	        return <Loading />;

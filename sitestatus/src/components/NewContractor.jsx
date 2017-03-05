@@ -49,6 +49,11 @@ var NewContractor = React.createClass({
 
 			errorMessages: this.state.errorMessages
 		}
+
+		mixpanel.track("Create Contractor",
+		{
+		"Contractor Name":  contractor.firstName
+		});		
 		return new Contractor(contractor);
 	},
 

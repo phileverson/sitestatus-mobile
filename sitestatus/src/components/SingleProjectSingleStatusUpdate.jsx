@@ -24,12 +24,20 @@ var SingleProjectSingleStatusUpdate = React.createClass({
 		console.log(this.state.relatedContractor.phone);
 		var phoneNum = this.state.relatedContractor.phone;
 		window.location.href='tel://'+phoneNum;
+
+		mixpanel.track("Single Status Update Contractor Phone Call Click",
+		{
+		});	
 	},
 	
 	handleText: function(e){
 		console.log(this.state.relatedContractor.phone);
 		var phoneNum = this.state.relatedContractor.phone;
 		window.location.href='sms://'+phoneNum;
+
+		mixpanel.track("Single Status Update Contractor SMS Click",
+		{
+		});		
 	},
 
 	render: function() {
