@@ -17,7 +17,7 @@ var SingleProjectScheduleManageContractors = React.createClass({
 
 		if (alreadySelected) {
 			this.props.removeContractorFromShortlist(contractorKey);
-		} else {
+		} else if (!alreadySelected) {
 			this.props.addContractorToShortlist(contractorKey);
 		}
 	},

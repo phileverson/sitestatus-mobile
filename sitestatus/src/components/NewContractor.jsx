@@ -4,6 +4,7 @@ var ons = require('onsenui');
 var Ons = require('react-onsenui');
 
 var Contractor = require('../models/contractor.jsx');
+var Utils = require('util/util.jsx');
 
 var NewContractor = React.createClass({
 
@@ -190,7 +191,18 @@ var NewContractor = React.createClass({
 	    }
 	    var noteBoxOutside ={
 	      width: '100%',
-	      height: '100px'
+	      height: '70px'
+	    }
+	    var fieldHeaderStyle={
+	    	fontSize: '12px',
+	    	color:'#2664AB'
+	    }
+	    var prettyPhoneFormat = this.state.phone;
+	    if (prettyPhoneFormat.length > 3 && (prettyPhoneFormat.charAt(3) != '-')) {
+	    	prettyPhoneFormat = Utils.insertInString(prettyPhoneFormat, 3, '-');
+	    }
+	    if (prettyPhoneFormat.length > 7 && (prettyPhoneFormat.charAt(7) != '-')) {
+	    	prettyPhoneFormat = Utils.insertInString(prettyPhoneFormat, 7, '-');
 	    }
 		return (
 			<Ons.Page renderToolbar={this.renderToolbar}>
@@ -201,13 +213,16 @@ var NewContractor = React.createClass({
 							{this.state.errorMessages.firstName && this.state.errorMessages.firstName.length > 0 &&
 				              <div modifier='nodivider' style={errorMessageTextStyle}>{this.state.errorMessages.firstName}</div>
 				            }
+					            <div className='list__item__title' style={fieldHeaderStyle}>
+									First Name
+								</div>
 								<Ons.Input
 								style={inputItemStyle}
 								className="center"
 								value={this.state.firstName}
 								onChange={this.handleFirstNameChange}
 								modifier='underbar'
-								placeholder='First Name' />
+								placeholder='Johnny' />
 							</div>
 						</Ons.ListItem>
 						<Ons.ListItem modifier="nodivider">
@@ -215,13 +230,16 @@ var NewContractor = React.createClass({
 							{this.state.errorMessages.lastName && this.state.errorMessages.lastName.length > 0 &&
 				              <div modifier='nodivider' style={errorMessageTextStyle}>{this.state.errorMessages.lastName}</div>
 				            }
+				            	<div className='list__item__title' style={fieldHeaderStyle}>
+									Last Name
+								</div>
 								<Ons.Input
 								style={inputItemStyle}
 								className="center"
 								value={this.state.lastName}
 								onChange={this.handleLastNameChange}
 								modifier='underbar'
-								placeholder='Last Name' />
+								placeholder='Smith' />
 							</div>
 						</Ons.ListItem>
 						<Ons.ListItem modifier="nodivider">
@@ -229,50 +247,65 @@ var NewContractor = React.createClass({
 							{this.state.errorMessages.phone && this.state.errorMessages.phone.length > 0 &&
 				              <div modifier='nodivider' style={errorMessageTextStyle}>{this.state.errorMessages.phone}</div>
 				            }
+				            	<div className='list__item__title' style={fieldHeaderStyle}>
+									Phone Number
+								</div>
 								<Ons.Input
 								style={inputItemStyle}
-								maxlength="10"
+								maxlength="12"
 								className="center"
-								value={this.state.phone}
+								value={prettyPhoneFormat}
 								type='tel'
 								onChange={this.handlePhoneChange}
 								modifier='underbar'
-								placeholder='Phone' />
+								placeholder='416 123 4567' />
 							</div>
 						</Ons.ListItem>
 						<Ons.ListItem modifier="nodivider">
 							<div style={divListItemStyle}>
+								<div className='list__item__title' style={fieldHeaderStyle}>
+									Email
+								</div>
 								<Ons.Input
 								style={inputItemStyle}
 								className="center"
 								value={this.state.emailAddress}
 								onChange={this.handleEmailAddressChange}
 								modifier='underbar'
-								placeholder='Email' />
+								placeholder='johnny.smith@acme.com' />
 							</div>
 						</Ons.ListItem>
 						<Ons.ListItem modifier="nodivider">
 							<div style={divListItemStyle}>
+								<div className='list__item__title' style={fieldHeaderStyle}>
+									Company
+								</div>
 								<Ons.Input
 								style={inputItemStyle}
 								className="center"
 								value={this.state.company}
 								onChange={this.handleCompanyChange}
 								modifier='underbar'
-								placeholder='Company' />
+								placeholder='Acme Inc' />
 							</div>
 						</Ons.ListItem>
 						<Ons.ListItem modifier="nodivider">
 							<div style={divListItemStyle}>
+								<div className='list__item__title' style={fieldHeaderStyle}>
+									Trade
+								</div>
 								<Ons.Input
 								style={inputItemStyle}
 								value={this.state.trade}
 								onChange={this.handleTradeChange}
 								modifier='underbar'
-								placeholder='Trade' />
+								placeholder='Plumber, Contractor, Brick Layer' />
 							</div>
 						</Ons.ListItem>
 						<Ons.ListItem modifier="nodivider">
+							<div className='list__item__title' style={fieldHeaderStyle}>
+								Notes
+							</div>
 							<div style= {noteBoxOutside}>
 								<textarea
 								style={noteBoxInside}

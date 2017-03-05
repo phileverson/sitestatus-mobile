@@ -53,10 +53,10 @@ var SingleProjectHome = React.createClass({
 		SiteStatusBase.listenTo(statusUpdatesEndPoint, {
 			context: this,
 			asArray: true,
-			queries: {},
 			then: function(data){
+				var reversedUpdates = data.reverse();
 				this.setState({
-					statusUpdates: data
+					statusUpdates: reversedUpdates
 				});
 				console.log('Detected Change: Status Updates');
 			}
@@ -69,13 +69,12 @@ var SingleProjectHome = React.createClass({
 			context: this,
 			state: 'statusUpdates',
 			asArray: true,
-			queries: {
-			},
 			then: function(data){
 				console.log('Fetched Status Updates')
+				var reversedUpdates = data.reverse();
 				this.setState({
 						statusUpdatesLoading:false,
-						statusUpdates: data
+						statusUpdates: reversedUpdates
 					}, function(){
 						if (pullHook_Done) {
 							setTimeout(() => {

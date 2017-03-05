@@ -6,6 +6,7 @@ var Rebase = require('re-base');
 
 var PagesConstants = require('constants/pages.jsx');
 var GlobalConstants = require('constants/global.jsx');
+var Styles = require('constants/styles.jsx');
 var Utils = require('util/util.jsx');
 
 var Project = require('../models/project.jsx');
@@ -189,31 +190,58 @@ var SingleProjectStatusUpdateList = React.createClass({
 			var currContractorName= contractorObject.firstName+ " "+ contractorObject.lastName;
 			expectedContractorNames.push(currContractorName);
 		}
-		console.log(expectedContractorNames);
-		var showTodaysContractors=false;
-		if (expectedContractorNames.length>0){
-			showTodaysContractors=true;
-		}
+		var expectedContractorNamesInString = _.cloneDeep(expectedContractorNames).join(', ');
+		// console.log(expectedContractorNames);
+		var showProjectSchedulerNotice = false;
+		var showTodaysContractors = false;
 		if (route.title == PagesConstants.SINGLE_PROJECT_STATE_UPDATE_DETAIL) {
 			pageContent = this.renderSingleUpdate();
 		} else {
 			pageContent = this.renderListOfUpdates(navigator);
+			showProjectSchedulerNotice = true;
+			if (expectedContractorNames.length > 0){
+				showTodaysContractors = true;
+			}
 		}
-		return (
-			<Ons.Page key={route.title} renderToolbar={this.renderToolbar.bind(this, route, navigator)}>
-				{showTodaysContractors &&
-					<Ons.List 
-			          dataSource={expectedContractorNames}
-			          renderRow={(row) => <Ons.ListItem style={todayContractorListStyle}>{row}</Ons.ListItem>}
-			          renderHeader={() => <Ons.ListHeader>Expecting Responses From:</Ons.ListHeader>}
-			        />}
-		        {!showTodaysContractors &&
-		        	<Ons.ListHeader>YOU HAVE NO CONTRACTORS SCHEDULED TODAY! SCHEDULE ONE!</Ons.ListHeader>
-		        	//<Ons.ListItem tappable="true" tapbackgroundcolor="blue" onClick={this.}>Schedule Contractors</Ons.ListItem>
-		        }
-				{pageContent}
-			</Ons.Page>
-		);
+		var projectSchedulerNoticeStyle_NoContractors = {
+			background: Styles.warningRed,
+			padding: '5px',
+			display: 'flex',
+			color: '#D8000C',
+			fontSize: '13px'
+		}
+		var projectSchedulerNoticeStyle_ExpectingContractors = {
+			background: Styles.onsenBlue,
+			padding: '5px',
+			display: 'flex',
+			color: '#FFF',
+			fontSize: '13px'
+		}
+		if (showProjectSchedulerNotice) {
+			return (
+				<Ons.Page key={route.title} renderToolbar={this.renderToolbar.bind(this, route, navigator)}>
+					{showTodaysContractors &&
+				        <div style={projectSchedulerNoticeStyle_ExpectingContractors}>
+			        		 <Ons.Icon style={{marginRight:'5px', 'fontSize': '30px', alignSelf: 'center'}} icon='fa-users' /> 
+			        		 <div>Contractors Onsite Today: {expectedContractorNamesInString}</div>
+			        	</div>
+				    }
+			        {!showTodaysContractors &&
+			        	<div style={projectSchedulerNoticeStyle_NoContractors}>
+			        		 <Ons.Icon style={{marginRight:'5px', 'fontSize': '30px', alignSelf: 'center'}} icon='fa-user-times' /> 
+			        		 <div>No contractors are scheduled to receive status update requests today. Please mark contractors onsite.</div>
+			        	</div>
+			        }
+					{pageContent}
+				</Ons.Page>
+			)
+		} else {
+			return (
+				<Ons.Page key={route.title} renderToolbar={this.renderToolbar.bind(this, route, navigator)}>
+					{pageContent}
+				</Ons.Page>
+			)
+		}
 	},
 
 	updateTabbarVisibility_Show: function() {
