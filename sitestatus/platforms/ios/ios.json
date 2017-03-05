@@ -4,8 +4,26 @@
         "uninstalled": []
     },
     "config_munge": {
-        "files": {}
+        "files": {
+            "config.xml": {
+                "parents": {
+                    "/*": []
+                }
+            },
+            "*/Entitlements-Debug.plist": {
+                "parents": {
+                    "aps-environment": []
+                }
+            },
+            "*/Entitlements-Release.plist": {
+                "parents": {
+                    "aps-environment": []
+                }
+            }
+        }
     },
     "installed_plugins": {},
-    "dependent_plugins": {}
+    "dependent_plugins": {},
+    "modules": [],
+    "plugin_metadata": {}
 }
