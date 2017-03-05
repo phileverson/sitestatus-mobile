@@ -44,6 +44,11 @@ var SingleProjectStatusUpdateList = React.createClass({
 			title: 'Update Details',
 			hasBackButton: true
 		});
+		mixpanel.track("Viewing Single Update",
+		{
+		"Project Name": this.props.singleProject.name,
+		"Status Update Key": keyPassed
+		});		
 	},
 
 	pushPage: function(navigator) {
@@ -108,6 +113,11 @@ var SingleProjectStatusUpdateList = React.createClass({
 	      case 'initial':
 	        return 'Pull to Refresh';
 	      case 'preaction':
+	       mixpanel.track("Pulled to Refresh",
+			{
+			"App Location": "Single Project",
+			"Project Name": this.props.singleProject.name
+			});		
 	        return 'Release to Refresh';
 	      case 'action':
 	        return <Loading />;

@@ -57,6 +57,11 @@ var SingleProjectScheduleRow = React.createClass({
 					console.log('Error removing contractor for: ' + dateKey);
 					console.log(err);
 				}
+
+				mixpanel.track("Toggle Off Contractor on Schedule",
+				{
+				});
+
 			});
 		} else {
 			console.log('Contractor is now being assigned to this date.');
@@ -70,6 +75,11 @@ var SingleProjectScheduleRow = React.createClass({
 						console.log('Error adding contractor for: ' + dateKey);
 						console.log(err);
 					}
+
+				mixpanel.track("Toggle On Contractor on Schedule",
+				{
+				});
+
 				}
 			});
 

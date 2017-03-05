@@ -51,7 +51,7 @@ var ProjectsHub = React.createClass({
 			passedNavigator.pushPage({
 				title: PagesConstants.SINGLE_PROJECT
 			})
-			mixpanel.track("Launched Single Project",
+			mixpanel.track("Launching Single Project",
 			{
 				"Project Name": singleProjectObj.name
 			})
@@ -118,10 +118,12 @@ var ProjectsHub = React.createClass({
 						passedNavigator.replacePage({
 							title: PagesConstants.SINGLE_PROJECT
 						})
-						mixpanel.track("Created Project",
-							{
-								"Project Name":  projectObj.name
-							});
+				mixpanel.track("Created Project",
+				{
+				"Project Name":  projectObj.name,
+				"Project Question": projectObj.quesiton,
+				"Project Question Time": projectObj.quesitonTime,
+				});		
 						}
 					);
 					// Request that Twilio number is created:
@@ -159,6 +161,12 @@ var ProjectsHub = React.createClass({
 				} else {
 					console.log(err);
 				}
+				mixpanel.track("Updated Project",
+				{
+				"Project Name":  projectObj.name,
+				"Project Question": projectObj.quesiton,
+				"Project Question Time": projectObj.quesitonTime,
+				});		
 			}
 		});
 	},
@@ -188,7 +196,11 @@ var ProjectsHub = React.createClass({
 	      case 'initial':
 	        return 'Pull to Refresh';
 	      case 'preaction':
-	        return 'Release to Refresh';
+		    mixpanel.track("Pulled to Refresh",
+			{
+			"App Location": "Projects Hub"
+			});		
+			return 'Release to Refresh';
 	      case 'action':
 	        return <Loading />;
 	    }

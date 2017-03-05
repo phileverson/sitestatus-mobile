@@ -35,6 +35,11 @@ var SingleProjectSchedule = React.createClass({
 		this.setState({
 			shortListedContractors_Editable: shortListedContractorsToUpdate
 		})
+		mixpanel.track("Added Contractor To Shortlist",
+		{
+			"Project Name": this.props.singleproject.name,
+			"Contractor Key": contractorKey
+		})
 	},
 
 	removeContractorFromShortlist: function(contractorKey) {
@@ -45,6 +50,11 @@ var SingleProjectSchedule = React.createClass({
 		shortListedContractorsToUpdate.splice(indexToRemove, 1);
 		this.setState({
 			shortListedContractors_Editable: shortListedContractorsToUpdate
+		})
+		mixpanel.track("Removed Contractor To Shortlist",
+		{
+			"Project Name": this.props.singleproject.name,
+			"Contractor Key": contractorKey
 		})
 	},
 
@@ -58,6 +68,10 @@ var SingleProjectSchedule = React.createClass({
 
   		navigator.popPage();
   		this.props.toggleTabbarVisibility(true);
+  		mixpanel.track("Saved Contractor Shortlist (after making changes)",
+		{
+			"Project Name": this.props.singleproject.name
+		})
   	},
 
 	pushPage_ManageContractors: function(navigator) {
@@ -65,6 +79,10 @@ var SingleProjectSchedule = React.createClass({
 			title: PagesConstants.SINGLE_PROJECT_SCHEDULE_MANAGE_CONTRACTORS,
 			hasBackButton: true
 		});
+		mixpanel.track("Launching Manage Contractors",
+		{
+			"Project Name": this.props.singleproject.name
+		})
 	},
 
 	pushPage_AddContractor: function(navigator) {
@@ -72,6 +90,10 @@ var SingleProjectSchedule = React.createClass({
 			title: PagesConstants.SINGLE_PROJECT_SCHEDULE_ADD_CONTRACTORS,
 			hasBackButton: true
 		});
+		mixpanel.track("Adding Contractor from Project Schedule",
+		{
+		"Project Name": this.props.singleproject.name
+		});		
 	},
 
   	popPage_CancelAddContractor: function(navigator) {

@@ -9,6 +9,10 @@ var SingleProjectStatusUpdatesListRow = React.createClass({
 	navToSingleStatusUpdate: function() {
 		this.props.launchUpdate_SetActiveStatus(this.props.singleUpdate['key'], this.props.relatedContractor, this.props.passedNavigator);
 		// this.props.launchUpdate_PushPage();
+		mixpanel.track("Launched Single Status Update",
+		{
+		"Status Update":  singleUpdate.name
+		});		
 	},
 
 	render: function() {

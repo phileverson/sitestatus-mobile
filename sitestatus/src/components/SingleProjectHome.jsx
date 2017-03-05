@@ -94,6 +94,10 @@ var SingleProjectHome = React.createClass({
 		// this.props.passedNavigator.pushPage({
 		// 	title: PagesConstants.SINGLE_PROJECT_SETTINGS
 		// })
+		mixpanel.track("Viewing Project Settings",
+		{
+			"Project Name": this.props.singleproject.name
+		})
 	},
 
 	// the default:
@@ -116,7 +120,13 @@ var SingleProjectHome = React.createClass({
 				if (!err) {		
 				} else {		
 					console.log(err);		
-				}		
+				}
+				mixpanel.track("Updated Project",
+				{
+				"Project Name":  projectObj.name,
+				"Project Question": projectObj.quesiton,
+				"Project Question Time": projectObj.quesitonTime,
+				});		
 			}		
 		});		
 	},
