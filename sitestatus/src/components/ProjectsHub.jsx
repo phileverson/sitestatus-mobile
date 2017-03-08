@@ -215,6 +215,13 @@ var ProjectsHub = React.createClass({
     },
 
 	renderListOfProjects: function(navigator) {
+		var noUpdatesStyle = {
+			marginTop: '20px',
+			marginLeft: '30px',
+			marginRight: '30px',
+			textAlign: 'center',
+			width: '100%'
+		}
 		var me = this;
 
 		if (this.props.projectsLoading) {
@@ -223,7 +230,12 @@ var ProjectsHub = React.createClass({
 		    )
 		} else if (this.props.projects.length == 0 || (!this.props.projects)) {
 			return (
-	        	<div>whoops looks like theres no projects here.</div>
+	        	<div style={{'display': 'inline-flex'}}>
+	        	<div style={noUpdatesStyle}>
+	        		<Ons.Icon style={{'fontSize': '50px', marginBottom: '20px', alignSelf: 'center', width: '100%'}} icon='fa-exclamation-circle' />
+	        		There are no projects yet. Please create a project.
+	        	</div>
+	        	</div>
 	        )
 		} else if (this.props.projects) {
 			var projectsListSafe = _.cloneDeep(this.props.projects);
