@@ -58,6 +58,8 @@ var ContractorsHub = React.createClass({
 						me.setState({
 							authContractorAppState: PagesConstants.CONTRACTORS_LIST,
 							activeContractorKey: ''
+						}, function(){
+							me.props.deactivateGlobalModal();
 						})
 					} else {
 						console.log('Error Adding New Contractor:');
@@ -69,6 +71,7 @@ var ContractorsHub = React.createClass({
 	},
 
 	navTo_AddContractor: function() {
+		this.props.activateGlobalModal("Loading Contractor", false);
 		this.setState({
 			authContractorAppState: PagesConstants.ADD_CONTRACTOR,
 			activeContractorKey: ''
@@ -76,6 +79,7 @@ var ContractorsHub = React.createClass({
 	},
 
 	navTo_EditContractor: function(activeContractorKey) {
+		this.props.activateGlobalModal("Loading Contractor", false);
 		this.setState({
 			authContractorAppState: PagesConstants.EDIT_CONTRACTOR,
 			activeContractorKey: activeContractorKey
@@ -83,6 +87,7 @@ var ContractorsHub = React.createClass({
 	},
 
 	navTo_ContractorsHub: function() {
+		this.props.deactivateGlobalModal();
 		this.setState({
 			authContractorAppState: PagesConstants.CONTRACTORS_LIST
 		})
@@ -167,6 +172,8 @@ var ContractorsHub = React.createClass({
     										cancelCreate={this.navTo_ContractorsHub} 
     										updateSingleContractor={this.updateSingleContractor}
     										currentUser={this.props.currentUser}
+											activateGlobalModal={this.props.activateGlobalModal}
+				                            deactivateGlobalModal={this.props.deactivateGlobalModal}
     										/>;
     	} else if (this.state.authContractorAppState == PagesConstants.ADD_CONTRACTOR) {
     		var blankContractor = new Contractor({});
@@ -176,6 +183,8 @@ var ContractorsHub = React.createClass({
     										cancelCreate={this.navTo_ContractorsHub} 
     										updateSingleContractor={this.updateSingleContractor}
     										currentUser={this.props.currentUser}
+											activateGlobalModal={this.props.activateGlobalModal}
+				                            deactivateGlobalModal={this.props.deactivateGlobalModal}
     										/>;
     	}
 		return (

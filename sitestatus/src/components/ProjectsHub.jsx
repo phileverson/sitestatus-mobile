@@ -80,6 +80,7 @@ var ProjectsHub = React.createClass({
 
 	navTo_GeneralPop: function(navigator) {
 		navigator.popPage();
+		this.props.deactivateGlobalModal();
 		// this.setState({
 		// 	authProjectsAppState: PagesConstants.PROJECTS_HUB
 		// }, function(){
@@ -91,6 +92,7 @@ var ProjectsHub = React.createClass({
 		passedNavigator.replacePage({
 			title: PagesConstants.SINGLE_PROJECT,
 		})
+		this.props.deactivateGlobalModal();
 	},
 
 
@@ -271,6 +273,8 @@ var ProjectsHub = React.createClass({
 							navTo_ProjectSettings={this.navTo_ProjectSettings}
 							contractors={this.props.contractors}
 							passedNavigator={navigator}
+							activateGlobalModal={this.props.activateGlobalModal}
+                            deactivateGlobalModal={this.props.deactivateGlobalModal}
 							/>;
 		} else if (route.title == PagesConstants.ADD_PROJECT) {
 			var blankProject = new Project({});
@@ -282,6 +286,8 @@ var ProjectsHub = React.createClass({
 							createNewOrUpdateProject={this.createProject}
 							passedNavigator={navigator}
 							generalPop={this.generalPop}
+							activateGlobalModal={this.props.activateGlobalModal}
+                            deactivateGlobalModal={this.props.deactivateGlobalModal}
 							/>;
 		} else if (route.title == PagesConstants.SINGLE_PROJECT_SETTINGS) {
 			var activeProjectObject = Utils.findProjectByKey(this.state.activeProjectKey, this.props.projects);
@@ -293,6 +299,8 @@ var ProjectsHub = React.createClass({
 							currentUser={this.props.currentUser}
 							passedNavigator={navigator}
 							generalPop={this.generalPop}
+							activateGlobalModal={this.props.activateGlobalModal}
+                            deactivateGlobalModal={this.props.deactivateGlobalModal}
 							/>;
 		}
 		return (
@@ -310,6 +318,9 @@ var ProjectsHub = React.createClass({
 					initialRoute={{
 						title: PagesConstants.PROJECTS_HUB
 					}}
+					onPostPop={this.props.deactivateGlobalModal}
+					onPostPush={this.props.deactivateGlobalModal}
+
 				/>
 			</Ons.Page>
 		)

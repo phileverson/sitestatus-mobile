@@ -37,7 +37,7 @@ var SingleProjectSchedule = React.createClass({
 		})
 		mixpanel.track("Added Contractor To Shortlist",
 		{
-			"Project Name": this.props.singleproject.name,
+			"Project Name": this.props.singleProject.name,
 			"Contractor Key": contractorKey
 		})
 	},
@@ -53,12 +53,14 @@ var SingleProjectSchedule = React.createClass({
 		})
 		mixpanel.track("Removed Contractor To Shortlist",
 		{
-			"Project Name": this.props.singleproject.name,
+			"Project Name": this.props.singleProject.name,
 			"Contractor Key": contractorKey
 		})
 	},
 
   	popPage_SaveUpdatedShortlist: function(navigator) {
+  		this.props.activateGlobalModal("Saving Contractor Shortlist", true);
+
   		console.log('Saving editable shortlist to firebase.');
   		var freshProjectObj = new Project(this.props.singleProject);
 		freshProjectObj.shortListedContractors = this.state.shortListedContractors_Editable;
@@ -70,29 +72,33 @@ var SingleProjectSchedule = React.createClass({
   		this.props.toggleTabbarVisibility(true);
   		mixpanel.track("Saved Contractor Shortlist (after making changes)",
 		{
-			"Project Name": this.props.singleproject.name
+			"Project Name": this.props.singleProject.name
 		})
   	},
 
 	pushPage_ManageContractors: function(navigator) {
+		this.props.activateGlobalModal("Loading Contractor Shortlist", true);
+
 		navigator.pushPage({
 			title: PagesConstants.SINGLE_PROJECT_SCHEDULE_MANAGE_CONTRACTORS,
 			hasBackButton: true
 		});
 		mixpanel.track("Launching Manage Contractors",
 		{
-			"Project Name": this.props.singleproject.name
+			"Project Name": this.props.singleProject.name
 		})
 	},
 
 	pushPage_AddContractor: function(navigator) {
+		this.props.activateGlobalModal("Loading Add a Contractor", true);
+
 		navigator.pushPage({
 			title: PagesConstants.SINGLE_PROJECT_SCHEDULE_ADD_CONTRACTORS,
 			hasBackButton: true
 		});
 		mixpanel.track("Adding Contractor from Project Schedule",
 		{
-		"Project Name": this.props.singleproject.name
+		"Project Name": this.props.singleProject.name
 		});		
 	},
 
@@ -101,6 +107,8 @@ var SingleProjectSchedule = React.createClass({
   	},
 
   	popPage_SaveNewContractor: function(navigator, contractorObject) {
+  		this.props.activateGlobalModal("Saving Contractor", true);
+
   		console.log(contractorObject);
 
   		var contractorsEndPoint = "contractors/" + this.props.currentUser.uid + "/";
@@ -167,6 +175,8 @@ var SingleProjectSchedule = React.createClass({
 							removeContractorFromShortlist={this.removeContractorFromShortlist}
 							shortListedContractors_Editable={this.state.shortListedContractors_Editable}
 							navToAddContractor={me.pushPage_AddContractor.bind(me, navigator)}
+							activateGlobalModal={this.props.activateGlobalModal}
+							deactivateGlobalModal={this.props.deactivateGlobalModal}
 							/>
 		} else if (route.title == PagesConstants.SINGLE_PROJECT_SCHEDULE_ADD_CONTRACTORS) {
 			var blankContractor = new Contractor({});
@@ -175,6 +185,8 @@ var SingleProjectSchedule = React.createClass({
 							cancelCreate={me.popPage_CancelAddContractor.bind(me, navigator)}
 							updateSingleContractor={me.popPage_SaveNewContractor.bind(me, navigator)}
 							currentUser={this.props.currentUser}
+							activateGlobalModal={this.props.activateGlobalModal}
+							deactivateGlobalModal={this.props.deactivateGlobalModal}
 							/>
 		} else {
 			pageContent = <SingleProjectScheduleGantt
@@ -184,6 +196,8 @@ var SingleProjectSchedule = React.createClass({
 							navToHub={this.props.navToHub} 
 							navToProjectSettings={this.props.navTo_ProjectSettings} 
 							navToManageContractors={me.pushPage_ManageContractors.bind(me, navigator)}
+							activateGlobalModal={this.props.activateGlobalModal}
+							deactivateGlobalModal={this.props.deactivateGlobalModal}
 							/>
 		}
 
@@ -194,11 +208,13 @@ var SingleProjectSchedule = React.createClass({
 		);
 	},
 
-	updateTabbarVisibility_Show: function() {
+	onPrePush: function() {
+		// this.props.activateGlobalModal("Loading", true);
 		// this.props.toggleTabbarVisibility(true);
 	},
 
-	updateTabbarVisibility_Hide: function() {
+	onPostPop: function() {
+		this.props.deactivateGlobalModal();
 		this.props.toggleTabbarVisibility(false);
 	},
 
@@ -212,8 +228,9 @@ var SingleProjectSchedule = React.createClass({
 						hasBackButton: false
 					}}
 					animation="lift"
-					onPrePush={this.updateTabbarVisibility_Hide}
-					onPostPop={this.updateTabbarVisibility_Show}
+					onPrePush={this.onPrePush}
+					onPostPop={this.onPostPop}
+					onPostPush={this.props.deactivateGlobalModal}
 				/>
 			</Ons.Page>
 		);

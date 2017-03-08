@@ -22,6 +22,10 @@ var NewContractor = React.createClass({
 		}
 	},
 
+	componentDidMount: function() {
+		this.props.deactivateGlobalModal();
+	},
+
 	updateSingleContractor: function(e) {
 		e.preventDefault();
 		var changingContractor = this.createContractorObject();

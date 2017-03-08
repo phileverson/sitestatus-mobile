@@ -158,6 +158,8 @@ var SingleProjectHome = React.createClass({
 							statusUpdates={this.state.statusUpdates}
 							statusUpdatesLoading={this.state.statusUpdatesLoading}
 							fetchFirebaseStatusUpdates={this.fetchFirebaseStatusUpdates}
+							activateGlobalModal={this.props.activateGlobalModal}
+							deactivateGlobalModal={this.props.deactivateGlobalModal}
 							/>,
 				tab: <Ons.Tab key="Tab_SingleProjectStatusUpdateList" label='Updates' icon='envelope-o' />
 			},
@@ -174,6 +176,8 @@ var SingleProjectHome = React.createClass({
 							removeContractorFromShortlist={this.removeContractorFromProjectShortlist}
 							updateProjectDetails={this.updateProjectDetails}
 							currentUser={this.props.currentUser}
+							activateGlobalModal={this.props.activateGlobalModal}
+							deactivateGlobalModal={this.props.deactivateGlobalModal}
 							/>,
 				tab: <Ons.Tab key="Tab_SingleProjectSchedule" label='Contractors Onsite' icon='calendar-check-o' />
 			}

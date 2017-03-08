@@ -49,6 +49,7 @@ var App = React.createClass({
     },
 
     activateGlobalModal: function(body, showCloseButton = true, openModal = true) {
+        console.log("GLOBAL MODAL: Opening");
         this.setState({
             modalDetail: {
                 body: body,
@@ -59,6 +60,7 @@ var App = React.createClass({
     },
 
     deactivateGlobalModal: function() {
+        console.log("GLOBAL MODAL: Closing");
         this.setState({
             modalIsOpen: false
         })

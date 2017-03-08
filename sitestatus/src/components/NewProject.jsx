@@ -34,6 +34,8 @@ var NewProject = React.createClass({
 	},
 
 	createNewOrUpdateProject: function(e) {
+		this.props.activateGlobalModal("Saving Project", false);
+		
 		e.preventDefault();
 		var changingProject = this.createProjectObject();
 		var changingProjectIsValid = changingProject.isValid();
