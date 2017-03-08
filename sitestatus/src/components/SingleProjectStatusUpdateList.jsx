@@ -134,6 +134,14 @@ var SingleProjectStatusUpdateList = React.createClass({
 		var me = this;
 		var allContractorsCopy = _.cloneDeep(me.props.contractors);
 
+		var noUpdatesStyle = {
+			marginTop: '20px',
+			marginLeft: '30px',
+			marginRight: '30px',
+			textAlign: 'center',
+			width: '100%'
+		}
+
 		if(allContractorsCopy) { // so for somereason, sometimes, allContractors is null. No clue why. This if prevents a reactfire error.
 			if (this.props.statusUpdatesLoading || !this.props.statusUpdates) {
 				return (
@@ -141,7 +149,12 @@ var SingleProjectStatusUpdateList = React.createClass({
 			    )
 			} else if (this.props.statusUpdates == 0) {
 				return (
-		        	<div> No updates bro...</div>
+					<div style={{'display': 'inline-flex'}}>
+		        	<div style={noUpdatesStyle}>
+		        		<Ons.Icon style={{'fontSize': '50px', marginBottom: '20px', alignSelf: 'center', width: '100%'}} icon='fa-exclamation-circle' />
+		        		No status updates have been received for this project.
+		        	</div>
+		        	</div>
 		        )
 			} else {
 				return (
