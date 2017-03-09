@@ -143,6 +143,14 @@ var ContractorsHub = React.createClass({
 			textAlign: 'center',
 			width: '100%'
 		}
+
+		var orderedContractors = _.cloneDeep(this.props.contractors);
+		orderedContractors = orderedContractors.sort(function(a, b){
+		    if(a.firstName.toLowerCase() < b.firstName.toLowerCase()) return -1;
+		    if(a.firstName.toLowerCase() > b.firstName.toLowerCase()) return 1;
+		    return 0;
+		});
+
 		if (this.props.contractorsLoading || (!this.props.contractors)) {
 			return (
 		    	<Loading />
@@ -162,7 +170,7 @@ var ContractorsHub = React.createClass({
 				<Ons.PullHook onChange={this.pullHookHandleChange} onLoad={this.props.fetchFirebaseContractors} >
 					{this.pullHookGetContent()}
 				</Ons.PullHook>
-				{this.props.contractors.map(function(contractor, i){
+				{orderedContractors.map(function(contractor, i){
 					return <ContractorsListRow singleContractor={contractor} index={i} requestContractorEdit={me.navTo_EditContractor}/> ;
 				})}
 				</Ons.List>
