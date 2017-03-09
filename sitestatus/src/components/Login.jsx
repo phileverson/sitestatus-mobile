@@ -87,7 +87,7 @@ var Login = React.createClass({
             float/>
         </Ons.ListItem>
         <Ons.ListItem>
-          <Ons.Button modifier='large' onClick={this.props.submit}>Login</Ons.Button>
+          <Ons.Button modifier='large' style={{paddingLeft: '6px'}} onClick={this.props.submit}>Login</Ons.Button>
         </Ons.ListItem>
       </Ons.List>
     </section>

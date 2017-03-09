@@ -252,7 +252,7 @@ var SignUp = React.createClass({
         </Ons.ListItem>
         }
         <Ons.ListItem>
-          <Ons.Button modifier='large' onClick={this.props.submit}>{saveButtonLabel}</Ons.Button>
+          <Ons.Button modifier='large' style={{paddingLeft: '6px'}} onClick={this.props.submit}>{saveButtonLabel}</Ons.Button>
         </Ons.ListItem>
       </Ons.List>
       {!showFirebaseAuthFields &&
