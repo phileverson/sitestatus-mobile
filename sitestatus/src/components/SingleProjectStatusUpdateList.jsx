@@ -159,9 +159,6 @@ var SingleProjectStatusUpdateList = React.createClass({
 			} else {
 				return (
 					<Ons.List>
-					<Ons.PullHook onChange={this.pullHookHandleChange} onLoad={this.props.fetchFirebaseStatusUpdates} >
-						{this.pullHookGetContent()}
-					</Ons.PullHook>
 					{me.props.statusUpdates.map(function(update, i){
 						var relatedContractor = Utils.findContractorByPhoneNumber(update.from, allContractorsCopy);
 						var previousUpdate = me.props.statusUpdates[(i-1)];
@@ -205,10 +202,11 @@ var SingleProjectStatusUpdateList = React.createClass({
 		}
 		var expectedContractorNamesInString = _.cloneDeep(expectedContractorNames).join(', ');
 		// console.log(expectedContractorNames);
-		var showProjectSchedulerNotice = false;
+		var showProjectSchedulerNotice = this.props.scheduledContractors_Today;
 		var showTodaysContractors = false;
 		if (route.title == PagesConstants.SINGLE_PROJECT_STATE_UPDATE_DETAIL) {
 			pageContent = this.renderSingleUpdate();
+			showProjectSchedulerNotice = false;
 		} else {
 			pageContent = this.renderListOfUpdates(navigator);
 			showProjectSchedulerNotice = true;
@@ -233,6 +231,9 @@ var SingleProjectStatusUpdateList = React.createClass({
 		if (showProjectSchedulerNotice) {
 			return (
 				<Ons.Page key={route.title} renderToolbar={this.renderToolbar.bind(this, route, navigator)}>
+					<Ons.PullHook onChange={this.pullHookHandleChange} onLoad={this.props.fetchFirebaseStatusUpdates} >
+						{this.pullHookGetContent()}
+					</Ons.PullHook>
 					{showTodaysContractors &&
 				        <div style={projectSchedulerNoticeStyle_ExpectingContractors}>
 			        		 <Ons.Icon style={{marginRight:'5px', 'fontSize': '30px', alignSelf: 'center'}} icon='fa-users' /> 
@@ -266,7 +267,6 @@ var SingleProjectStatusUpdateList = React.createClass({
 	},
 
 	render: function() {
-		var listOfUpdates = this.renderListOfUpdates(navigator);
 		return (
 			<Ons.Page>
 				<Ons.Navigator
@@ -278,17 +278,6 @@ var SingleProjectStatusUpdateList = React.createClass({
 					onPrePush={this.updateTabbarVisibility_Hide}
 					onPostPop={this.updateTabbarVisibility_Show}
 				/>
-			<Ons.AlertDialog
-				isOpen={false}
-				isCancelable={true}>
-				<div className='alert-dialog-title'>Warning!</div>
-				<div className='alert-dialog-content'>
-					An error has occurred!
-				</div>
-				<div className='alert-dialog-footer'>
-					<button onClick={this.zeroContractorsScheduledTodayWarningClear} className='alert-dialog-button'>Ok</button>
-				</div>
-			</Ons.AlertDialog>
 			</Ons.Page>
 		);
 	}

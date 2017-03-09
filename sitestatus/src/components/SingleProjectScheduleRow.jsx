@@ -127,7 +127,7 @@ var SingleProjectScheduleRow = React.createClass({
 
 		if (!this.props.singleProject) {
 			return (
-				<div>Loading</div>
+				<div>No Contractor</div>
 			)
 		}
 

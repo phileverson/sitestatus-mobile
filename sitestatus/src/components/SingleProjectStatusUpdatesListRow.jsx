@@ -22,7 +22,7 @@ var SingleProjectStatusUpdatesListRow = React.createClass({
 		// bail out if things haven't loaded yet...
 	    if (!this.props.relatedContractor) {
 	    	return (
-	    		<div>Loading...</div>
+	    		<div>No Related Contractor</div>
 	    	)
 	    }
 
