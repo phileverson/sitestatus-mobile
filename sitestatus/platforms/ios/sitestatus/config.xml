@@ -1,14 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.sitestatus.app" version="1.0.0" xmlns="http://www.w3.org/ns/widgets">
+    <preference name="DisallowOverscroll" value="false" />
     <feature name="LocalStorage">
         <param name="ios-package" value="CDVLocalStorage" />
     </feature>
-    <name>sitestatus</name>
-    <description />
-    <author />
-    <access origin="*" />
-    <content src="index.html" />
-    <preference name="ErrorUrl" value="" />
     <icon height="57" src="/res/ios/icon/icon.png" width="57" />
     <icon height="114" src="/res/ios/icon/icon@2x.png" width="114" />
     <icon height="72" src="/res/ios/icon/icon-72.png" width="72" />
@@ -41,10 +36,16 @@
             <string>en</string>
         </array>
     </config-file>
-    <preference name="DisallowOverscroll" value="true" />
+    <name>sitestatus</name>
+    <description />
+    <author />
+    <access origin="*" />
+    <content src="index.html" />
     <preference name="loglevel" value="DEBUG" />
     <preference name="AndroidLaunchMode" value="singleTop" />
     <preference name="BackgroundColor" value="0xffffffff" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="ErrorUrl" value="" />
     <preference name="Fullscreen" value="false" />
     <preference name="KeepRunning" value="true" />
     <preference name="monaca:WebViewEngine" value="default" />
