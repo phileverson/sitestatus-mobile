@@ -22,6 +22,11 @@ var SingleProjectScheduleManageContractors = React.createClass({
 		}
 	},
 
+	addContractor: function() {
+		this.props.activateGlobalModal("Loading Add a Contractor", true);
+		this.props.navToAddContractor();
+	},
+
 	render: function() {
 		var me = this;
 		return (
@@ -41,7 +46,7 @@ var SingleProjectScheduleManageContractors = React.createClass({
 				})}
 				</Ons.List>
 				<Ons.List style={{marginTop:'10px'}}>
-					<Ons.ListItem modifier="chevron" onClick={this.props.navToAddContractor}>
+					<Ons.ListItem modifier="chevron" onClick={this.addContractor}>
 					<div className="center">
 						<span className="list__item__title">
 							Create New Contractor
