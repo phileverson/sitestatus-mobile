@@ -59,7 +59,7 @@ var SingleProjectSchedule = React.createClass({
 	},
 
   	popPage_SaveUpdatedShortlist: function(navigator) {
-  		this.props.activateGlobalModal("Saving Contractor Shortlist", true);
+  		this.props.activateGlobalModal("Saving Contractor Shortlist", false);
 
   		console.log('Saving editable shortlist to firebase.');
   		var freshProjectObj = new Project(this.props.singleProject);
@@ -74,10 +74,11 @@ var SingleProjectSchedule = React.createClass({
 		{
 			"Project Name": this.props.singleProject.name
 		})
+		this.props.toggleTabbarVisibility(true);
   	},
 
 	pushPage_ManageContractors: function(navigator) {
-		this.props.activateGlobalModal("Loading Contractor Shortlist", true);
+		this.props.activateGlobalModal("Loading Contractor Shortlist", false);
 
 		navigator.pushPage({
 			title: PagesConstants.SINGLE_PROJECT_SCHEDULE_MANAGE_CONTRACTORS,
@@ -87,10 +88,11 @@ var SingleProjectSchedule = React.createClass({
 		{
 			"Project Name": this.props.singleProject.name
 		})
+		this.props.toggleTabbarVisibility(false);
 	},
 
 	pushPage_AddContractor: function(navigator) {
-		this.props.activateGlobalModal("Loading Add a Contractor", true);
+		this.props.activateGlobalModal("Loading Add a Contractor", false);
 
 		navigator.pushPage({
 			title: PagesConstants.SINGLE_PROJECT_SCHEDULE_ADD_CONTRACTORS,
@@ -100,6 +102,7 @@ var SingleProjectSchedule = React.createClass({
 		{
 		"Project Name": this.props.singleProject.name
 		});		
+		this.props.toggleTabbarVisibility(false);
 	},
 
   	popPage_CancelAddContractor: function(navigator) {
@@ -108,7 +111,7 @@ var SingleProjectSchedule = React.createClass({
   	},
 
   	popPage_SaveNewContractor: function(navigator, contractorObject) {
-  		this.props.activateGlobalModal("Saving Contractor", true);
+  		this.props.activateGlobalModal("Saving Contractor", false);
 
   		console.log(contractorObject);
 
@@ -128,7 +131,7 @@ var SingleProjectSchedule = React.createClass({
   	},
 
   	popPage_CancelManageContractors: function(navigator) {
-  		this.props.activateGlobalModal("Contractor Changes Not Saved", true);
+  		this.props.activateGlobalModal("Contractor Changes Not Saved", false);
   		// Reset the editable short list to only include what was last provided by singleproject.
   		// Voiding the user's changes (as they cancelled them).
   		this.setState({
@@ -210,15 +213,6 @@ var SingleProjectSchedule = React.createClass({
 		);
 	},
 
-	onPrePush: function() {
-		// this.props.activateGlobalModal("Loading", true);
-		this.props.toggleTabbarVisibility(false);
-	},
-
-	onPostPop: function() {
-		this.props.toggleTabbarVisibility(false);
-	},
-
 	render: function() {
 		return (
 			<Ons.Page>
@@ -229,9 +223,7 @@ var SingleProjectSchedule = React.createClass({
 						hasBackButton: false
 					}}
 					animation="lift"
-					onPrePush={this.onPrePush}
-					onPostPop={this.onPostPop}
-					onPrePop={this.props.deactivateGlobalModal}
+					onPostPop={this.props.deactivateGlobalModal}
 					onPostPush={this.props.deactivateGlobalModal}
 				/>
 			</Ons.Page>
