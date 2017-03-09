@@ -8,6 +8,7 @@ var SiteStatusBase = require('util/SiteStatusBase.jsx');
 
 var User = require('../models/user.jsx');
 
+var Styles = require('constants/styles.jsx');
 var SignUp = require('./SignUp.jsx');
 
 var UserProfile = React.createClass({
@@ -89,6 +90,16 @@ var UserProfile = React.createClass({
 
 	render: function() {
 		console.log(this.state.currentUser);
+		var fieldHeaderStyle={
+	    	fontSize: '12px',
+	    	color: Styles.onsenBlue
+	    }
+	    var divListItemStyle ={
+	      width: '100%',
+	      display: 'flex',
+	      flexWrap: 'wrap'
+	    }
+
 		if (this.state.editingUserProfile) {
 			return (
 				<SignUp 
@@ -103,7 +114,40 @@ var UserProfile = React.createClass({
 			// viewing the user profile:
 			return (
 				<Ons.Page renderToolbar={this.renderToolbar}>
-					FirstName: {this.state.currentUser.firstName}
+					<Ons.List>
+						<Ons.ListItem modifier="nodivider">
+							<div style={divListItemStyle}>
+								<div className='list__item__title' style={fieldHeaderStyle}>
+									First Name
+								</div>
+								{this.state.currentUser.firstName}
+							</div>		
+						</Ons.ListItem>
+						<Ons.ListItem modifier="nodivider">
+							<div style={divListItemStyle}>
+								<div className='list__item__title' style={fieldHeaderStyle}>
+									Last Name
+								</div>
+								{this.state.currentUser.lastName}
+							</div>		
+						</Ons.ListItem>
+						<Ons.ListItem modifier="nodivider">
+							<div style={divListItemStyle}>
+								<div className='list__item__title' style={fieldHeaderStyle}>
+									Company
+								</div>
+								{this.state.currentUser.company}
+							</div>		
+						</Ons.ListItem>
+						<Ons.ListItem modifier="nodivider">
+							<div style={divListItemStyle}>
+								<div className='list__item__title' style={fieldHeaderStyle}>
+									Email Address
+								</div>
+								{this.state.currentUser.emailAddress}
+							</div>		
+						</Ons.ListItem>
+					</Ons.List>
 				</Ons.Page>
 			)
 		}

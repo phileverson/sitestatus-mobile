@@ -5,6 +5,7 @@ var Ons = require('react-onsenui');
 var _ = require('lodash');
 
 var GlobalConstants = require('constants/global.jsx');
+var Styles = require('constants/styles.jsx');
 
 var User = require('../models/user.jsx');
 
@@ -162,8 +163,18 @@ var SignUp = React.createClass({
     var inputItemStyle = {
       width: '100%'
     }
+    var fieldHeaderStyle={
+        fontSize: '12px',
+        color: Styles.onsenBlue
+      }
     var divListItemStyle ={
-      width: '100%'
+        width: '100%',
+        display: 'flex',
+        flexWrap: 'wrap'
+    }
+
+    var listItemStyle ={
+      paddingRight: '6px'
     }
 
     var showFirebaseAuthFields = this.state.newUserSigningUp;
@@ -176,11 +187,12 @@ var SignUp = React.createClass({
       <Ons.Page renderToolbar={this.renderToolbar}>
     <section>
       <Ons.List>
-          <Ons.ListItem modifier="nodivider" >
+          <Ons.ListItem modifier="nodivider"  style={listItemStyle}>
           <div style={divListItemStyle}>
             {this.state.errorMessages.company && this.state.errorMessages.company.length > 0 &&
               <div modifier='nodivider' style={errorMessageTextStyle}>{this.state.errorMessages.company}</div>
             }
+            <div className='list__item__title' style={fieldHeaderStyle}>Company Name</div>
             <Ons.Input 
               style={inputItemStyle}
               className="center"
@@ -190,11 +202,12 @@ var SignUp = React.createClass({
               placeholder='Company Name' />
           </div>
         </Ons.ListItem>
-        <Ons.ListItem modifier="nodivider">
+        <Ons.ListItem modifier="nodivider" style={listItemStyle}>
           <div style={divListItemStyle}>
             {this.state.errorMessages.firstName && this.state.errorMessages.firstName.length > 0 &&
             <div modifier='nodivider' style={errorMessageTextStyle}>{this.state.errorMessages.firstName}</div>
             }
+            <div className='list__item__title' style={fieldHeaderStyle}>First Name</div>
             <Ons.Input
               style={inputItemStyle}
               className="center"
@@ -204,11 +217,12 @@ var SignUp = React.createClass({
               placeholder='First Name' />
           </div>
         </Ons.ListItem>
-        <Ons.ListItem modifier="nodivider">
+        <Ons.ListItem modifier="nodivider" style={listItemStyle}>
           <div style={divListItemStyle}>
             {this.state.errorMessages.lastName && this.state.errorMessages.lastName.length > 0 &&
             <div modifier='nodivider' style={errorMessageTextStyle}>{this.state.errorMessages.lastName}</div>
             }
+            <div className='list__item__title' style={fieldHeaderStyle}>Last Name</div>
             <Ons.Input
               style={inputItemStyle}
               className="center"
@@ -219,11 +233,12 @@ var SignUp = React.createClass({
           </div>
         </Ons.ListItem>
         {showFirebaseAuthFields &&
-        <Ons.ListItem modifier="nodivider">
+        <Ons.ListItem modifier="nodivider" style={listItemStyle}>
           <div style={divListItemStyle}>
             {this.state.errorMessages.emailAddress && this.state.errorMessages.emailAddress.length > 0 &&
             <div modifier='nodivider' style={errorMessageTextStyle}>{this.state.errorMessages.emailAddress}</div>
             }
+            <div className='list__item__title' style={fieldHeaderStyle}>Email Address</div>
             <Ons.Input
               style={inputItemStyle}
               className="center"
@@ -235,11 +250,12 @@ var SignUp = React.createClass({
         </Ons.ListItem>
         }
         {showFirebaseAuthFields &&
-        <Ons.ListItem modifier="nodivider">
+        <Ons.ListItem modifier="nodivider" style={listItemStyle}>
           <div style={divListItemStyle}>
             {this.state.errorMessages.password && this.state.errorMessages.password.length > 0 &&
             <div modifier='nodivider' style={errorMessageTextStyle}>{this.state.errorMessages.password}</div>
             }
+            <div className='list__item__title' style={fieldHeaderStyle}>Password</div>
             <Ons.Input
               style={inputItemStyle}
               type= 'Password'
@@ -251,12 +267,12 @@ var SignUp = React.createClass({
           </div>
         </Ons.ListItem>
         }
-        <Ons.ListItem>
-          <Ons.Button modifier='large' style={{paddingLeft: '6px'}} onClick={this.props.submit}>{saveButtonLabel}</Ons.Button>
+        <Ons.ListItem style={listItemStyle}>
+          <Ons.Button modifier='large' style={{paddingRight: '6px'}} onClick={this.props.submit}>{saveButtonLabel}</Ons.Button>
         </Ons.ListItem>
       </Ons.List>
       {!showFirebaseAuthFields &&
-      <div style={divListItemStyle}>
+      <div style={{width: '100%'}}>
         <div style={{textAlign: 'center', fontSize: '12px', marginTop:'10px'}}>To change your email address or password, please <a href="mailto:info@sitestatus.co">contact us</a>.</div>
       </div>
       }

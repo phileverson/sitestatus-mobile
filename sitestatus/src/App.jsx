@@ -77,7 +77,8 @@ var App = React.createClass({
                     var userObj = {
                         company: me.state.noAuthUser.company,
                         firstName: me.state.noAuthUser.firstName,
-                        lastName: me.state.noAuthUser.lastName
+                        lastName: me.state.noAuthUser.lastName,
+                        emailAddress: me.state.noAuthUser.emailAddress
                     };
                     var userUpdateEndPoint = "users/" + user.uid + "/";
                     SiteStatusBase.update(userUpdateEndPoint, {

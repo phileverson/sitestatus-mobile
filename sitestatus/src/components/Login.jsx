@@ -86,8 +86,8 @@ var Login = React.createClass({
             placeholder='Password' 
             float/>
         </Ons.ListItem>
-        <Ons.ListItem>
-          <Ons.Button modifier='large' style={{paddingLeft: '6px'}} onClick={this.props.submit}>Login</Ons.Button>
+        <Ons.ListItem style={{paddingRight: '6px'}} >
+          <Ons.Button modifier='large' onClick={this.props.submit}>Login</Ons.Button>
         </Ons.ListItem>
       </Ons.List>
     </section>

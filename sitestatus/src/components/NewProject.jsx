@@ -220,7 +220,7 @@ var NewProject = React.createClass({
 	    }
 	    var fieldHeaderStyle={
 	    	fontSize: '12px',
-	    	color:'#2664AB'
+	    	color: Styles.onsenBlue
 	    }
 	    if (this.state.questionTimeSelectActive) {
 	    	return (
