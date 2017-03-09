@@ -136,13 +136,25 @@ var ContractorsHub = React.createClass({
 
 	renderListOfContractors: function() {
 		var me = this;
+		var noContractorsStyle = {
+			marginTop: '20px',
+			marginLeft: '30px',
+			marginRight: '30px',
+			textAlign: 'center',
+			width: '100%'
+		}
 		if (this.props.contractorsLoading || (!this.props.contractors)) {
 			return (
 		    	<Loading />
 		    )
 		} else if (this.props.contractors.length == 0) {
 			return (
-	        	<div>whoops looks like theres no contractors here.</div>
+	        	<div style={{'display': 'inline-flex'}}>
+	        	<div style={noContractorsStyle}>
+	        		<Ons.Icon style={{'fontSize': '50px', marginBottom: '20px', alignSelf: 'center', width: '100%'}} icon='fa-exclamation-circle' />
+	        		There are no contractors. Please create a contractor.
+	        	</div>
+	        	</div>
 	        )
 		} else {
 			return (
