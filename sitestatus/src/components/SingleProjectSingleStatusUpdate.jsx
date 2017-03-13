@@ -9,6 +9,8 @@ var Utils = require('util/util.jsx');
 
 var Project = require('../models/project.jsx');
 
+var Loading = require('./Loading.jsx');
+
 var SingleProjectSingleStatusUpdate = React.createClass({
 	// mixins: [ReactFireMixin],
 
@@ -47,7 +49,6 @@ var SingleProjectSingleStatusUpdate = React.createClass({
 			fontSize: '12'
 	    }
 	    var bodyStyle ={
-
 	      background: 'white',
 	      paddingTop: '5%',
 	      paddingBottom: '5%',
@@ -63,7 +64,24 @@ var SingleProjectSingleStatusUpdate = React.createClass({
 	    var buttonStyle={
 	    	marginLeft: '6px'
 		}
+		var imageFrameStyle = {
+			paddingRight: '8px',
+			minHeight: '250px'
+		}
+		var imageStyle = {
+			width: '100%',
+			zIndex: '2'
+		}
+		var imageLoadingIndicator = {
+			zIndex: '1',
+			position: 'absolute',
+			left: '14px',
+			right: '14px'
+		}
 		var prettyDate = moment(this.state.singleUpdate['timestamp']).format("dddd, MMMM Do YYYY, h:mm:ss a");
+
+		var imageLabel = (this.state.singleUpdate.media2) ? "Images" : "Image";
+
 		return (
 		
 			<section>
@@ -96,6 +114,37 @@ var SingleProjectSingleStatusUpdate = React.createClass({
 					<Ons.ListItem>
 						{this.state.singleUpdate.body}
 					</Ons.ListItem>
+					{(this.state.singleUpdate.media1) &&
+						<Ons.ListHeader style={headerStyle}>
+							<b>Included {imageLabel}:</b>
+						</Ons.ListHeader>
+					}
+					{(this.state.singleUpdate.media1) &&
+						<Ons.ListItem style={imageFrameStyle}>
+							<div style={imageLoadingIndicator}>
+								<Ons.ProgressBar indeterminate />
+								<div style={{textAlign: 'center', marginTop:'5px'}}>
+									Loading Image...
+								</div>
+							</div>
+							<img style={imageStyle} src={this.state.singleUpdate.media1} />
+						</Ons.ListItem>
+					}
+					{(this.state.singleUpdate.media2) &&
+						<Ons.ListItem style={imageFrameStyle}>
+							<img style={imageStyle} src={this.state.singleUpdate.media1} />
+						</Ons.ListItem>
+					}
+					{(this.state.singleUpdate.media3) &&
+						<Ons.ListItem style={imageFrameStyle}>
+							<img style={imageStyle} src={this.state.singleUpdate.media1} />
+						</Ons.ListItem>
+					}
+					{(this.state.singleUpdate.media4) &&
+						<Ons.ListItem style={imageFrameStyle}>
+							<img style={imageStyle} src={this.state.singleUpdate.media1} />
+						</Ons.ListItem>
+					}
 				</Ons.List>
 			</section>
 		)
