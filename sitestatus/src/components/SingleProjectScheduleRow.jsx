@@ -42,47 +42,57 @@ var SingleProjectScheduleRow = React.createClass({
 		var projectKey = this.props.singleProject['key']
 
 		var scheduledContractorsAsArray = Utils.prettyfirebaseArray(this.state.scheduledContractors);
+		//console.log(scheduledContractorsAsArray);
+		var today=moment(new Date()).format("MM-DD-YYYY");
 		var contractorKeyScheduledContractorsIndex = Utils.daysScheduleContractorIndex(contractorKey, scheduledContractorsAsArray);
 		console.log(contractorKeyScheduledContractorsIndex);
-
-		if(contractorKeyScheduledContractorsIndex >= 0) {
-			console.log('Contractor is already assigned to this date, now removing.');
-			var firebaseKey = Utils.daysScheduleContractorIndex(contractorKey, this.state.scheduledContractors);
-			console.log(firebaseKey);
-			var singleContractorScheduleEntryEndPoint = "projects-schedule/" + projectKey + "/" + dateKey + "/contractors/" + firebaseKey;
-			SiteStatusBase.remove(singleContractorScheduleEntryEndPoint, function(err){
-				if(!err){
-					console.log('Contractor removed.');
-				} else {
-					console.log('Error removing contractor for: ' + dateKey);
-					console.log(err);
-				}
-
-				mixpanel.track("Toggle Off Contractor on Schedule",
-				{
-				});
-
-			});
-		} else {
-			console.log('Contractor is now being assigned to this date.');
-			var contractorsDayScheduleEntryEndPoint = "projects-schedule/" + projectKey + "/" + dateKey + "/contractors/";
-			SiteStatusBase.push(contractorsDayScheduleEntryEndPoint, {
-				data: contractorKey,
-				then: function(err) {
+		console.log(dateKey + " " +moment(today).format("MM-DD-YYYY"));
+		if (today<=dateKey){
+		//date selected is in the future or today. user can edit.
+			console.log(false);
+			if(contractorKeyScheduledContractorsIndex >= 0) {
+				console.log('Contractor is already assigned to this date, now removing.');
+				var firebaseKey = Utils.daysScheduleContractorIndex(contractorKey, this.state.scheduledContractors);
+				console.log(firebaseKey);
+				var singleContractorScheduleEntryEndPoint = "projects-schedule/" + projectKey + "/" + dateKey + "/contractors/" + firebaseKey;
+				SiteStatusBase.remove(singleContractorScheduleEntryEndPoint, function(err){
 					if(!err){
-						console.log('Contractor added.')
+						console.log('Contractor removed.');
 					} else {
-						console.log('Error adding contractor for: ' + dateKey);
+						console.log('Error removing contractor for: ' + dateKey);
 						console.log(err);
 					}
 
-				mixpanel.track("Toggle On Contractor on Schedule",
-				{
+					mixpanel.track("Toggle Off Contractor on Schedule",
+					{
+					});
+
 				});
+			} else {
+				console.log('Contractor is now being assigned to this date.');
+				var contractorsDayScheduleEntryEndPoint = "projects-schedule/" + projectKey + "/" + dateKey + "/contractors/";
+				SiteStatusBase.push(contractorsDayScheduleEntryEndPoint, {
+					data: contractorKey,
+					then: function(err) {
+						if(!err){
+							console.log('Contractor added.')
+						} else {
+							console.log('Error adding contractor for: ' + dateKey);
+							console.log(err);
+						}
 
-				}
-			});
+					mixpanel.track("Toggle On Contractor on Schedule",
+					{
+					});
 
+					}
+				});
+			}
+		}
+		else{
+		//date selected is in the past. user should not be able to edit.
+			console.log(true);
+			{ons.notification.alert("Contractor schedules cannot be changed for past dates.")}
 		}
 	},
 
