@@ -114,10 +114,21 @@ var SingleProjectSingleStatusUpdate = React.createClass({
 					<Ons.ListItem>
 						{this.state.singleUpdate.body}
 					</Ons.ListItem>
-					{(this.state.singleUpdate.media1) &&
+					{(this.state.singleUpdate.media0) &&
 						<Ons.ListHeader style={headerStyle}>
 							<b>Included {imageLabel}:</b>
 						</Ons.ListHeader>
+					}
+					{(this.state.singleUpdate.media0) &&
+						<Ons.ListItem style={imageFrameStyle}>
+							<div style={imageLoadingIndicator}>
+								<Ons.ProgressBar indeterminate />
+								<div style={{textAlign: 'center', marginTop:'5px'}}>
+									Loading Image...
+								</div>
+							</div>
+							<img style={imageStyle} src={this.state.singleUpdate.media0} />
+						</Ons.ListItem>
 					}
 					{(this.state.singleUpdate.media1) &&
 						<Ons.ListItem style={imageFrameStyle}>
@@ -132,17 +143,35 @@ var SingleProjectSingleStatusUpdate = React.createClass({
 					}
 					{(this.state.singleUpdate.media2) &&
 						<Ons.ListItem style={imageFrameStyle}>
-							<img style={imageStyle} src={this.state.singleUpdate.media1} />
+							<div style={imageLoadingIndicator}>
+								<Ons.ProgressBar indeterminate />
+								<div style={{textAlign: 'center', marginTop:'5px'}}>
+									Loading Image...
+								</div>
+							</div>
+							<img style={imageStyle} src={this.state.singleUpdate.media2} />
 						</Ons.ListItem>
 					}
 					{(this.state.singleUpdate.media3) &&
 						<Ons.ListItem style={imageFrameStyle}>
-							<img style={imageStyle} src={this.state.singleUpdate.media1} />
+							<div style={imageLoadingIndicator}>
+								<Ons.ProgressBar indeterminate />
+								<div style={{textAlign: 'center', marginTop:'5px'}}>
+									Loading Image...
+								</div>
+							</div>
+							<img style={imageStyle} src={this.state.singleUpdate.media3} />
 						</Ons.ListItem>
 					}
 					{(this.state.singleUpdate.media4) &&
 						<Ons.ListItem style={imageFrameStyle}>
-							<img style={imageStyle} src={this.state.singleUpdate.media1} />
+							<div style={imageLoadingIndicator}>
+								<Ons.ProgressBar indeterminate />
+								<div style={{textAlign: 'center', marginTop:'5px'}}>
+									Loading Image...
+								</div>
+							</div>
+							<img style={imageStyle} src={this.state.singleUpdate.media4} />
 						</Ons.ListItem>
 					}
 				</Ons.List>
