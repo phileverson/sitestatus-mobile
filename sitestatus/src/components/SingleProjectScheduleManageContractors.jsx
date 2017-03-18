@@ -29,11 +29,17 @@ var SingleProjectScheduleManageContractors = React.createClass({
 
 	render: function() {
 		var me = this;
+		var orderedContractors =this.props.contractors;
+		orderedContractors = orderedContractors.sort(function(a, b){
+		    if(a.firstName.toLowerCase() < b.firstName.toLowerCase()) return -1;
+		    if(a.firstName.toLowerCase() > b.firstName.toLowerCase()) return 1;
+		    return 0;
+		});
 		return (
 			<section>
 				<Ons.ListHeader>Select Project Contrators</Ons.ListHeader>
 				<Ons.List>
-				{this.props.contractors.map(function(contractor, i){
+				{orderedContractors.map(function(contractor, i){
 					var alreadySelected = _.includes(me.props.shortListedContractors_Editable, contractor['key']);
 					return <ContractorsListRow 
 							singleContractor={contractor}
