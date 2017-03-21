@@ -96,7 +96,7 @@ var SingleProjectHome = React.createClass({
 		// })
 		mixpanel.track("Viewing Project Settings",
 		{
-			"Project Name": this.props.singleproject.name
+			"Project Name": this.props.singleProject.name
 		})
 	},
 

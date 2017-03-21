@@ -2,6 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var ons = require('onsenui');
 var Ons = require('react-onsenui');
+var Textarea = require('react-textarea-autosize').default;
 
 var Contractor = require('../models/contractor.jsx');
 var Utils = require('util/util.jsx');
@@ -184,18 +185,17 @@ var NewContractor = React.createClass({
 	      width: '100%'
 	    }
 	    var noteBoxInside ={
-	      width: '98%',
+	      width: '100%',
+	      resize: 'none',
+	      padding: '0px',
 	      height: '100%',
-	      borderStyle: 'solid',
-	      borderWidth: '1px',
-	      borderColor: '#ccc',
 	      fontSize: '15px',
     	  lineHeight: '1',
     	  fontFamily: '-apple-system, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif'
 	    }
 	    var noteBoxOutside ={
 	      width: '100%',
-	      height: '70px'
+	      borderBottom: '1px solid rgb(204, 204, 204)'
 	    }
 	    var fieldHeaderStyle={
 	    	fontSize: '12px',
@@ -311,11 +311,11 @@ var NewContractor = React.createClass({
 								Notes
 							</div>
 							<div style= {noteBoxOutside}>
-								<textarea
+								<Textarea
 								style={noteBoxInside}
 								value={this.state.note}
 								onChange={this.handleNoteChange}
-								placeholder='Note' ></textarea>
+								placeholder='Formerly worked at Home Depot.' ></Textarea>
 							</div>
 						</Ons.ListItem>
 					</Ons.List>

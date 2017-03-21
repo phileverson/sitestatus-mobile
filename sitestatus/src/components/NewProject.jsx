@@ -2,6 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var ons = require('onsenui');
 var Ons = require('react-onsenui');
+var Textarea = require('react-textarea-autosize').default;
 
 var Project = require('../models/project.jsx');
 
@@ -201,18 +202,17 @@ var NewProject = React.createClass({
 	      flexWrap: 'wrap'
 	    }
 	    var noteBoxInside ={
-	      width: '98%',
+	      width: '100%',
+	      resize: 'none',
+	      padding: '0px',
 	      height: '100%',
-	      borderStyle: 'solid',
-	      borderWidth: '1px',
-	      borderColor: '#ccc',
 	      fontSize: '15px',
     	  lineHeight: '1',
     	  fontFamily: '-apple-system, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif'
 	    }
 	    var noteBoxOutside ={
 	      width: '100%',
-	      height: '100px'
+	      borderBottom: '1px solid rgb(204, 204, 204)'
 	    }
 	    var inputLabelStyle = {
 	    	fontSize: '14px',
@@ -309,12 +309,12 @@ var NewProject = React.createClass({
 									Notes
 								</div>
 								<div style={noteBoxOutside}>
-									<textarea
+									<Textarea
 									style= {noteBoxInside}
 									className="center"
 									value={this.state.note}
 									onChange={this.handleNotesChange}
-									placeholder='notes' ></textarea>
+									placeholder='Last corner lot in Beaverglen.' ></Textarea>
 								</div>
 							</Ons.ListItem>
 						</Ons.List>
