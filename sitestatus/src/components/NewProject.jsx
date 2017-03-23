@@ -35,7 +35,7 @@ var NewProject = React.createClass({
 	},
 
 	createNewOrUpdateProject: function(e) {
-		this.props.activateGlobalModal("Saving Project", false);
+		//this.props.activateGlobalModal("Saving Project", false);
 		
 		e.preventDefault();
 		var changingProject = this.createProjectObject();
@@ -44,6 +44,7 @@ var NewProject = React.createClass({
 		if (changingProjectIsValid.isValid) {
 			changingProject = changingProject.preparePutObject();
 			this.props.createNewOrUpdateProject(changingProject, this.props.passedNavigator);
+			this.props.activateGlobalModal("Saving Project", false);
 		} else {
 			var mergedErrorMessages = _.merge(this.state.errorMessages, changingProjectIsValid.errorMessages);
 			this.setState({
@@ -185,6 +186,7 @@ var NewProject = React.createClass({
 	render: function() {
 		// var listOfContractors = this.renderListOfContractors();
 		// console.log(this.props);
+		console.log(this.state.errorMessages);
 	    var errorMessageTextStyle = {
 	      color: 'red',
 	      fontSize: '8px',
