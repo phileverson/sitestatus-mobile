@@ -152,7 +152,7 @@ var SingleProjectScheduleRow = React.createClass({
 					{this.props.shortListedContractorsDetails.map(function(contractor, i){
 						if (!contractor) {
 							return (
-								<div>Loading...</div>
+								<div></div>
 							);
 						}
 						var activeCheck = scheduledContractorsAsArray.includes(contractor['key']);

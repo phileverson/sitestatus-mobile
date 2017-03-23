@@ -9,6 +9,11 @@ var Utils = require('util/util.jsx');
 
 var SingleProjectScheduleContractorLabelCell = React.createClass({
 
+	manuallySMSContractor: function() {
+		var contractorNameForSMS = this.props.contractor.firstName + " " + this.props.contractor.lastName;
+		this.props.manuallySMSContractor(this.props.contractor.phone, contractorNameForSMS);
+	},
+
 	render: function() {
 		var me = this;
 		var contractorCellStyle = {
@@ -39,13 +44,13 @@ var SingleProjectScheduleContractorLabelCell = React.createClass({
 
 		if (!this.props.contractor) {
 			return (
-				<div>Loading...</div>
+				<div>No Related Contractor</div>
 			);
 		}
 
 		return (
 			<Ons.Row>
-				<Ons.Col style={contractorColStyle}>
+				<Ons.Col style={contractorColStyle} onClick={this.manuallySMSContractor}>
 					<div>{this.props.contractor.firstName + " " + this.props.contractor.lastName}</div>
 					<div style={contractorTradeStyle}>{this.props.contractor.trade}</div>
 				</Ons.Col>

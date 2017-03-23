@@ -3,9 +3,11 @@ var ReactDOM = require('react-dom');
 var ons = require('onsenui');
 var Ons = require('react-onsenui');
 
+var GlobalConstants = require('constants/global.jsx');
 var PagesConstants = require('constants/pages.jsx');
 var Styles = require('constants/styles.jsx');
 var Utils = require('util/util.jsx');
+var HttpClient = require('util/HttpClient.jsx');
 
 var Project = require('../models/project.jsx');
 
@@ -21,6 +23,21 @@ var SingleProjectScheduleGantt = React.createClass({
 			carouselDayIndex: 0,
 			addContractorsActive: false
 		};
+	},
+
+	manuallySMSContractor: function(contractorPhoneNumber, contractorName) {
+		if (this.props.currentUser.email.indexOf('site.com') >= 0) {
+			var endpointQuery = "contractorPhoneNumber=" + contractorPhoneNumber + "&contractorName=" + contractorName + "&question=" + this.props.singleProject.question + "&name=" + this.props.singleProject.name + "&projectPhoneNumber=" + this.props.singleProject.phoneNumber + "&userFirstName=" + "Patrick" + "&userLastName=" + "Colton (PM)";
+			// console.log(endpointQuery);
+			var client = new HttpClient();
+			var requestURL = GlobalConstants.MM_SERVER_MANUAL_TRIGGER + "?" + endpointQuery;
+			client.get(requestURL, function(response) {
+				console.log('Requested text message be sent. Assume successful.');
+			});
+
+			var globalModalMessage = "\u26A0 FOR SYMPOSIUM PURPOSES ONLY \u26A0  An SMS message has now been sent to " + contractorName + " (as if it was " + this.props.singleProject.questionTime + ").";
+			this.props.activateGlobalModal(globalModalMessage, true);
+		}
 	},
 
 	componentDidMount: function() {
@@ -73,7 +90,7 @@ var SingleProjectScheduleGantt = React.createClass({
 				<div style={{height: '40px', background: 'rgba(24,103,194,0.81)'}}></div>
 				{this.props.shortListedContractorsDetails.map(function(contractor, i){
 					return (
-						<SingleProjectScheduleContractorLabelCell key={i} contractor={contractor}/>
+						<SingleProjectScheduleContractorLabelCell key={i} contractor={contractor} manuallySMSContractor={me.manuallySMSContractor}/>
 					);
 				})}
 			</div>

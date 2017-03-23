@@ -10,6 +10,7 @@ function Project(obj){
   this.status = (obj.status) ? obj.status : "";
   this.shortListedContractors = (obj.shortListedContractors) ? obj.shortListedContractors : [];
   this.owner = (obj.owner) ? obj.owner : "";
+  this.phoneNumber = (obj.phoneNumber) ? obj.phoneNumber : "";
 
   this.errorMessages = (obj.errorMessages) ? obj.errorMessages : {};
 }

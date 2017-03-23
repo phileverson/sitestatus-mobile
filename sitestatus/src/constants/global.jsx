@@ -1,5 +1,7 @@
 module.exports = {
 	MM_SERVER_CREATE_NUMBER: 'https://sitestatus-server.herokuapp.com/api/v1/project/create/',
+	// MM_SERVER_MANUAL_TRIGGER: 'http://localhost:3000/api/v1/project/send-sms/',
+	MM_SERVER_MANUAL_TRIGGER: 'https://sitestatus-server.herokuapp.com/api/v1/project/send-sms/',
 	
 	FIREBASE_API_KEY: 'AIzaSyAboNTD4rq2ZbF3hWy-nmM16I1ucowRXQw',
 	FIREBASE_AUTH_DOMAIN: 'sitestatus-a547c.firebaseapp.com',

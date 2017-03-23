@@ -196,6 +196,7 @@ var SingleProjectSchedule = React.createClass({
 		} else {
 			pageContent = <SingleProjectScheduleGantt
 							singleProject={this.props.singleProject} 
+							currentUser={this.props.currentUser}
 							contractors={this.props.contractors} 
 							shortListedContractorsDetails={this.props.shortListedContractorsDetails} 
 							navToHub={this.props.navToHub} 
