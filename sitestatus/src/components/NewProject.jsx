@@ -210,7 +210,10 @@ var NewProject = React.createClass({
 	      height: '100%',
 	      fontSize: '15px',
     	  lineHeight: '1',
-    	  fontFamily: '-apple-system, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif'
+    	  fontFamily: '-apple-system, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif',
+    	  border: '1px solid #FFF',
+    	  appearance: 'none',
+    	  '-webkit-appearance': 'none'
 	    }
 	    var noteBoxOutside ={
 	      width: '100%',
